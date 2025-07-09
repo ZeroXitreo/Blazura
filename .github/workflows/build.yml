@@ -14,7 +14,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9
-          cache: true
 
       - name: Install dependencies
         run: dotnet restore
