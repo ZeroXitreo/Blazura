@@ -5,6 +5,9 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+        <Title>Blazura</Title>
+        <VersionPrefix>0.0.1</VersionPrefix>
+        <PackageProjectUrl>https://github.com/ZeroXitreo/Blazura</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
