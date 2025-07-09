@@ -1,0 +1,13 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+	"noEmitOnError": true,
+	"noImplicitAny": false,
+	"removeComments": true,
+	"sourceMap": false,
+	"target": "ES2020"
+  },
+  "exclude": [
+	"node_modules"
+  ]
+}

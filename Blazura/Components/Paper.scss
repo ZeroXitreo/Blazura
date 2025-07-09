@@ -1,0 +1,7 @@
+﻿@import "../Styles/Root.scss";
+
+.Paper {
+	border-radius: $radius * 2;
+	box-shadow: $shadow;
+	@include setBackgroundColor($colorPaper);
+}

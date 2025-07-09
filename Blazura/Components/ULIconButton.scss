@@ -1,0 +1,16 @@
+@import "../Styles/Root.scss";
+
+.ULIconButton {
+    $size: 2rem;
+    min-width: $size;
+    max-width: $size;
+    min-height: $size;
+    max-height: $size;
+    font-size: $size * .8;
+    border-radius: 50%;
+    font-family: "Material Symbols Rounded";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

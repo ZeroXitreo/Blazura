@@ -1,0 +1,39 @@
+﻿@using System.Linq.Expressions
+@using Microsoft.Extensions.DependencyInjection
+@typeparam TValue
+@inject IServiceProvider ServiceProvider
+
+<Placeholder For="ValueExpression" Format="Format">
+    <div class="SimpleInputUnitNumber">
+        <Flexer>
+            @if (Prefix is not null)
+            {
+                <div class="prefix">@Prefix</div>
+            }
+            <FlexerFiller>
+                <InputNumber TValue="TValue" Value="Value" ValueChanged="ValueChanged" ValueExpression="ValueExpression" />
+            </FlexerFiller>
+            @if (Suffix is not null)
+            {
+                <div class="suffix">@Suffix</div>
+            }
+        </Flexer>
+    </div>
+</Placeholder>
+
+@code {
+    [Parameter] public TValue Value { get; set; } = default!;
+    [Parameter] public EventCallback<TValue> ValueChanged { get; set; } = default!;
+    [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
+
+    [Parameter] public Func<string, string> Format { get; set; } = (str) => str;
+    [Parameter] public string? Prefix { get; set; }
+    [Parameter] public string? Suffix { get; set; }
+
+    private IInputFormatter? InputFormatter;
+    protected override void OnInitialized()
+    {
+        InputFormatter = ServiceProvider.GetService<IInputFormatter>();
+        Format = InputFormatter?.Format ?? Format;
+    }
+}

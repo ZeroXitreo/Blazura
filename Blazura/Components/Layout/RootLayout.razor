@@ -1,0 +1,40 @@
+﻿@inherits LayoutComponentBase
+
+
+<CascadingValue Value="backdrop">
+    <CascadingValue Value="fileViewer">
+        <CascadingValue Value="modalManager">
+            <CascadingValue Value="drawerManager">
+                <CascadingValue Value="contextMenuManager">
+                    <CascadingValue Value="gaSnackbar">
+                        @Body
+                    </CascadingValue>
+                    <GaSnackbar @ref="gaSnackbar" />
+                </CascadingValue>
+                <ContextMenuManager @ref="contextMenuManager" />
+            </CascadingValue>
+            <DrawerManager @ref="drawerManager" />
+        </CascadingValue>
+        <ModalManager @ref="modalManager" />
+    </CascadingValue>
+    <FileViewer @ref="fileViewer" />
+</CascadingValue>
+<Backdrop @ref="backdrop" />
+
+
+@code {
+    public Backdrop backdrop { get; set; } = default!;
+    public FileViewer fileViewer { get; set; } = default!;
+    public ModalManager modalManager { get; set; } = default!;
+    public DrawerManager drawerManager { get; set; } = default!;
+    public ContextMenuManager contextMenuManager { get; set; } = default!;
+    public GaSnackbar gaSnackbar { get; set; } = default!;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            StateHasChanged();
+        }
+    }
+}

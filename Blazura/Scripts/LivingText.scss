@@ -1,0 +1,60 @@
+@import "../Styles/Root.scss";
+
+.LivingText {
+    @keyframes wave {
+        25%, 75% {
+            transform: translateY(0em);
+        }
+
+        50% {
+            transform: translateY(-.5em);
+        }
+    }
+
+    > span {
+        display: inline-block;
+        white-space: pre;
+        animation: wave 1s ease-in-out infinite;
+        animation-fill-mode: both; // Ensures the animation retains its state
+
+        &:nth-child(10n+1) {
+            animation-delay: 0.1s;
+        }
+
+        &:nth-child(10n+2) {
+            animation-delay: 0.2s;
+        }
+
+        &:nth-child(10n+3) {
+            animation-delay: 0.3s;
+        }
+
+        &:nth-child(10n+4) {
+            animation-delay: 0.4s;
+        }
+
+        &:nth-child(10n+5) {
+            animation-delay: 0.5s;
+        }
+
+        &:nth-child(10n+6) {
+            animation-delay: 0.6s;
+        }
+
+        &:nth-child(10n+7) {
+            animation-delay: 0.7s;
+        }
+
+        &:nth-child(10n+8) {
+            animation-delay: 0.8s;
+        }
+
+        &:nth-child(10n+9) {
+            animation-delay: 0.9s;
+        }
+
+        &:nth-child(10n+10) {
+            animation-delay: 1s;
+        }
+    }
+}

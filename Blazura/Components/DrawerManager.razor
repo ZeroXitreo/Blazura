@@ -1,0 +1,34 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+@foreach (var renderFragment in renderFragments)
+{
+    <div class="DrawerBackdrop" @onclick="() => Close(renderFragment)"></div>
+    <div class="Drawer">
+        @renderFragment
+    </div>
+}
+
+@code {
+    [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
+    private List<RenderFragment> renderFragments = [];
+
+    public void Open(RenderFragment renderFragment)
+    {
+        renderFragments.Add(renderFragment);
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
+    public void Close(RenderFragment renderFragment)
+    {
+        renderFragments.Remove(renderFragment);
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
+    public void RunBodyCheck()
+    {
+        backdrop.SetBackdrop(this.GetType(), renderFragments.Count != 0);
+    }
+}

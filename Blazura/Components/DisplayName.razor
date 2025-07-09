@@ -1,0 +1,19 @@
+﻿@using System.Linq.Expressions
+@typeparam T
+
+@if (ChildContent == null)
+{
+	<span>@DisplayNameHelper.GetDisplayName(For, Format)</span>
+}
+else
+{
+	<label>
+		<span>@DisplayNameHelper.GetDisplayName(For, Format)</span>
+		@ChildContent
+	</label>
+}
+@code {
+	[Parameter, EditorRequired] public required Expression<Func<T>> For { get; set; }
+	[Parameter, EditorRequired] public required Func<string, string> Format { get; set; }
+	[Parameter] public RenderFragment? ChildContent { get; set; }
+}

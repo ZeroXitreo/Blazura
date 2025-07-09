@@ -1,0 +1,68 @@
+﻿@using System.Reflection
+@using System.Linq.Expressions
+@using System.ComponentModel.DataAnnotations
+@using System.Collections
+@using Microsoft.AspNetCore.Components.Forms
+@typeparam T
+
+<div class="Placeholder @(isFilled ? "active" : "")" @onfocusin="OnFocusIn" @onfocusout="OnFocusOut">
+	<DisplayName For="For" Format="Format" />
+	@ChildContent
+	@if (CurrentEditContext is not null)
+	{
+		<ValidationMessage For="For" />
+	}
+</div>
+
+@code {
+	[CascadingParameter] EditContext? CurrentEditContext { get; set; }
+	[Parameter, EditorRequired] public required Expression<Func<T>> For { get; set; }
+	[Parameter, EditorRequired] public required RenderFragment ChildContent { get; set; }
+	[Parameter] public bool? HasData { private get; set; }
+	[Parameter] public Func<string, string> Format { get; set; } = (str) => str;
+
+	private bool isFilled;
+	private bool isFocused;
+
+	protected override void OnParametersSet()
+	{
+		ComputeStatus();
+	}
+
+	private void OnFocusOut()
+	{
+		isFocused = false;
+		ComputeStatus();
+	}
+
+	private void OnFocusIn()
+	{
+		isFocused = true;
+		ComputeStatus();
+	}
+
+	private void ComputeStatus()
+	{
+		if (isFocused)
+		{
+			isFilled = true;
+			return;
+		}
+
+		if (HasData is not null)
+		{
+			isFilled = HasData.Value;
+			return;
+		}
+
+		T compiledValue = For.Compile()();
+
+		if (typeof(ICollection).IsAssignableFrom(typeof(T)))
+		{
+			isFilled = ((ICollection)compiledValue!).Count > 0;
+			return;
+		}
+
+		isFilled = compiledValue is not null && !string.IsNullOrWhiteSpace(compiledValue.ToString());
+	}
+}

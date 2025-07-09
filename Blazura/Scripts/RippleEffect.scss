@@ -1,0 +1,36 @@
+﻿@import "../Styles/Root.scss";
+
+.RippleEffect {
+	position: relative;
+	overflow: hidden;
+
+	.ripple {
+		position: absolute;
+		border-radius: 50%;
+		pointer-events: none;
+		padding-top: 0;
+		transform: translate(-50%, -50%);
+		width: 0;
+		background-color: currentColor;
+		animation-fill-mode: both;
+		animation-name: Ripple;
+		animation-duration: .5s;
+		transition-duration: .5s;
+		transition-property: opacity;
+		opacity: .2;
+
+		&.release {
+			opacity: 0;
+		}
+	}
+
+	@keyframes Ripple {
+		to {
+			transform: translate(-50%, -50%) scale(var(--extraSizing));
+			width: 100%;
+			padding-top: 100%;
+			top: 50%;
+			left: 50%;
+		}
+	}
+}

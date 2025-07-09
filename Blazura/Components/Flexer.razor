@@ -1,0 +1,21 @@
+﻿<div class="Flexer @(evenFill ? "evenFill" : "") @(noGap ? "noGap" : "") @(Horizonal?.ToString().ToLower() ?? null) @(VerticalAlignment?.ToString().ToLower() ?? null)">
+	@ChildContent
+</div>
+
+@code {
+	[Parameter]
+	[EditorRequired]
+	public required RenderFragment ChildContent { get; set; }
+
+	[Parameter]
+	public bool evenFill { get; set; }
+
+	[Parameter]
+	public bool noGap { get; set; }
+
+	[Parameter]
+	public HorizonalDirection? Horizonal { get; set; }
+
+	[Parameter]
+	public VerticalAlignment? VerticalAlignment { get; set; }
+}

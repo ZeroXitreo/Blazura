@@ -1,0 +1,21 @@
+@switch (Type)
+{
+    case ULIconButtonType.Material:
+        <div class="ULIconButton RippleEffect" @oncontextmenu:preventDefault="@AdditionalAttributes.ContainsKey("oncontextmenu")" @attributes="AdditionalAttributes">@Icon</div>
+        break;
+    case ULIconButtonType.Url:
+        <div class="ULIconButton RippleEffect" style="background-image: url(@Icon)" @oncontextmenu:preventDefault="@AdditionalAttributes.ContainsKey("oncontextmenu")" @attributes="AdditionalAttributes" />
+        break;
+}
+
+@code {
+    [Parameter, EditorRequired] public required string Icon { get; set; }
+    [Parameter] public ULIconButtonType Type { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = default!;
+
+    public enum ULIconButtonType
+    {
+        Material,
+        Url,
+    }
+}

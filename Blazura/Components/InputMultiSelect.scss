@@ -1,0 +1,164 @@
+﻿@import "../Styles/Root.scss";
+
+.InputMultiSelect {
+	position: relative;
+
+	.menu {
+		position: absolute;
+		top: calc(100% + .25rem);
+		left: -.25rem;
+		right: -.25em;
+		min-width: 100%;
+		border-radius: .5rem;
+		cursor: auto;
+		box-shadow: $shadow;
+		max-height: 32rem;
+		overflow-y: auto;
+		z-index: 2;
+		backdrop-filter: blur(1em);
+		transition-property: opacity, visibility;
+		opacity: 0;
+		visibility: hidden;
+
+		.options {
+			$gap: .25rem;
+			position: relative;
+			padding: $gap;
+
+			&:before {
+				content: "";
+				@include absoluteFill;
+				pointer-events: none;
+				opacity: .75;
+				background-color: $colorBackground;
+				z-index: -1;
+			}
+
+			.option {
+				border: unset;
+				background: unset;
+				font: unset;
+				line-height: 2rem;
+				white-space: nowrap;
+				text-align: unset;
+				padding: $spacing2 $spacing2 * 4;
+				cursor: pointer;
+				display: block;
+				font-weight: 700;
+				width: calc(100%);
+				color: inherit;
+				background-color: transparent;
+				margin: $gap 0;
+				border-radius: .25rem;
+				overflow: hidden;
+				position: relative;
+
+				&:first-child {
+					margin-top: unset;
+				}
+
+				&:last-child {
+					margin-bottom: unset;
+				}
+
+				&:before {
+					content: "";
+					position: absolute;
+					pointer-events: none;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					background-color: $colorFont;
+					z-index: -1;
+					transition-property: opacity;
+					opacity: 0;
+				}
+
+				&:hover,
+				&.toggle {
+
+					&:before {
+						opacity: .2;
+					}
+				}
+			}
+		}
+	}
+
+	&.active {
+
+		.menu {
+			opacity: 1;
+			visibility: unset;
+		}
+	}
+
+	&.disabled {
+		pointer-events: none;
+		opacity: .5;
+
+		.menu {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+	.selected {
+		display: flex;
+		flex-wrap: wrap;
+		gap: .5rem;
+
+		.chip {
+			$height: 1.1875rem;
+			padding: 0 .2em;
+			border-radius: .375rem;
+			height: $height;
+			overflow: hidden;
+			color: $colorAccent;
+			font-weight: 600;
+			font-size: 0.875em;
+			vertical-align: middle;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			opacity: .9;
+			position: relative;
+
+			&:before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				border-radius: inherit;
+				background-color: $colorAccent;
+				opacity: .2;
+				z-index: -1;
+			}
+
+			.icon {
+				display: inline-block;
+				padding: unset;
+				color: inherit;
+				font-size: inherit;
+				vertical-align: middle;
+				border-radius: 50%;
+				cursor: pointer;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: calc($height - .4em);
+				width: calc($height - .4em);
+				margin-left: .2em;
+			}
+		}
+
+		input {
+			min-width: 1rem;
+			flex-grow: 1;
+			border-radius: unset;
+		}
+	}
+}

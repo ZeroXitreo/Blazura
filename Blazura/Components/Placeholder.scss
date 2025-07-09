@@ -1,0 +1,43 @@
+﻿@import "../Styles/Root.scss";
+
+.Placeholder {
+	display: block;
+	position: relative;
+
+	> span {
+		background-color: $currentBackgroundColor;
+		position: absolute;
+		pointer-events: none;
+		font-size: 1em;
+		display: block;
+		z-index: 1;
+		top: 1rem;
+		left: 1rem;
+		color: $colorFont05;
+		transition-property: top, left, font-weight, font-size, color, padding, transform;
+	}
+
+	&.active {
+		> span {
+			$padding: .25rem;
+			top: 0;
+			left: calc(1rem - $padding);
+			font-weight: bold;
+			font-size: .8rem;
+			padding: 0 $padding;
+			transform: translateY(-50%);
+		}
+
+		&.error {
+			> span {
+				color: $colorError;
+			}
+		}
+	}
+
+	&:focus-within {
+		> span {
+			color: $colorFont;
+		}
+	}
+}

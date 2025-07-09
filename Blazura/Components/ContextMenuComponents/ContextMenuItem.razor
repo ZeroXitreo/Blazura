@@ -1,0 +1,46 @@
+﻿@using static Blazura.Components.ContextMenuManager
+@{
+	string? activeColour = Colour.HasValue ? Colour.Value.ToString().ToLower() : null;
+}
+
+@if (Href is not null)
+{
+	<NavLink Match="Match" class="@($"ContextMenuItem RippleEffect {activeColour}")" href="@Href" @onclick="OnLinkClick" tabindex="0">
+		<Flexer>
+			@if (Icon is not null)
+			{
+				<div class="icon">@Icon</div>
+			}
+			<div>@Text</div>
+		</Flexer>
+	</NavLink>
+}
+else
+{
+	<NavLink Match="Match" class="@($"ContextMenuItem RippleEffect {activeColour}")" @onclick="OnLinkClick" tabindex="0">
+		<Flexer>
+			@if (Icon is not null)
+			{
+				<div class="icon">@Icon</div>
+			}
+			<div>@Text</div>
+		</Flexer>
+	</NavLink>
+}
+
+@code {
+	[Parameter, EditorRequired]	public required string Text { get; set; }
+	[Parameter] public EventCallback OnClick { get; set; }
+	[Parameter] public NavLinkMatch Match { get; set; } = NavLinkMatch.All;
+	[Parameter] public string? Href { get; set; }
+	[Parameter] public string? Icon { get; set; }
+	[Parameter] public Color? Colour { get; set; }
+	[CascadingParameter] public required ContextMenuManager contextMenuManager { get; set; }
+	[CascadingParameter] public required KeyValuePair<RenderFragment, Coordinates> contextMenu { get; set; }
+
+	private void OnLinkClick()
+	{
+		OnClick.InvokeAsync();
+		contextMenuManager.Close(contextMenu.Key);
+	}
+}

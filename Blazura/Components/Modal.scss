@@ -1,0 +1,114 @@
+﻿@import "../Styles/Root.scss";
+
+.Modal {
+    @include mimicParentAndAetEdgeMarginForPosition;
+    position: fixed;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, .2);
+    backdrop-filter: blur(.25rem);
+    pointer-events: none;
+    overflow: auto;
+    opacity: 0;
+    animation-name: CloseModal;
+    animation-duration: .2s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in;
+
+    @keyframes CloseModal {
+        from {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        to {
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+
+    @keyframes OpenModal {
+        to {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+
+    .positionContainer {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        .ModalScreen {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .containerz {
+            margin: 0 auto;
+            max-width: $width / 5 * 2;
+            width: 100%;
+        }
+    }
+
+    .window {
+
+        $movement: 6rem;
+
+        position: relative;
+        background-color: $colorPaper;
+        padding: min(4rem,10%) min(6rem,15%);
+        margin: $spacing;
+        box-shadow: $shadow;
+        transform: translateY(-$movement);
+        animation-name: Popout;
+        animation-duration: .2s;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in;
+
+        > .close:first-child {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            background-size: cover;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            margin: 0 0 $spacing;
+        }
+
+        @keyframes Popout {
+            from {
+                transform: translateY(0rem);
+            }
+
+            to {
+                transform: translateY($movement);
+            }
+        }
+    }
+
+    &.active {
+        pointer-events: unset;
+        animation-name: OpenModal;
+        animation-timing-function: ease-out;
+
+        .window {
+            animation-name: Popup;
+            animation-timing-function: ease-out;
+        }
+
+        @keyframes Popup {
+            to {
+                transform: translateY(0rem);
+            }
+        }
+    }
+}

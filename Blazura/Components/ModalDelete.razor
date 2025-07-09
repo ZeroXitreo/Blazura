@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel
+@using Blazura.Components.ColumnWrapperItems
+
+@typeparam T 
+
+@if (Item is not null)
+{
+	<FormGroup>
+		@if (ChildContent is not null)
+		{
+			@ChildContent
+		}
+		else
+		{
+			@:You are about to delete <b>@(GetName is not null ? GetName(Item) : "this")</b>, are you sure you want to do this?
+		}
+	</FormGroup>
+}
+<EditForm Model="securityResponse">
+
+</EditForm>
+@if (Security is not null)
+{
+	<FormGroup>
+		<Placeholder For="() => securityResponse" Format="(o) => SecurityPlaceholder">
+			<input type="@(SecurityStrict ? "password" : null)" @bind="securityResponse" @bind:event="oninput" />
+		</Placeholder>
+	</FormGroup>
+}
+<FormGroup>
+	<ColumnWrapper Persistent="true">
+		<ColumnWrapperMain>
+			<GalButton Type="ButtonType.Button" Style="Style.Outline" @onclick="Modal.Close" Text="Cancel" />
+		</ColumnWrapperMain>
+		<ColumnWrapperSide>
+			<GalButton Color="Color.Error" Type="ButtonType.Button" Disabled="@(Item is not null && Security is not null && !Security(Item, securityResponse))" @onclick="AttemptDelete" Text="Confirm" />
+		</ColumnWrapperSide>
+	</ColumnWrapper>
+</FormGroup>
+
+@code {
+	[Parameter, EditorRequired] public required Modal Modal { get; set; }
+	[Parameter, EditorRequired] public required T Item { get; set; }
+	[Parameter, EditorRequired] public required EventCallback<T> OnDelete { get; set; }
+	[Parameter] public RenderFragment? ChildContent { get; set; }
+
+	private string securityResponse { get; set; } = string.Empty;
+
+	[Parameter]
+	public Func<T, string>? GetName { get; set; }
+
+	[Parameter]
+	public Func<T, string, bool>? Security { get; set; }
+
+	[Parameter]
+	public string? SecurityPlaceholder { get; set; }
+
+	[Parameter]
+	public bool SecurityStrict { get; set; }
+
+	private async Task AttemptDelete()
+	{
+		if (Security is not null && !Security(Item, securityResponse)) return;
+		await OnDelete.InvokeAsync(Item);
+		Modal.Close();
+	}
+}

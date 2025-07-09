@@ -1,0 +1,52 @@
+@import "../Styles/Root.scss";
+
+.Placeholder {
+    &.active {
+        > .SimpleInputUnitNumber {
+            > * {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.SimpleInputUnitNumber {
+    background-color: transparent;
+    font: inherit;
+    border-radius: .5rem;
+    color: var(--font);
+    box-shadow: 0 0 0 1px inset var(--font01);
+    transition-property: box-shadow;
+
+    &:focus-within {
+        box-shadow: 0 0 0 2px inset var(--font);
+    }
+
+    > * {
+        opacity: 0;
+        transition-property: opacity;
+    }
+
+    &:focus-within {
+        > * {
+            opacity: 1;
+        }
+    }
+
+    input {
+        box-shadow: unset;
+    }
+
+    .prefix,
+    .suffix {
+        opacity: .5;
+    }
+
+    .prefix {
+        padding-left: 1rem;
+    }
+
+    .suffix {
+        padding-right: 1rem;
+    }
+}

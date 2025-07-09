@@ -1,0 +1,82 @@
+﻿@using Microsoft.JSInterop
+@using Blazura.Components.Layout
+@implements IDisposable
+@inject NavigationManager NavigationManager
+
+@foreach (var modalWrapper in modalWrappers)
+{
+    <Modal Title="@modalWrapper.Title" @ref="modalWrapper.ModalRef" modalManager="this">
+        <DynamicComponent Type="@modalWrapper.ComponentType" Parameters="@modalWrapper.ComposedParameters" />
+    </Modal>
+}
+
+@code {
+    [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
+    private List<ModalWrapper> modalWrappers = [];
+
+    private int instanceCount;
+    public int InstanceCount
+    {
+        get => instanceCount;
+        set
+        {
+            instanceCount = value;
+            backdrop.SetBackdrop(this.GetType(), InstanceCount != 0);
+        }
+    }
+
+
+    public void Open<TComponent>(string title) where TComponent : IComponent, IModalContainer
+    {
+        Open<TComponent>(title, []);
+    }
+
+    public void Open<TComponent>(string title, Dictionary<string, object?> parameters) where TComponent : IComponent, IModalContainer
+    {
+        parameters[nameof(IModalContainer.ModalManager)] = this;
+        modalWrappers.Add(new()
+            {
+                ComponentType = typeof(TComponent),
+                Title = title,
+                Parameters = parameters
+            });
+        InstanceCount++;
+        StateHasChanged();
+    }
+
+    private record ModalWrapper
+    {
+        public required Type ComponentType { get; set; }
+        public required string Title { get; set; }
+        public required Dictionary<string, object?> Parameters { get; set; }
+        public Modal ModalRef { get; set; } = default!;
+
+        public Dictionary<string, object?> ComposedParameters
+        {
+            get
+            {
+                var parameters = new Dictionary<string, object?>(Parameters);
+                parameters[nameof(IModalContainer.ModalRef)] = ModalRef;
+                return parameters;
+            }
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += LocationChanged!;
+        base.OnInitialized();
+    }
+
+    void LocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        modalWrappers.Clear();
+        InstanceCount = 0;
+        StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        NavigationManager.LocationChanged -= LocationChanged!;
+    }
+}

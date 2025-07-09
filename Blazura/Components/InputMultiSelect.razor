@@ -1,0 +1,110 @@
+﻿@using System.Linq.Expressions;
+@typeparam T
+
+<div class="InputMultiSelect @(isMenuOpen ? "active" : null)" @onfocusin="OnFocus" @onfocusout="OnBlur" tabindex="0">
+	<div class="inputbordering">
+		<div class="selected">
+			@foreach (T option in Value)
+			{
+				<div class="chip" tabindex="0">
+					<Flexer noGap="true">
+						@DisplayName(option)
+						<div class="icon" @onclick="() => ToggleOption(option)" tabindex="0">cancel</div>
+					</Flexer>
+				</div>
+			}
+			<input class="PreventSubmit" @ref="inputRef" @bind="Input" @bind:event="oninput" @onkeydown="OnKeyDown" />
+		</div>
+	</div>
+	<div class="menu">
+		<div class="options">
+			@if (Limit is null || Limit > Value.Count)
+			{
+				foreach (T option in filteredAvailableOptions)
+				{
+					<div class="option @(Value.Contains(option) ? "toggle" : null)" @onclick="() => ToggleOption(option)" tabindex="0">
+						@DisplayName(option)
+					</div>
+				}
+			}
+		</div>
+	</div>
+</div>
+
+@code {
+	[Parameter, EditorRequired]
+	public required List<T> Value { get; set; } // selected options
+	[Parameter, EditorRequired]
+	public required List<T>? Options { get; set; } // total options
+	[Parameter, EditorRequired]
+	public required Func<T, string> DisplayName { get; set; }
+	[Parameter]
+	public EventCallback<List<T>> ValueChanged { get; set; }
+	[Parameter]
+	public int? Limit { get; set; }
+	[Parameter]
+	public Func<string, T>? CreateNew { get; set; }
+
+	public bool HasData => Value.Any() || !string.IsNullOrEmpty(Input);
+
+	private string Input
+	{
+		get => _input;
+		set
+		{
+			_input = value;
+			ValueChanged.InvokeAsync(Value).Wait();
+		}
+	}
+	private string _input = String.Empty;
+	private bool isMenuOpen;
+	private ElementReference inputRef = default!;
+	private IEnumerable<T> filteredAvailableOptions => Options?.Where(option => DisplayName(option).ToLower().Contains(Input.ToLower())) ?? [];
+
+	private async Task OnKeyDown(KeyboardEventArgs e)
+	{
+		if (e.Code == "Enter" || e.Key == "Enter" || e.Code == "NumpadEnter")
+		{
+			if (CreateNew is not null && !string.IsNullOrWhiteSpace(Input))
+			{
+				await ToggleOption(CreateNew(Input));
+			}
+			else
+			{
+				T? option = filteredAvailableOptions.FirstOrDefault();
+				if (option is not null)
+				{
+					await ToggleOption(option);
+				}
+			}
+		}
+		if (e.Code == "Backspace" && string.IsNullOrEmpty(Input))
+		{
+			T? option = Value.LastOrDefault();
+			if (option is not null)
+			{
+				await ToggleOption(option);
+			}
+		}
+	}
+
+	private async Task ToggleOption(T optionValue)
+	{
+		if (!Value.Remove(optionValue) && (Limit is null || Value.Count < Limit))
+		{
+			Input = string.Empty;
+			Value.Add(optionValue);
+		}
+
+		await ValueChanged.InvokeAsync(Value);
+		await inputRef.FocusAsync();
+	}
+
+	private async Task OnFocus()
+	{
+		isMenuOpen = true;
+		await inputRef.FocusAsync();
+	}
+
+	private void OnBlur() => isMenuOpen = false;
+}

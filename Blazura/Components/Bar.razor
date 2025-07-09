@@ -1,0 +1,19 @@
+﻿@using System.Globalization
+
+<div class="barContainer @(percentage <= .1 ? "error" : percentage <= .5 ? "warning" : "success")">
+	<div class="barLock">
+		<div class="bar" style="transform: translateX(-@(((1 - percentage) * 100).ToString("0.00", CultureInfo.InvariantCulture))%);"></div>
+	</div>
+	<div class="barLockOverfill">
+		<div class="overfillBar" style="transform: translateX(-@(((1 - overfill) * 100).ToString("0.00", CultureInfo.InvariantCulture))%);"></div>
+	</div>
+</div>
+
+@code {
+	[Parameter, EditorRequired]
+	public required double Percentage { get; set; }
+
+	private double percentage => Math.Clamp(Percentage, 0, 1);
+
+	private double overfill => Math.Clamp(Percentage - 1, 0, 1);
+}

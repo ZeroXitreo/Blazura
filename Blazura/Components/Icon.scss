@@ -1,0 +1,16 @@
+﻿@import "../Styles/Root.scss";
+
+.Icon2 {
+
+	.inner {
+		font-family: "Material Symbols Rounded";
+		color: currentColor;
+		user-select: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 1em;
+		height: 1em;
+		width: 1em;
+	}
+}

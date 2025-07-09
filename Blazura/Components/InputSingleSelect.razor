@@ -1,0 +1,117 @@
+﻿@using System.Linq.Expressions
+@typeparam T
+
+<div class="InputMultiSelect @(isMenuOpen ? "active" : "") @(Disabled ? "disabled" : null)" @onfocusin="OnFocus" @onfocusout="OnBlur" tabindex="0">
+	<div class="inputbordering">
+		<div class="selected">
+			@if (Value is not null)
+			{
+				<div class="chip" tabindex="0">
+					<Flexer noGap="true">
+						@DisplayName(Value)
+						@if (ValueCanBeNull)
+						{
+							<div class="icon" @onclick="() => ToggleOption(default)" tabindex="0">cancel</div>
+						}
+					</Flexer>
+				</div>
+			}
+			<input class="PreventSubmit" @ref="inputRef" @bind="Input" @bind:event="oninput" @onkeydown="OnKeyDown" />
+		</div>
+	</div>
+	<div class="menu">
+		<div class="options">
+			@foreach (T option in filteredAvailableOptions)
+			{
+				<div class="option @(Value?.Equals(option) ?? false ? "toggle" : null)" @onclick="() => ToggleOption(option)" tabindex="0">
+					@DisplayName(option)
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
+@code {
+	[Parameter, EditorRequired]
+	public required T? Value { get; set; } // selected options
+
+	[Parameter, EditorRequired]
+	public required IEnumerable<T>? Options { get; set; } // total options
+
+	[Parameter, EditorRequired]
+	public required Func<T, string> DisplayName { get; set; }
+
+	[Parameter, EditorRequired]
+	public required bool ValueCanBeNull { get; set; }
+
+	[Parameter]
+	public EventCallback<T> ValueChanged { get; set; }
+
+	[Parameter]
+	public Func<string, T>? CreateNew { get; set; }
+
+	[Parameter]
+	public required Func<T, T?, bool>? IsEqual { get; set; }
+
+	[Parameter]
+	public bool Disabled { get; set; }
+
+	public bool HasData => Value is not null || !string.IsNullOrEmpty(Input);
+
+	private string Input
+	{
+		get => _input;
+		set
+		{
+			_input = value;
+			ValueChanged.InvokeAsync(Value).Wait();
+		}
+	}
+	private string _input = String.Empty;
+	private bool isMenuOpen;
+	private ElementReference inputRef = default!;
+	private IEnumerable<T> filteredAvailableOptions => (Options ?? []).Where(option => DisplayName(option).ToLower().Contains(Input.ToLower()));
+
+	private async Task OnKeyDown(KeyboardEventArgs e)
+	{
+		if (e.Code == "Enter" || e.Key == "Enter" || e.Code == "NumpadEnter")
+		{
+			if (CreateNew is not null && !string.IsNullOrWhiteSpace(Input))
+			{
+				await ToggleOption(CreateNew(Input));
+			}
+			else
+			{
+				T? option = filteredAvailableOptions.FirstOrDefault();
+				if (option is not null)
+				{
+					await ToggleOption(option);
+				}
+			}
+		}
+		if (e.Code == "Backspace" && string.IsNullOrEmpty(Input))
+		{
+			if (ValueCanBeNull)
+			{
+				await ToggleOption(default);
+			}
+		}
+	}
+
+	private async Task ToggleOption(T? optionValue)
+	{
+		Input = string.Empty;
+		Value = optionValue;
+
+		await ValueChanged.InvokeAsync(Value);
+		OnBlur();
+	}
+
+	private async Task OnFocus()
+	{
+		isMenuOpen = true;
+		await inputRef.FocusAsync();
+	}
+
+	private void OnBlur() => isMenuOpen = false;
+}

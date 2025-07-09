@@ -1,0 +1,274 @@
+﻿@import "Root.scss";
+
+@mixin default-border-shadow($color) {
+	$tempColor: #919EAB;
+	box-shadow: rgba($tempColor, 0.2) 0px 0px 2px 0px, rgba($tempColor, 0.12) 0px 12px 24px -4px;
+}
+
+input,
+textarea,
+button,
+.button,
+select,
+option,
+.inputbordering,
+[contenteditable="true"] {
+	background-color: transparent;
+	font: inherit;
+	border: unset;
+	margin: unset;
+	outline: unset;
+	padding: 1rem;
+	border-radius: $radius;
+	display: block;
+	width: 100%;
+	color: $colorFont;
+	word-wrap: break-word;
+	box-shadow: 0 0 0 1px inset $colorFont01;
+	transition-property: box-shadow;
+
+	&:focus,
+	&:focus-within {
+		outline: none;
+		box-shadow: 0 0 0 2px inset $colorFont;
+	}
+
+	&.invalid {
+		box-shadow: 0 0 0 1px inset $colorError;
+
+		&:focus {
+			box-shadow: 0 0 0 2px inset $colorError;
+		}
+	}
+
+	&.compact {
+		padding: .5em;
+	}
+}
+
+.inputbordering {
+	input {
+		padding: unset;
+		box-shadow: none;
+		width: 3rem;
+
+		&:focus {
+			box-shadow: none;
+		}
+	}
+}
+
+textarea,
+[contenteditable="true"] {
+	resize: vertical;
+	min-height: 12rem;
+}
+
+input[type=submit],
+input[type=button],
+button,
+.button {
+	color: $colorBackground;
+	background-color: $colorFont;
+	--internalColour: #{$colorFont};
+	cursor: pointer;
+	font-weight: bold;
+	transition-property: background-color, color, opacity;
+	text-align: center;
+	box-shadow: unset;
+	line-height: 1rem;
+	padding: .625rem;
+
+	&:hover,
+	&:focus {
+		opacity: .9;
+	}
+
+	&:disabled {
+		opacity: .5;
+		cursor: not-allowed;
+	}
+
+	&:focus,
+	&:focus-within {
+		outline: none;
+		box-shadow: unset;
+	}
+
+	&.accent {
+		color: $colorFontDark;
+		background-color: $colorAccent;
+		--internalColour: #{$colorAccent};
+	}
+
+	&.info {
+		color: $colorFontDark;
+		background-color: $colorInfo;
+		--internalColour: #{$colorInfo};
+	}
+
+	&.success {
+		color: $colorFontDark;
+		background-color: $colorSuccess;
+		--internalColour: #{$colorSuccess};
+	}
+
+	&.warning {
+		color: $colorFontDark;
+		background-color: $colorWarning;
+		--internalColour: #{$colorWarning};
+	}
+
+	&.error {
+		color: $colorFontDark;
+		background-color: $colorError;
+		--internalColour: #{$colorError};
+	}
+
+	&.outline {
+		position: relative;
+		background-color: transparent;
+		color: var(--internalColour);
+		box-shadow: unset;
+
+		&:before {
+			content: "";
+			@include absoluteFill;
+			border-radius: inherit;
+			background-color: var(--internalColour);
+			pointer-events: none;
+			transition-property: opacity;
+			opacity: 0;
+		}
+
+		&:after {
+			content: "";
+			@include absoluteFill;
+			border-radius: inherit;
+			pointer-events: none;
+			transition-property: opacity, box-shadow;
+			opacity: .2;
+			box-shadow: 0 0 0 1px inset var(--internalColour), 0 0 0 0 var(--internalColour);
+		}
+
+		&:hover {
+			&:before {
+				opacity: .1;
+			}
+
+			&:after {
+				box-shadow: 0 0 0 1px inset var(--internalColour), 0 0 0 1px var(--internalColour);
+				opacity: 1;
+			}
+		}
+	}
+
+	&.small {
+		padding-top: .4375rem;
+		padding-bottom: .4375rem;
+	}
+
+	&.large {
+		padding: 1rem;
+	}
+
+	&.icons {
+		font-family: "Material Symbols Rounded";
+	}
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+.checkbox,
+.radio {
+	cursor: pointer;
+	display: block;
+	padding: .5rem;
+	border-radius: $radius;
+	transition: background-color .2s;
+
+	&.disabled {
+		opacity: .25;
+		pointer-events: none;
+	}
+
+	&:hover {
+		background-color: $colorTintFaint;
+	}
+
+	input[type=checkbox],
+	input[type=radio] {
+		display: none;
+
+		+ span {
+			display: block;
+			position: relative;
+
+			&:before {
+				content: "";
+				position: absolute;
+				right: 0;
+				top: 0;
+				width: 1em;
+				height: 1em;
+				border: .125em solid $colorTintFaint;
+				display: inline-block;
+				vertical-align: middle;
+				transition: border-color .2s;
+			}
+
+			&:after {
+				content: "";
+				position: absolute;
+				right: .25em;
+				top: .25em;
+				width: .75em;
+				height: .75em;
+				display: inline-block;
+				vertical-align: middle;
+				transition: background-color .2s, background-size .2s;
+				background-color: transparent;
+			}
+		}
+
+		&:hover + span:before {
+			border-color: currentColor;
+		}
+
+		&:checked + span:before {
+			border-color: $colorInfo;
+		}
+
+		&:checked + span:after {
+			background-color: $colorInfo;
+		}
+	}
+
+	input[type=checkbox] + span:before {
+		border-radius: $radius;
+	}
+
+
+	input[type=checkbox] + span:after {
+		border-radius: .25em;
+	}
+
+	input[type=radio] + span:before {
+		border-radius: 50%;
+	}
+
+
+	input[type=radio] + span:after {
+		border-radius: 50%;
+	}
+}

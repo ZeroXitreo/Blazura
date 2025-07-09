@@ -1,0 +1,19 @@
+﻿.ColumnWrapper,
+.ColumnWrapperPersistent {
+	display: flex;
+	gap: 1.5rem;
+
+	> * {
+		flex: 2;
+	}
+
+	> .mainColumn {
+		flex: 3;
+	}
+}
+
+@media only screen and (max-width: 60rem) {
+	.ColumnWrapper {
+		flex-direction: column;
+	}
+}

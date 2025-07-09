@@ -1,0 +1,46 @@
+﻿@import "../Styles/Root.scss";
+
+.Chip {
+	padding: .1em .2em;
+	border-radius: .375rem;
+	overflow: hidden;
+	color: $colorAccent;
+	font-weight: 600;
+	font-size: 0.875em;
+	vertical-align: middle;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	line-height: 1em;
+	opacity: .9;
+	position: relative;
+
+	&:before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: inherit;
+		background-color: currentColor;
+		opacity: .2;
+		z-index: -1;
+	}
+
+	&.error {
+		color: $colorError;
+	}
+
+	&.warning {
+		color: $colorWarning;
+	}
+
+	&.info {
+		color: $colorInfo;
+	}
+
+	&.success {
+		color: $colorSuccess;
+	}
+}

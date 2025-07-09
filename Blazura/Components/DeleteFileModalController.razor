@@ -1,0 +1,17 @@
+﻿@typeparam T
+
+@implements IModalContainer
+
+<ModalDelete Modal="ModalRef" Item="Item" OnDelete="OnDelete" />
+
+@code {
+	[Parameter] public required ModalManager ModalManager { get; set; }
+	[Parameter] public required Modal ModalRef { get; set; }
+	[Parameter] public required T Item { get; set; }
+	[Parameter] public required Func<T, Task> OnDelete { get; set; }
+
+	public static void Open(ModalManager? modalManager, T item, Func<T, Task> OnDelete)
+	{
+		modalManager?.Open<DeleteFileModalController<T>>("Confirm deletion", new() { { nameof(Item), item }, { nameof(OnDelete), OnDelete } });
+	}
+}

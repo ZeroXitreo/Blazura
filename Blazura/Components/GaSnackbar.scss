@@ -1,0 +1,115 @@
+﻿@import "../Styles/Root.scss";
+
+.GaSnackbar {
+	$gap: $spacing / 4;
+	position: fixed;
+	pointer-events: none;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: $gap;
+	padding: $gap;
+
+	.bar {
+		$animationTime: .2;
+		box-shadow: $shadow;
+		background-color: $colorPaper;
+		border-radius: $radius;
+		padding: $gap;
+		pointer-events: auto;
+		line-height: 1.5rem;
+		animation-name: SnackbarEntrance;
+		animation-duration: $animationTime;
+		animation-fill-mode: both;
+		min-width: 20rem;
+		display: grid;
+		grid-template-rows: 1fr;
+		transition: grid-template-rows 0.5s ease-out;
+
+		.info {
+			--internalColor: #{$colorInfo};
+		}
+
+		.success {
+			--internalColor: #{$colorSuccess};
+		}
+
+		.warning {
+			--internalColor: #{$colorWarning};
+		}
+
+		.error {
+			--internalColor: #{$colorError};
+		}
+
+		@keyframes SnackbarEntrance {
+			from {
+				transform: translateX(calc(100% + $gap * 2));
+			}
+		}
+
+		&.dismissed {
+			animation-name: SnackbarDismissed;
+			animation-duration: $animationTime * 2;
+
+			@keyframes SnackbarDismissed {
+				50% {
+					transform: translateX(calc(100% + $gap * 2));
+					margin: 0;
+					grid-template-rows: 1fr;
+				}
+
+				to {
+					transform: translateX(calc(100% + $gap * 2));
+					margin: -$gap * 1.5 0;
+					--zerofr: 0fr;
+					grid-template-rows: var(--zerofr);
+				}
+			}
+		}
+
+		.content {
+			overflow: hidden;
+
+			.iconHolder {
+				width: 3rem;
+				height: 3rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: $radius;
+				color: var(--internalColor);
+				position: relative;
+				font-size: 1.5rem;
+
+				&:before {
+					content: "";
+					@include absoluteFill;
+					background-color: currentColor;
+					opacity: .25;
+					border-radius: inherit;
+				}
+			}
+
+			.text {
+				margin: .5rem;
+			}
+
+			.close {
+				padding: .5rem;
+				border-radius: 50%;
+				color: $colorFont;
+				cursor: pointer;
+
+				.iconWrapper {
+					opacity: .5;
+				}
+			}
+		}
+	}
+}

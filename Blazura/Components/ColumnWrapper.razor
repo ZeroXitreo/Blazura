@@ -1,0 +1,17 @@
+﻿@if (Persistent)
+{
+	<div class="ColumnWrapperPersistent">
+		@ChildContent
+	</div>
+}
+else
+{
+	<div class="ColumnWrapper">
+		@ChildContent
+	</div>
+}
+
+@code {
+	[Parameter, EditorRequired] public required RenderFragment ChildContent { get; set; }
+	[Parameter] public bool Persistent { get; set; }
+}

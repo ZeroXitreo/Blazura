@@ -1,0 +1,12 @@
+﻿<div class="CollectionView @HorizontalAlignment.ToString().ToLower()">
+	@ChildContent
+</div>
+
+@code {
+	[Parameter]
+	[EditorRequired]
+	public required RenderFragment ChildContent { get; set; }
+
+	[Parameter]
+	public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Left;
+}

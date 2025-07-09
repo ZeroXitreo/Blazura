@@ -1,0 +1,8 @@
+﻿@import "../Styles/Root.scss";
+
+.Clamp {
+	$gap: $spacing;
+	max-width: calc(var(--clamp) + $gap);
+	padding: 0 $gap;
+	margin: 0 auto;
+}

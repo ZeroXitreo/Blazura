@@ -1,0 +1,128 @@
+﻿@using System.IO
+@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Razor.TagHelpers
+@using Microsoft.Extensions.Caching.Memory
+@using Microsoft.Extensions.FileProviders
+@using Microsoft.Extensions.Options
+@using WebOptimizer
+@inject IAssetPipeline Pipeline
+@inject IAssetBuilder _builder
+@inject IMemoryCache Cache
+@inject IWebHostEnvironment HostingEnvironment
+@inject IOptionsMonitor<WebOptimizerOptions> options
+
+@{
+	switch (contentType)
+	{
+		case ContentType.CSS:
+			<style>
+				@((MarkupString)content)
+			</style>
+			break;
+		case ContentType.JS:
+			<script>
+				@((MarkupString)content)
+			</script>
+			break;
+	}
+}
+
+@code {
+	[Parameter, EditorRequired] public string Href { get; set; } = string.Empty;
+	[CascadingParameter] private HttpContext HttpContext { get; set; } = default!;
+
+	private string content { get; set; } = string.Empty;
+	private ContentType? contentType { get; set; }
+
+	private enum ContentType
+	{
+		CSS,
+		JS,
+	};
+
+	protected async override Task OnInitializedAsync()
+	{
+		if (string.IsNullOrEmpty(Href)) return;
+
+		string route = NormalizeRoute(Href);
+
+		content = await GetFileContentAsync(route);
+	}
+
+	private string NormalizeRoute(string route)
+	{
+		string trimmedRoute = route.Trim();
+		string cleanRoute = trimmedRoute.StartsWith('/') || trimmedRoute.StartsWith("~")
+			? "/" + route.Trim().TrimStart('~', '/')
+			: trimmedRoute;
+
+		int index = cleanRoute.IndexOfAny(new[] { '?', '#' });
+
+		if (index > -1)
+		{
+			cleanRoute = cleanRoute.Substring(0, index);
+		}
+
+		if (!cleanRoute.StartsWith("/"))
+		{
+			cleanRoute = "/" + cleanRoute;
+		}
+
+		return cleanRoute;
+	}
+
+	private async Task<string> GetFileContentAsync(string route)
+	{
+		if (Pipeline.TryGetAssetFromRoute(route, out IAsset asset))
+		{
+			IAssetResponse response = await _builder.BuildAsync(asset, HttpContext, options.CurrentValue);
+			if (asset.ContentType.StartsWith("﻿text/css"))
+			{
+				contentType = ContentType.CSS;
+			}
+			if (asset.ContentType.StartsWith("﻿text/javascript"))
+			{
+				contentType = ContentType.JS;
+			}
+			return response.Body.AsString();
+		}
+
+		string cacheKey = "_WO_" + route;
+
+		if (Cache.TryGetValue(cacheKey, out string? content))
+		{
+			return content!;
+		}
+
+		string cleanRoute = route.TrimStart('~');
+		string file = HostingEnvironment.WebRootFileProvider.GetFileInfo(cleanRoute).PhysicalPath!;
+
+		if (File.Exists(file))
+		{
+			using (StreamReader reader = File.OpenText(file))
+			{
+				content = await reader.ReadToEndAsync();
+				AddToCache(cacheKey, content, HostingEnvironment.WebRootFileProvider, cleanRoute);
+
+				return content;
+			}
+		}
+
+		throw new FileNotFoundException("File or bundle doesn't exist", route);
+	}
+
+	private void AddToCache(string cacheKey, string value, IFileProvider fileProvider, params string[] files)
+	{
+		var cacheOptions = new MemoryCacheEntryOptions();
+
+		foreach (string file in files)
+		{
+			cacheOptions.AddExpirationToken(fileProvider.Watch(file));
+		}
+
+		Cache.Set(cacheKey, value, cacheOptions);
+	}
+}

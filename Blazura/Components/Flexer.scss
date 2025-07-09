@@ -1,0 +1,39 @@
+﻿.Flexer {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+
+	&.right {
+		justify-content: end;
+	}
+
+	&.spacebetween {
+		justify-content: space-between;
+	}
+
+	&.center {
+		justify-content: center;
+	}
+
+	&.top {
+		align-items: start;
+	}
+
+	&.middle {
+		justify-content: center;
+	}
+
+	&.bottom {
+		justify-content: end;
+	}
+
+	&.evenFill {
+		> * {
+			flex: 1;
+		}
+	}
+
+	&.noGap {
+		gap: unset;
+	}
+}

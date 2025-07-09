@@ -1,0 +1,8 @@
+﻿<table class="SimpleTable">
+	@ChildContent
+</table>
+
+@code {
+	[Parameter, EditorRequired]
+	public required RenderFragment ChildContent { get; set; }
+}

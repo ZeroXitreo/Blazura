@@ -1,0 +1,48 @@
+@import "../../Styles/Root.scss";
+
+.ContextMenuItem {
+    border: unset;
+    white-space: nowrap;
+    text-align: unset;
+    padding: .5rem;
+    cursor: pointer;
+    display: block;
+    color: inherit;
+    transition: background-color .2s;
+    margin: .5rem;
+    border-radius: .25rem;
+
+    &:after {
+        content: "";
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        opacity: .1;
+        transition-duration: .2s;
+        transition-property: background-color;
+    }
+
+    &.active,
+    &:focus,
+    &:hover {
+        outline: none;
+
+        &:after {
+            background-color: currentColor;
+        }
+    }
+
+    .icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: unset;
+        font-size: 1.25rem;
+        height: 1rem;
+        width: 1rem;
+    }
+}

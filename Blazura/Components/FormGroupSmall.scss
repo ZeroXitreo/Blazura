@@ -1,0 +1,11 @@
+﻿.FormGroupSmall {
+	margin: .75rem 0;
+
+	&:first-child {
+		margin-top: unset;
+	}
+
+	&:last-child {
+		margin-bottom: unset;
+	}
+}

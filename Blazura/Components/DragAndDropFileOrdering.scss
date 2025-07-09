@@ -1,0 +1,126 @@
+﻿@import "../Styles/Root.scss";
+
+.DragAndDropFileOrdering {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+	gap: 1rem;
+
+	input {
+		display: none;
+	}
+
+	.fileSpot {
+		position: relative;
+		border-radius: $radius;
+		background-color: $colorPaper;
+		cursor: pointer;
+		font-size: 2rem;
+		aspect-ratio: 1 / 1;
+		overflow: hidden;
+
+		.remove {
+			position: absolute;
+			right: .5rem;
+			background-color: $colorError;
+			width: 2rem;
+			height: 2rem;
+			border-radius: 50%;
+			color: $colorFontDark;
+			font-size: .75rem;
+			cursor: pointer;
+			overflow: hidden;
+			z-index: 1;
+			transition-property: top, visibility, opacity;
+			top: 0;
+			visibility: hidden;
+			opacity: 0;
+
+			.icon {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				opacity: 1;
+			}
+		}
+
+		&:hover {
+			.remove {
+				top: .5rem;
+				visibility: unset;
+				opacity: 1;
+			}
+		}
+
+		&.isDragging {
+			.remove {
+				top: 0;
+				visibility: hidden;
+				opacity: 0;
+			}
+		}
+
+		.preview {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border-radius: inherit;
+
+			img,
+			video {
+				width: 100%;
+				aspect-ratio: 1 / 1;
+				border-radius: inherit;
+				object-fit: cover;
+				display: block;
+			}
+
+			.icon {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				opacity: .5;
+				z-index: 0;
+			}
+
+			img,
+			video,
+			.icon {
+				pointer-events: none;
+			}
+		}
+	}
+
+	.addFile {
+		background-color: $colorPaper;
+		border-radius: $radius;
+		position: relative;
+		width: 100%;
+		aspect-ratio: 1 / 1;
+		font-size: 2rem;
+		cursor: pointer;
+
+		.icon {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			opacity: .5;
+		}
+	}
+}

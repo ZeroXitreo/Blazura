@@ -1,0 +1,51 @@
+﻿@import "../Styles/Root.scss";
+
+.SimpleInputToggle {
+	display: block;
+	border-radius: $radius;
+	cursor: pointer;
+	padding: 1rem;
+	// Button reset
+	background-color: unset;
+	text-align: unset;
+	box-shadow: unset;
+	color: inherit;
+	font-weight: unset;
+
+	&:hover,
+	&:focus {
+		color: inherit;
+	}
+
+	.shell {
+		$height: 1rem;
+		$width: 2.5rem;
+		$size: 1.5rem;
+		height: $height;
+		width: $width;
+		background-color: $colorDashed;
+		border-radius: $height / 2;
+		margin: ($size - $height) / 2;
+		position: relative;
+
+		.bullet {
+			height: $size;
+			width: $size;
+			margin-top: ($height - $size) / 2;
+			margin-left: ($height - $size) / 2;
+			background-color: currentColor;
+			border-radius: 50%;
+			position: absolute;
+			transition-property: left, background-color;
+			left: 0;
+		}
+
+		&.active {
+
+			.bullet {
+				left: $width - $height;
+				background-color: $colorAccent;
+			}
+		}
+	}
+}

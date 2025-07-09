@@ -1,0 +1,16 @@
+﻿@if (Width == 0)
+{
+    <div class="Skeleton" style="height: @(Height / 16)rem;" />
+}
+else
+{
+    <div class="Skeleton" style="height: @(Height / 16)rem; width: @(Width / 16)rem;" />
+}
+
+@code {
+    [Parameter]
+    public uint Width { get; set; }
+
+    [Parameter]
+    public uint Height { get; set; } = 16; // Default height if not specified
+}

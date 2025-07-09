@@ -1,0 +1,19 @@
+﻿<div class="ContextMenuDisplay">
+    @if (UpperText is not null)
+    {
+        <b>@UpperText</b>
+    }
+    @if (UpperText is not null && LowerText is not null)
+    {
+        <br />
+    }
+    @if (LowerText is not null)
+    {
+        <span>@LowerText</span>
+    }
+</div>
+
+@code {
+    [Parameter] public string? UpperText { get; set; }
+    [Parameter] public string? LowerText { get; set; }
+}

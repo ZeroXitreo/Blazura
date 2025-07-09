@@ -1,0 +1,107 @@
+﻿@implements IDisposable
+@inject NavigationManager NavigationManager
+
+<div class="FileViewer @(Item is not null && isOpen ? "active" : null)">
+	<div class="bd" @onclick="Close"></div>
+	<div class="main">
+		@if (Item is not null)
+		{
+			string extension = Path.GetExtension(Item.Path.ToLower());
+			<div class="show">
+				@if (imageExtensions.Contains(extension))
+				{
+					<img src="@Item.Path" />
+				}
+				else if (videoExtensions.Contains(extension))
+				{
+					<video src="@Item.Path" controls />
+				}
+				else
+				{
+					<a class="button RippleEffect" href="@Item.Path" download="@Path.GetFileName(Item.Path)">
+						<Flexer>
+							<div class="icon">download</div>
+							<div class="text">Download</div>
+						</Flexer>
+					</a>
+				}
+			</div>
+		}
+		@if (Items is not null)
+		{
+			<div class="previews">
+				@foreach (var item in Items)
+				{
+					string extension = Path.GetExtension(item.Path.ToLower());
+					<div class="preview @(item == Item ? "active" : null)" @onclick="() => SetItem(item)">
+						@if (imageExtensions.Contains(extension))
+						{
+							<img src="@item.Path" />
+						}
+						else if (videoExtensions.Contains(extension))
+						{
+							<div class="icon">movie</div>
+						}
+						else
+						{
+							<div class="icon">draft</div>
+						}
+					</div>
+				}
+			</div>
+		}
+	</div>
+</div>
+
+@code {
+	private bool isOpen;
+	private IEnumerable<IPath>? Items { get; set; }
+	private IPath? Item { get; set; }
+	private string[] videoExtensions = [".mp4"];
+	private string[] imageExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+
+	public delegate void OnItemSetHandler(IPath item);
+	public event OnItemSetHandler? OnItemSet;
+
+	public void Open(IPath item, IEnumerable<IPath>? items = default)
+	{
+		Items = items;
+		SetItem(item);
+		StateHasChanged();
+	}
+
+	private void SetItem(IPath item)
+	{
+		Item = item;
+		isOpen = true;
+		OnItemSet?.Invoke(Item);
+	}
+
+	private void Close()
+	{
+		foreach (OnItemSetHandler item in OnItemSet?.GetInvocationList() ?? [])
+		{
+			OnItemSet -= item;
+		}
+		isOpen = false;
+		StateHasChanged();
+	}
+
+	protected override void OnInitialized()
+	{
+		// Subscribe to the event
+		NavigationManager.LocationChanged += LocationChanged!;
+		base.OnInitialized();
+	}
+
+	void LocationChanged(object sender, LocationChangedEventArgs e)
+	{
+		Close();
+	}
+
+	void IDisposable.Dispose()
+	{
+		// Unsubscribe from the event when our component is disposed
+		NavigationManager.LocationChanged -= LocationChanged!;
+	}
+}

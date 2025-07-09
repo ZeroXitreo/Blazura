@@ -1,0 +1,63 @@
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+@foreach (var renderFragment in renderFragments)
+{
+    <div class="ContextMenuManagerBackdrop" @onclick="() => Close(renderFragment.Key)"></div>
+    <div class="ContextMenuManager" style="left: @(renderFragment.Value.X)px; top: @(renderFragment.Value.Y)px">
+        <CascadingValue Value="this">
+            <CascadingValue Value="renderFragment">
+                @renderFragment.Key
+            </CascadingValue>
+        </CascadingValue>
+    </div>
+}
+
+@code {
+    [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
+    private Dictionary<RenderFragment, Coordinates> renderFragments = [];
+
+    public void Open(RenderFragment renderFragment, MouseEventArgs e)
+    {
+        renderFragments.Add(renderFragment, new()
+            {
+                X = e.ClientX,
+                Y = e.ClientY,
+            });
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
+    public void Close(RenderFragment renderFragment)
+    {
+        renderFragments.Remove(renderFragment);
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
+    public void RunBodyCheck()
+    {
+        backdrop.SetBackdrop(this.GetType(), renderFragments.Count != 0);
+    }
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += LocationChanged!;
+    }
+
+    private void LocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        foreach (var renderFragment in renderFragments)
+        {
+            Close(renderFragment.Key);
+        }
+        StateHasChanged();
+    }
+
+    public class Coordinates
+    {
+        internal double X;
+        internal double Y;
+    }
+}

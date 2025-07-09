@@ -1,0 +1,68 @@
+@import "../Styles/Root.scss";
+
+.ContextMenuManagerBackdrop {
+    z-index: 10;
+    @include mimicParentAndAetEdgeMarginForPosition;
+    position: fixed;
+}
+
+.ContextMenuManager {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    max-width: calc(100% - 3rem);
+    width: 12rem;
+    backdrop-filter: blur(1rem);
+    border-radius: .5rem;
+    font-size: .875rem;
+    min-width: 12rem;
+    box-shadow: $shadowExtra;
+    overflow-y: auto;
+    // Animation
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(calc(1rem - 100%));
+    animation-name: OpenContextMenuManager;
+    animation-duration: .2s;
+    animation-fill-mode: both;
+    animation-timing-function: ease-out;
+
+    @keyframes OpenContextMenuManager {
+        to {
+            opacity: 1;
+            visibility: initial;
+            transform: translateX(calc(1rem - 100%)) translateY(1rem);
+        }
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+        @include mimicParentAndAetEdgeMarginForPosition;
+        opacity: .75;
+        z-index: -1;
+        background-color: $colorBackground;
+    }
+
+    > .accent {
+        color: $colorAccent;
+    }
+
+    > .info {
+        color: $colorInfo;
+    }
+
+    > .success {
+        color: $colorSuccess;
+    }
+
+    > .warning {
+        color: $colorWarning;
+    }
+
+    > .error {
+        color: $colorError;
+    }
+}

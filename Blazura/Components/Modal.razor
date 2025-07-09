@@ -1,0 +1,36 @@
+<div class="Modal @(IsOpen ? "active" : default)">
+	<div class="positionContainer">
+		<div class="ModalScreen" @onclick="Close"></div>
+		<div class="containerz tiny">
+			<div class="window Paper">
+				<h2 style="text-align: center">@Title</h2>
+				@ChildContent
+			</div>
+		</div>
+	</div>
+</div>
+
+@code {
+	[Parameter, EditorRequired] public required string Title { get; set; }
+	[Parameter] public RenderFragment? ChildContent { get; set; }
+
+	[Parameter] public ModalManager? modalManager { get; set; }
+
+	private bool isOpen = true;
+	public bool IsOpen
+	{
+		get => isOpen;
+		set
+		{
+			isOpen = value;
+			StateHasChanged();
+		}
+	}
+
+	public void Close()
+	{
+		if (!IsOpen) return;
+		if (modalManager is not null) modalManager.InstanceCount--;
+		IsOpen = false;
+	}
+}

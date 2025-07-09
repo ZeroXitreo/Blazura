@@ -1,0 +1,18 @@
+@import "../../Styles/Root.scss";
+
+.ContextMenuDisplay {
+    padding: .5rem;
+    margin: .5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $colorFont;
+
+    b {
+        font-weight: 600;
+    }
+
+    span {
+        opacity: .6;
+    }
+}

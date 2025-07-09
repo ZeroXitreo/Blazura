@@ -1,0 +1,9 @@
+﻿<div class="Icon2">
+	<div class="inner">
+		@ChildContent
+	</div>
+</div>
+
+@code {
+	[Parameter, EditorRequired] public required RenderFragment ChildContent { get; set; }
+}

@@ -1,0 +1,337 @@
+﻿@import "Root.scss";
+
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	transition-duration: .2s;
+	transition-property: none;
+	animation-duration: .4s;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	scroll-behavior: smooth;
+
+	&:before,
+	&:after {
+		transition-duration: .2s;
+		transition-property: none;
+	}
+}
+
+// Generic
+$accent: #3d5af1;
+$tintFaint: rgba(145, 158, 171, 0.24);
+$tint: rgba(145,158,171,.32);
+$tintStrong: rgba(145,158,171,1);
+$boxLight: #ffffff;
+$boxDark: #212b36;
+$backgroundLight: #ffffff;
+$backgroundDark: #151c23;
+$backgroundAltLight: #f4f6f8;
+$backgroundAltDark: #1c252e;
+$info: #00B8D9;
+$success: #22C55E;
+$warning: #FFAB00;
+$error: #FF5630;
+$shadowLight: rgba(145, 158, 171, .2) 0 0 .125rem 0, rgba(145, 158, 171, .2) 0 .75rem 1.5rem -.25rem;
+$shadowDark: rgba(0, 0, 0, .2) 0 0 .125rem 0, rgba(0, 0, 0, .12) 0 .75rem 1.5rem -.25rem;
+$shadowLightExtra: rgba(145, 158, 171, .24) 0 0 .125rem 0, rgba(145, 158, 171, .24) -1.25rem 1.25rem 2.5rem -.25rem;
+$shadowDarkExtra: rgba(0, 0, 0, .24) 0 0 .125rem 0, rgba(0, 0, 0, .24) -1.25rem 1.25rem 2.5rem -.25rem;
+
+:root {
+	// Universal
+	--accent: #{$accent}; // #{$colorUnique}
+	--tintFaint: #{$tintFaint};
+	--tint: #{$tint};
+	--tintStrong: #{$tintStrong};
+	--backgroundLight: #{$backgroundLight};
+	--backgroundDark: #{$backgroundDark};
+	--backgroundAltLight: #{$backgroundAltLight};
+	--backgroundAltDark: #{$backgroundAltDark};
+	--fontLight: #{$backgroundDark};
+	--fontDark: #{$backgroundLight};
+	--info: #{$info};
+	--success: #{$success};
+	--warning: #{$warning};
+	--error: #{$error};
+	// Conditional
+	--background: #{$backgroundLight};
+	--backgroundAlt: #{$backgroundAltLight};
+	--box: #{$boxLight};
+	--shadow: #{$shadowLight};
+	--shadowExtra: #{$shadowLightExtra};
+	--font: #{$backgroundDark};
+	--font01: #{rgba($backgroundDark, .1)};
+	--font05: #{rgba($backgroundDark, .5)};
+	// Experimental
+	--box-1: #{rgba($boxLight, .2)}; // test
+	--currentBackgroundColor: #{$colorBackground};
+	--clamp: #{$width};
+}
+
+[data-theme="dark"] {
+	--background: #{$backgroundDark};
+	--backgroundAlt: #{$backgroundAltDark};
+	--box: #{$boxDark};
+	--shadow: #{$shadowDark};
+	--shadowExtra: #{$shadowDarkExtra};
+	--font: #{$backgroundLight};
+	--font01: #{rgba($backgroundLight, .1)};
+	--font05: #{rgba($backgroundLight, .5)};
+}
+
+html {
+	min-height: 100vh;
+	background-color: $colorBackground;
+}
+
+body {
+	margin: unset;
+	font-family: "Public Sans", sans-serif;
+	background-color: $colorBackground;
+	color: $colorFont;
+}
+
+a {
+	text-decoration: unset;
+	color: $colorAccent;
+	transition-property: color, text-decoration;
+	cursor: pointer;
+
+	&:hover {
+		color: inherit;
+		text-decoration: auto;
+	}
+}
+
+h1 {
+	margin: unset;
+	margin-bottom: 1rem;
+	font-size: 2.25rem;
+	font-weight: 600;
+}
+
+h2 {
+	margin: unset;
+	margin-bottom: 1rem;
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+h3 {
+	margin: unset;
+	margin-bottom: 1rem;
+	font-size: 1em;
+	font-weight: 600;
+}
+
+hr {
+	margin: unset;
+	border: unset;
+	border-bottom: 1px solid $colorTintFaint;
+}
+
+p {
+	line-height: 1.8em;
+	margin: unset;
+	margin-bottom: 1rem;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+	background-color: transparent;
+	border: unset;
+	font-family: inherit;
+	font-size: inherit;
+	padding: 1rem;
+	font-weight: inherit;
+	border-radius: $radius;
+	display: block;
+	width: 100%;
+	color: $colorFont;
+	word-wrap: break-word;
+	box-shadow: 0 0 0 1px inset var(--tint);
+	transition-property: box-shadow;
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 2px inset var(--font);
+	}
+
+	&.invalid {
+		box-shadow: 0 0 0 1px inset var(--error);
+
+		&:focus {
+			box-shadow: 0 0 0 2px inset var(--error);
+		}
+	}
+}
+
+.validation-message {
+	color: var(--error);
+	margin: 1rem;
+	font-size: 0.75rem;
+	margin: .5rem 1rem 0;
+
+	&.info {
+		color: var(--info);
+	}
+}
+
+.validation-errors {
+	list-style-type: none;
+	padding: unset;
+	margin: unset;
+
+	.validation-message {
+		list-style-type: none;
+	}
+}
+
+// Common
+.container {
+	margin: 0 16rem;
+}
+
+.icon {
+	font-family: "Material Symbols Rounded";
+	font-size: 1.5em;
+	margin: auto;
+	color: currentColor;
+	user-select: none;
+}
+
+.accent {
+	color: $colorInfo;
+}
+
+.info {
+	color: $colorInfo;
+}
+
+.success {
+	color: $colorSuccess;
+}
+
+.warning {
+	color: $colorWarning;
+}
+
+.error {
+	color: $colorError;
+}
+
+.barContainer {
+	$height: .4em;
+	position: relative;
+	height: $height;
+	border-radius: $height / 2;
+	overflow: hidden;
+
+	&:before {
+		content: "";
+		background-color: currentColor;
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		opacity: .2;
+		border-radius: inherit;
+	}
+
+	.barLock {
+		overflow: hidden;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: $height;
+		border-radius: inherit;
+	}
+
+	.barLockOverfill {
+		overflow: hidden;
+		position: absolute;
+		top: -$height;
+		bottom: -$height;
+		left: -$height;
+		right: -$height;
+		height: $height * 3;
+		border-radius: $height * 3 / 2;
+	}
+
+	.bar,
+	.overfillBar {
+		border-radius: inherit;
+		background-color: currentColor;
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+	}
+
+	.overfillBar {
+		color: $colorInfo;
+		opacity: .2;
+	}
+}
+
+// Plainer
+.plainer {
+	word-wrap: break-word;
+	white-space: pre-wrap;
+	tab-size: 4;
+
+	a {
+		color: $colorAccent;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	p {
+		margin: 0;
+	}
+
+	img {
+		border-radius: $radius * 2;
+		display: block;
+		max-width: 100%;
+	}
+}
+
+
+// Custom
+.marginBottom {
+	margin-bottom: 2rem;
+}
+
+// Common
+body {
+	font-weight: 500;
+}
+
+@for $i from 0 through 3 {
+	.fullPadding-#{$i} {
+		padding: sizing($i);
+	}
+
+	.paddingVertical-#{$i} {
+		padding-top: sizing($i);
+		padding-bottom: sizing($i);
+	}
+
+	@if $i > 0 {
+		@media only screen and (max-width: $i * 15rem) {
+			.fullPadding-#{$i} {
+				padding: sizing(1);
+			}
+		}
+	}
+}

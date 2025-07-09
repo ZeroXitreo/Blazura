@@ -1,0 +1,75 @@
+﻿<div class="GaSnackbar">
+	@foreach (GaSnackbarItem item in items)
+	{
+		<div class="bar @(item.Dismissed ? "dismissed" : null) @item.Type.ToString().ToLower()">
+			<div class="content">
+				<Flexer Horizonal="HorizonalDirection.SpaceBetween">
+					<FlexerChild>
+						<Flexer>
+							@if (item.Type != SnackbarType.Default)
+							{
+								<FlexerChild>
+									<div class="iconHolder">
+										@if (item.Type != SnackbarType.Default)
+										{
+											switch (item.Type)
+											{
+												case SnackbarType.Info:
+													<Icon>info</Icon>
+													break;
+												case SnackbarType.Success:
+													<Icon>check_circle</Icon>
+													break;
+												case SnackbarType.Warning:
+													<Icon>warning</Icon>
+													break;
+												case SnackbarType.Error:
+													<Icon>error</Icon>
+													break;
+											}
+										}
+									</div>
+								</FlexerChild>
+							}
+							<FlexerChild>
+								<div class="text">
+									@item.Text
+								</div>
+							</FlexerChild>
+						</Flexer>
+					</FlexerChild>
+					<FlexerChild>
+						<div class="close RippleEffect" @onclick="() => item.Dismissed = true">
+							<div class="iconWrapper">
+								<Icon>close</Icon>
+							</div>
+						</div>
+					</FlexerChild>
+				</Flexer>
+			</div>
+		</div>
+	}
+</div>
+
+@code {
+	private List<GaSnackbarItem> items { get; set; } = [];
+
+	public void Push(string text, SnackbarType type = SnackbarType.Default)
+	{
+		GaSnackbarItem item = new()
+			{
+				Text = text,
+				Type = type,
+			};
+		items.Add(item);
+		StateHasChanged();
+		InitiateClearing(item);
+	}
+
+	public async void InitiateClearing(GaSnackbarItem item)
+	{
+		await Task.Delay(5000);
+		item.Dismissed = true;
+		StateHasChanged();
+	}
+}

@@ -1,0 +1,19 @@
+﻿@import "../Styles/Root.scss";
+
+.CollectionView {
+	display: flex;
+	gap: $spacing / 4;
+	flex-wrap: wrap;
+
+	&.left {
+		justify-content: left;
+	}
+
+	&.center {
+		justify-content: center;
+	}
+
+	&.right {
+		justify-content: right;
+	}
+}

@@ -1,0 +1,79 @@
+﻿@typeparam T where T : IPath
+
+<div class="DragAndDropFileOrdering">
+	@foreach (T file in Items)
+	{
+		string extension = Path.GetExtension(file.Path.ToLower());
+		<div class="fileSpot @(itemDragging is not null ? "isDragging" : null)">
+			@if (OnDelete is not null)
+			{
+				<div class="remove" @onclick="() => PromptDeletion(file)">
+					<div class="icon">delete_forever</div>
+				</div>
+			}
+			<div class="preview" @onclick="() => OnClick(file)" dropzone="move" draggable="true" @ondragstart="() => OnDragStart(file)" @ondragend="OnDragEnd" @ondragenter="() => OnDragEnter(file)" ondragover="event.preventDefault();">
+				@if (imageExtensions.Contains(extension))
+				{
+					<img class="AdaptiveImage" src="@file.Path" />
+				}
+				else if (videoExtensions.Contains(extension))
+				{
+					<div class="icon">movie</div>
+				}
+				else
+				{
+					<div class="icon">draft</div>
+				}
+			</div>
+		</div>
+	}
+	<label>
+		<InputFile OnChange="OnChange" multiple />
+		<div class="addFile RippleEffect" tabindex="0">
+			<div class="icon" dropzone="true">add_photo_alternate</div>
+		</div>
+	</label>
+</div>
+
+@code {
+	[Parameter, EditorRequired] public required List<T> Items { get; set; }
+	[Parameter] public required Func<List<T>, Task> OnRearranged { get; set; }
+	[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; } = default!;
+	[Parameter] public Func<T, Task>? OnDelete { get; set; } = default!;
+	[CascadingParameter] private FileViewer? fileViewer { get; set; } = default!;
+	[CascadingParameter] private ModalManager? modalManager { get; set; }
+
+	private string[] videoExtensions = [".mp4"];
+	private string[] imageExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+	private T? itemDragging;
+	private void OnDragStart(T item) => itemDragging = item;
+
+	private void OnClick(T item)
+	{
+		fileViewer?.Open(item, Items.Cast<IPath>());
+	}
+
+	private void OnDragEnter(T item)
+	{
+		if (itemDragging is null) return;
+		if (itemDragging.Equals(item)) return;
+
+		int index = Items.IndexOf(item);
+		if (index >= 0)
+		{
+			Items.Remove(itemDragging);
+			Items.Insert(index, itemDragging);
+		}
+	}
+
+	private async Task OnDragEnd()
+	{
+		itemDragging = default;
+		await OnRearranged(Items);
+	}
+
+	private void PromptDeletion(T file)
+	{
+		DeleteFileModalController<T>.Open(modalManager, file, OnDelete!);
+	}
+}

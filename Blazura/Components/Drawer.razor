@@ -1,0 +1,16 @@
+﻿@implements IDisposable
+
+@code {
+    [Parameter] public required RenderFragment ChildContent { get; set; }
+    [CascadingParameter] private DrawerManager? drawerManager { get; set; }
+
+    public void Open()
+    {
+        drawerManager?.Open(ChildContent);
+    }
+
+    public void Dispose()
+    {
+        drawerManager?.Close(ChildContent);
+    }
+}
