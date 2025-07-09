@@ -7,7 +7,11 @@
         <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
         <Title>Blazura</Title>
         <VersionPrefix>0.0.1</VersionPrefix>
-        <PackageProjectUrl>https://github.com/ZeroXitreo/Blazura</PackageProjectUrl>
+        <PackageProjectUrl></PackageProjectUrl>
+        <RepositoryUrl>https://github.com/ZeroXitreo/Blazura</RepositoryUrl>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,6 +21,17 @@
     <ItemGroup>
         <EmbeddedResource Include="**\*.js" />
         <EmbeddedResource Include="**\*.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\LICENSE">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+      <None Include="..\README.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
