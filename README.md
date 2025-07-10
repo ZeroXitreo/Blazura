@@ -4,6 +4,14 @@ Blazura is an early-stage, component-driven UI library for Blazor. It offers a g
 
 [![Build, Test, & Pack](https://github.com/ZeroXitreo/Blazura/actions/workflows/pack.yml/badge.svg)](https://github.com/ZeroXitreo/Blazura/actions/workflows/pack.yml)
 
+## Features
+
+- **Rich Component Library**: Includes modals, drawers, snackbars, buttons, input controls, layout utilities, and more.
+- **Customizable Styles**: Built with SCSS for easy theming and customization.
+- **Blazor-First**: Designed specifically for Blazor, leveraging its component model and data binding.
+- **Optimized Bundling**: Integrates with WebOptimizer for efficient asset bundling and minification.
+- **Localization**: Support for custom localization, allowing you to adapt component text and messages to different languages and cultures.
+
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -12,8 +20,6 @@ Before you begin, ensure you have the following installed:
 - [Node.js and npm](https://nodejs.org/) (for SCSS/JS bundling)
 
 ## Getting started
-
-<!-- TODO: Create a getting started section -->
 
 ### Add Blazura to your project
 
@@ -89,13 +95,6 @@ Before you begin, ensure you have the following installed:
        <BundleComplete />
    </head>
    ```
-
-## Features
-
-- **Rich Component Library**: Includes modals, drawers, snackbars, buttons, input controls, layout utilities, and more.
-- **Customizable Styles**: Built with SCSS for easy theming and customization.
-- **Blazor-First**: Designed specifically for Blazor, leveraging its component model and data binding.
-- **Optimized Bundling**: Integrates with WebOptimizer for efficient asset bundling and minification.
 
 ## Contributing
 
