@@ -2,6 +2,8 @@
 
 Blazura is an early-stage, component-driven UI library for Blazor. It offers a growing set of essential UI components and utilities to help you build web applications quickly and consistently. While customization options are currently limited, future releases will focus on expanding flexibility and theming capabilities.
 
+[![Build, Test, & Pack](https://github.com/ZeroXitreo/Blazura/actions/workflows/pack.yml/badge.svg)](https://github.com/ZeroXitreo/Blazura/actions/workflows/pack.yml)
+
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -18,7 +20,7 @@ Before you begin, ensure you have the following installed:
 1. **Install the NuGet packages**:
 
    ```sh
-   dotnet add package Blazura --version 0.0.1
+   dotnet add package Blazura
    dotnet add package Microsoft.Extensions.FileProviders.Embedded --version 9.0.6
    dotnet add package Microsoft.TypeScript.MSBuild
    ```
@@ -84,7 +86,7 @@ Before you begin, ensure you have the following installed:
 
    ```razor
    <head>
-       <Blazura.BundleComplete />
+       <BundleComplete />
    </head>
    ```
 
