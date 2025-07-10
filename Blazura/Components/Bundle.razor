@@ -78,16 +78,17 @@
 	{
 		if (Pipeline.TryGetAssetFromRoute(route, out IAsset asset))
 		{
-			IAssetResponse response = await _builder.BuildAsync(asset, HttpContext, options.CurrentValue);
-			if (asset.ContentType.StartsWith("﻿text/css"))
+			if (asset.ContentType.StartsWith("text/css"))
 			{
 				contentType = ContentType.CSS;
 			}
-			if (asset.ContentType.StartsWith("﻿text/javascript"))
+			if (asset.ContentType.StartsWith("text/javascript"))
 			{
 				contentType = ContentType.JS;
 			}
-			return response.Body.AsString();
+
+			IAssetResponse? response = await _builder.BuildAsync(asset, HttpContext, options.CurrentValue);
+			return response?.Body.AsString() ?? "";
 		}
 
 		string cacheKey = "_WO_" + route;
