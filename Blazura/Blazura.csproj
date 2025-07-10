@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
         <Title>Blazura</Title>
-        <VersionPrefix>0.0.1</VersionPrefix>
+        <VersionPrefix>0.0.2</VersionPrefix>
         <PackageProjectUrl></PackageProjectUrl>
         <RepositoryUrl>https://github.com/ZeroXitreo/Blazura</RepositoryUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>

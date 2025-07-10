@@ -10,7 +10,6 @@ using NUglify.JavaScript;
 using WebOptimizer;
 using WebOptimizer.Processors;
 
-
 namespace Blazura.Extensions;
 
 public static class IServiceCollectionExtension
@@ -34,7 +33,17 @@ public static class IServiceCollectionExtension
 
         services.AddJsEngineSwitcher(options => options.DefaultEngineName = V8JsEngine.EngineName).AddV8();
         ManifestEmbeddedFileProvider libraryFP = new(typeof(IServiceCollectionExtension).Assembly, "/");
-        ManifestEmbeddedFileProvider callingFP = new(Assembly.GetCallingAssembly(), "/");
+        ManifestEmbeddedFileProvider callingFP;
+
+        try
+        {
+            callingFP = new(Assembly.GetCallingAssembly(), "/");
+        }
+        catch (InvalidOperationException e)
+        {
+            throw new InvalidOperationException("Failed to create ManifestEmbeddedFileProvider for the calling assembly. Ensure that the calling assembly has embedded resources.", e);
+        }
+
         JsSettings codeSettings = new()
         {
             CodeSettings = new()
