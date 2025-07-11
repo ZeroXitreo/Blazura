@@ -11,6 +11,7 @@ Blazura is an early-stage, component-driven UI library for Blazor. It offers a g
 - **Blazor-First**: Designed specifically for Blazor, leveraging its component model and data binding.
 - **Optimized Bundling**: Integrates with WebOptimizer for efficient asset bundling and minification.
 - **Localization**: Support for custom localization, allowing you to adapt component text and messages to different languages and cultures.
+- **Dark & Light Mode**: Supports both dark and light themes out of the box, automatically adapting to user preferences or system settings.
 
 ## Prerequisites
 
