@@ -1,0 +1,62 @@
+﻿@import "../Styles/Root.scss";
+
+.BadgeContainer {
+    position: relative;
+
+    .Badge {
+        position: absolute;
+        top: 50%;
+        background-color: $colorError;
+        color: $colorFontDark;
+        border-radius: $spacing + 1rem;
+        font-weight: 600;
+        font-size: .75rem;
+        transform: translateY(-50%);
+        pointer-events: none;
+        text-align: center;
+        padding: $spacing / 8 $spacing / 4;
+        line-height: .875rem;
+        min-width: 1.125rem;
+        transition-property: transform;
+
+        &.hidden {
+            transform: translateY(-50%) scale(0);
+        }
+
+        &.TopLeft {
+            top: 0;
+            right: -.5rem;
+        }
+
+        &.TopMiddle {
+            top: 0;
+        }
+
+        &.TopRight {
+            top: 0;
+            left: -.5rem;
+        }
+
+        &.MiddleLeft {
+            right: -.5rem;
+        }
+
+        &.MiddleRight {
+            left: -.5rem;
+        }
+
+        &.BottomLeft {
+            top: 100%;
+            right: -.5rem;
+        }
+
+        &.BottomMiddle {
+            top: 100%;
+        }
+
+        &.BottomRight {
+            top: 100%;
+            left: -.5rem;
+        }
+    }
+}
