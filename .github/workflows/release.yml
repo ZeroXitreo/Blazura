@@ -19,6 +19,7 @@ jobs:
         with:
           name: package
           path: .
+          pattern: "*.nupkg"
 
       - name: Set VERSION variable
         run: |
@@ -29,8 +30,8 @@ jobs:
       - name: echo VERSION
         run: echo ${VERSION}
 
-      - name: echo ls
-        run: echo ls
+      - name: ls
+        run: ls
 
       # - name: Push
       #   run: dotnet nuget push Blazura.${VERSION}.nupkg --api-key ${NUGET_API_KEY}
