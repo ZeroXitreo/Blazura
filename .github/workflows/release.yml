@@ -19,7 +19,6 @@ jobs:
         with:
           name: package
           path: .
-          pattern: "*.nupkg"
 
       - name: Set VERSION variable
         run: |
