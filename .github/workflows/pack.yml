@@ -37,7 +37,7 @@ jobs:
       - name: Test with the dotnet CLI
         run: dotnet test --no-build
 
-      - name: Grab version without prefix
+      - name: Set VERSION variable
         run: |
           VERSION=${{ inputs.package_version || 'v0.0.0' }}
           echo Version: $VERSION
