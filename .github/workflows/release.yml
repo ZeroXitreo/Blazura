@@ -17,7 +17,7 @@ jobs:
       - name: Download Docker image artifact
         uses: actions/download-artifact@v4
         with:
-          name: packaged
+          name: package
           path: .
           pattern: "*.nupkg"
 

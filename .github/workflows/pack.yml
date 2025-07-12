@@ -9,8 +9,7 @@ on:
     inputs:
       package_version:
         description: "Version to use for the package"
-        required: false
-        default: "0.0.0"
+        required: true
         type: string
 
 jobs:
@@ -44,5 +43,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: packaged
+          name: package
           path: ./artifacts
