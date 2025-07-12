@@ -3,6 +3,7 @@
 Blazura is an early-stage, component-driven UI library for Blazor. It offers a growing set of essential UI components and utilities to help you build web applications quickly and consistently. While customization options are currently limited, future releases will focus on expanding flexibility and theming capabilities.
 
 [![Build, Test, & Pack](https://github.com/ZeroXitreo/Blazura/actions/workflows/pack.yml/badge.svg)](https://github.com/ZeroXitreo/Blazura/actions/workflows/pack.yml)
+![NuGet Version](https://img.shields.io/nuget/v/Blazura)
 
 ## Features
 
