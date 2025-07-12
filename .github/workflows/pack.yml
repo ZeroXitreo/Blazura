@@ -39,10 +39,7 @@ jobs:
         run: dotnet test --no-build
 
       - name: Pack
-        run: |
-          VERSION=${{ inputs.package_version }}
-          VERSION_STRIPPED=${VERSION#v}
-          dotnet pack --configuration Release --output ./artifacts -p:PackageVersion=$VERSION_STRIPPED
+        run: dotnet pack --configuration Release --output ./artifacts -p:PackageVersion=${{ inputs.package_version }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
