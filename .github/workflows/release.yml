@@ -1,0 +1,33 @@
+name: Publish
+
+on:
+  release:
+    types: [published] # TODO: check if we should use published, created, or released
+
+jobs:
+  pack:
+    uses: ./.github/workflows/pack.yml
+    with:
+      package_version: ${{ github.event.release.tag_name }}
+
+  deploy:
+    needs: pack
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Docker image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: packaged
+          path: .
+          pattern: "*.nupkg"
+
+      - name: Set VERSION variable from tag
+        run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+
+      - name: echo VERSION
+        run: echo ${VERSION}
+
+      # - name: Push
+      #   run: dotnet nuget push Blazura.${VERSION}.nupkg --api-key ${NUGET_API_KEY}
+      #   env:
+      #     NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
