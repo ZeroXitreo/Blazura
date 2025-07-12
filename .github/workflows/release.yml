@@ -30,6 +30,9 @@ jobs:
       - name: echo VERSION
         run: echo ${VERSION}
 
+      - name: echo ls
+        run: echo ls
+
       # - name: Push
       #   run: dotnet nuget push Blazura.${VERSION}.nupkg --api-key ${NUGET_API_KEY}
       #   env:
