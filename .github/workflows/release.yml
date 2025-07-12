@@ -2,7 +2,7 @@ name: Publish
 
 on:
   release:
-    types: [published] # TODO: check if we should use published, created, or released
+    types: [published]
 
 jobs:
   pack:
@@ -17,12 +17,15 @@ jobs:
       - name: Download Docker image artifact
         uses: actions/download-artifact@v4
         with:
-          name: packaged
+          name: package
           path: .
           pattern: "*.nupkg"
 
-      - name: Set VERSION variable from tag
-        run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+      - name: Set VERSION variable
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          echo Version: $VERSION
+          echo "VERSION=${VERSION#v}" >> $GITHUB_ENV
 
       - name: echo VERSION
         run: echo ${VERSION}

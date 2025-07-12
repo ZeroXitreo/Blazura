@@ -9,8 +9,7 @@ on:
     inputs:
       package_version:
         description: "Version to use for the package"
-        required: false
-        default: "0.0.0"
+        required: true
         type: string
 
 jobs:
@@ -38,14 +37,17 @@ jobs:
       - name: Test with the dotnet CLI
         run: dotnet test --no-build
 
-      - name: Pack
+      - name: Set VERSION variable
         run: |
-          VERSION=${{ inputs.package_version }}
-          VERSION_STRIPPED=${VERSION#v}
-          dotnet pack --configuration Release --output ./artifacts -p:PackageVersion=$VERSION_STRIPPED
+          VERSION=${{ inputs.package_version || 'v0.0.0' }}
+          echo Version: $VERSION
+          echo "VERSION=${VERSION#v}" >> $GITHUB_ENV
+
+      - name: Pack
+        run: dotnet pack --configuration Release --output ./artifacts -p:PackageVersion=${VERSION}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: packaged
+          name: package
           path: ./artifacts
