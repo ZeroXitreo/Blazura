@@ -2,7 +2,7 @@ name: Publish
 
 on:
   release:
-    types: [published] # TODO: check if we should use published, created, or released
+    types: [published]
 
 jobs:
   pack:
