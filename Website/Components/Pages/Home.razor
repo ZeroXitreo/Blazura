@@ -1,0 +1,36 @@
+﻿@page "/"
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Home</PageTitle>
+
+<Clamp>
+    <FormGroup>
+        <Paper>
+            <Padder>
+                <FormGroup>
+                    <p>A simple text input field</p>
+                </FormGroup>
+
+                <FormGroup>
+                    <SimpleInputText @bind-Value="simpleInputTextValue" />
+                </FormGroup>
+
+                <FormGroup>
+                    <CodeBlock>&lt;FormGroup&gt;
+    &lt;SimpleInputText @@bind-Value=&quot;simpleInputTextValue&quot; /&gt;
+&lt;/FormGroup&gt;
+
+@@code {
+    [Display(Name = &quot;Simple input text & quot;)]
+    private string simpleInputTextValue = string.Empty;
+}</CodeBlock>
+                </FormGroup>
+            </Padder>
+        </Paper>
+    </FormGroup>
+</Clamp>
+
+@code {
+    [Display(Name = "Simple input text")]
+    private string simpleInputTextValue = string.Empty;
+}

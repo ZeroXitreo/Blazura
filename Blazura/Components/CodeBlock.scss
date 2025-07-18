@@ -1,0 +1,11 @@
+@import "../Styles/Root.scss";
+
+.CodeBlock {
+    background-color: $colorBackgroundAlt;
+    padding: $spacing2 * 4;
+    border-radius: $radius;
+
+    pre {
+        margin: unset;
+    }
+}
