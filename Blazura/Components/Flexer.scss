@@ -20,11 +20,15 @@
 	}
 
 	&.middle {
-		justify-content: center;
+		align-items: center;
 	}
 
 	&.bottom {
-		justify-content: end;
+		align-items: end;
+	}
+
+	&.stretch {
+		align-items: stretch;
 	}
 
 	&.evenFill {
