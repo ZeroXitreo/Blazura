@@ -1,0 +1,55 @@
+﻿<div class="BlazuraBanner @(Color.ToString())">
+        @if (IncludeIcon)
+        {
+            <FlexerChild>
+                <div class="iconHolder">
+                    @switch (Color)
+                    {
+                        case Color.Success:
+                            <Icon>check</Icon>
+                            break;
+                        case Color.Info:
+                            <Icon>info</Icon>
+                            break;
+                        case Color.Warning:
+                            <Icon>warning</Icon>
+                            break;
+                        case Color.Error:
+                            <Icon>error</Icon>
+                            break;
+                        default:
+                            <Icon>help</Icon>
+                            break;
+                    }
+                </div>
+            </FlexerChild>
+        }
+        <FlexerFiller>
+            <div class="content">
+                @if (Title is not null)
+                {
+                    <div class="title">@Title</div>
+                }
+                @if (ChildContent is not null)
+                {
+                    <div>
+                        @ChildContent
+                    </div>
+                }
+            </div>
+        </FlexerFiller>
+</div>
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public Color Color { get; set; }
+
+    [Parameter]
+    public bool IncludeIcon { get; set; }
+}
