@@ -27,20 +27,23 @@
 			</div>
 		</div>
 	}
-	<label>
-		<InputFile OnChange="OnChange" multiple />
-		<div class="addFile RippleEffect" tabindex="0">
-			<div class="icon" dropzone="true">add_photo_alternate</div>
-		</div>
-	</label>
+	@if (OnChange is { HasDelegate: true })
+	{
+		<label>
+			<InputFile OnChange="OnChange" multiple />
+			<div class="addFile RippleEffect" tabindex="0">
+				<div class="icon" dropzone="true">add_photo_alternate</div>
+			</div>
+		</label>
+	}
 </div>
 
 @code {
 	[Parameter, EditorRequired] public required List<T> Items { get; set; }
 	[Parameter] public required Func<List<T>, Task> OnRearranged { get; set; }
 	[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; } = default!;
-	[Parameter] public Func<T, Task>? OnDelete { get; set; } = default!;
-	[CascadingParameter] private FileViewer? fileViewer { get; set; } = default!;
+	[Parameter] public Func<T, Task>? OnDelete { get; set; }
+	[CascadingParameter] private FileViewer? fileViewer { get; set; }
 	[CascadingParameter] private ModalManager? modalManager { get; set; }
 
 	private string[] videoExtensions = [".mp4"];
