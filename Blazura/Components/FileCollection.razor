@@ -1,6 +1,6 @@
 ﻿@typeparam T where T : IPath
 
-<div class="DragAndDropFileOrdering">
+<div class="FileCollection">
 	@foreach (T file in Items)
 	{
 		string extension = Path.GetExtension(file.Path.ToLower());
