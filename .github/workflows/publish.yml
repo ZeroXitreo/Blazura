@@ -1,6 +1,7 @@
 name: Publish
 
-permissions: {}
+permissions:
+  contents: read
 
 on:
   release:
