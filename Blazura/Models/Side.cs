@@ -1,6 +1,5 @@
 ﻿namespace Blazura.Models;
 
-
 [Flags]
 public enum Side
 {
