@@ -1,0 +1,11 @@
+<div class="Gapper @(Sizing.ToString())">
+	@ChildContent
+</div>
+
+@code {
+	[Parameter]
+	public RenderFragment? ChildContent { get; set; }
+
+	[Parameter]
+	public Sizing Sizing { get; set; } = Sizing.Md;
+}

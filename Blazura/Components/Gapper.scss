@@ -1,0 +1,34 @@
+@import "../Styles/Root.scss";
+
+.Gapper {
+    display: flex;
+    flex-direction: column;
+
+    &.Xxs {
+        gap: $spacing2;
+    }
+
+    &.Xs {
+        gap: $spacing2 * 2;
+    }
+
+    &.Sm {
+        gap: $spacing2 * 3;
+    }
+
+    &.Md {
+        gap: $spacing2 * 4;
+    }
+
+    &.Lg {
+        gap: $spacing2 * 8;
+    }
+
+    &.Xl {
+        gap: $spacing2 * 12;
+    }
+
+    &.Xxl {
+        gap: $spacing2 * 16;
+    }
+}
