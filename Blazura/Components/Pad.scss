@@ -1,0 +1,47 @@
+@import "../Styles/Root.scss";
+
+.Pad {
+    &.Xxs {
+        --spacing: #{$spacing2};
+    }
+
+    &.Xs {
+        --spacing: #{$spacing2 * 2};
+    }
+
+    &.Sm {
+        --spacing: #{$spacing2 * 3};
+    }
+
+    &.Md {
+        --spacing: #{$spacing2 * 4};
+    }
+
+    &.Lg {
+        --spacing: #{$spacing2 * 8};
+    }
+
+    &.Xl {
+        --spacing: #{$spacing2 * 12};
+    }
+
+    &.Xxl {
+        --spacing: #{$spacing2 * 16};
+    }
+
+    &.Top {
+        padding-top: var(--spacing);
+    }
+
+    &.Bottom {
+        padding-bottom: var(--spacing);
+    }
+
+    &.Left {
+        padding-left: var(--spacing);
+    }
+
+    &.Right {
+        padding-right: var(--spacing);
+    }
+}
