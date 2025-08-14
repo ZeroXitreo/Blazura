@@ -1,36 +1,46 @@
 ﻿@page "/"
+@using Blazura.Models
 @using System.ComponentModel.DataAnnotations
+@using Website.Components.Examples
+@using System.IO
+@using System.Web
+@inject IWebHostEnvironment Env
 
 <PageTitle>Home</PageTitle>
 
 <Clamp>
-    <FormGroup>
-        <Paper>
-            <Padder>
-                <FormGroup>
-                    <p>A simple text input field</p>
-                </FormGroup>
-
-                <FormGroup>
-                    <SimpleInputText @bind-Value="simpleInputTextValue" />
-                </FormGroup>
-
-                <FormGroup>
-                    <CodeBlock>&lt;FormGroup&gt;
-    &lt;SimpleInputText @@bind-Value=&quot;simpleInputTextValue&quot; /&gt;
-&lt;/FormGroup&gt;
-
-@@code {
-    [Display(Name = &quot;Simple input text & quot;)]
-    private string simpleInputTextValue = string.Empty;
-}</CodeBlock>
-                </FormGroup>
-            </Padder>
-        </Paper>
-    </FormGroup>
+    <Padder Sides="Side.TopBottom" Sizing="Sizing.Xxl">
+        <Gapper>
+            <Paper>
+                <Padder>
+                    <Gapper>
+                        <SimpleInputTextTemplate />
+                        <CodeBlock>@File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", "SimpleInputTextTemplate.razor"))</CodeBlock>
+                    </Gapper>
+                </Padder>
+            </Paper>
+            <Paper>
+                <Padder>
+                    <Gapper Sizing="Sizing.Xl">
+                        <h1 style="margin: unset;">Banner</h1>
+                        <Gapper>
+                            <Gapper>
+                                <BannerTemplate />
+                            </Gapper>
+                            <CodeBlock>@File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", "BannerTemplate.razor"))</CodeBlock>
+                        </Gapper>
+                        <Gapper>
+                            <Gapper>
+                                <BannerColorExample />
+                            </Gapper>
+                            <CodeBlock>@File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", "BannerColorExample.razor"))</CodeBlock>
+                        </Gapper>
+                    </Gapper>
+                </Padder>
+            </Paper>
+        </Gapper>
+    </Padder>
 </Clamp>
 
 @code {
-    [Display(Name = "Simple input text")]
-    private string simpleInputTextValue = string.Empty;
 }
