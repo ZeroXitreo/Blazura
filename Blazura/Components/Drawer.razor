@@ -13,4 +13,13 @@
     {
         drawerManager?.Close(ChildContent);
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (drawerManager is not null)
+        {
+            await drawerManager.TriggerRender();
+        }
+        base.OnAfterRender(firstRender);
+    }
 }
