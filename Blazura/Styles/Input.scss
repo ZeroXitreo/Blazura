@@ -163,6 +163,29 @@ button,
 		}
 	}
 
+	&.clear {
+		position: relative;
+		background-color: transparent;
+		color: var(--internalColour);
+		box-shadow: unset;
+
+		&:before {
+			content: "";
+			@include absoluteFill;
+			border-radius: inherit;
+			background-color: var(--internalColour);
+			pointer-events: none;
+			transition-property: opacity;
+			opacity: 0;
+		}
+
+		&:hover {
+			&:before {
+				opacity: .1;
+			}
+		}
+	}
+
 	&.small {
 		padding-top: .4375rem;
 		padding-bottom: .4375rem;
