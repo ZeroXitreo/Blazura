@@ -2,7 +2,14 @@
 
 .Gapper {
     display: flex;
-    flex-direction: column;
+
+    &.Vertical {
+        flex-direction: column;
+    }
+
+    &.Horizontal {
+        flex-direction: row;
+    }
 
     &.Xxs {
         gap: $spacing2;
