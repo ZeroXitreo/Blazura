@@ -2,31 +2,31 @@
 
 .Pad {
     &.Xxs {
-        --spacing: #{$spacing2};
+        --spacing: #{$spacing * .25};
     }
 
     &.Xs {
-        --spacing: #{$spacing2 * 2};
+        --spacing: #{$spacing * .5};
     }
 
     &.Sm {
-        --spacing: #{$spacing2 * 3};
+        --spacing: #{$spacing * .75};
     }
 
     &.Md {
-        --spacing: #{$spacing2 * 4};
+        --spacing: #{$spacing};
     }
 
     &.Lg {
-        --spacing: #{$spacing2 * 8};
+        --spacing: #{$spacing * 2};
     }
 
     &.Xl {
-        --spacing: #{$spacing2 * 12};
+        --spacing: #{$spacing * 3};
     }
 
     &.Xxl {
-        --spacing: #{$spacing2 * 16};
+        --spacing: #{$spacing * 4};
     }
 
     &.Top {
