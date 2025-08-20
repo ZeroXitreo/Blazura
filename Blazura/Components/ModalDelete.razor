@@ -31,10 +31,10 @@
 <FormGroup>
 	<ColumnWrapper Persistent="true">
 		<ColumnWrapperMain>
-			<GalButton Type="ButtonType.Button" Style="Style.Outline" @onclick="Modal.Close" Text="Cancel" />
+			<GalButton Type="ButtonType.Button" Style="Style.Outline" @onclick="Modal.Close">Cancel</GalButton>
 		</ColumnWrapperMain>
 		<ColumnWrapperSide>
-			<GalButton Color="Color.Error" Type="ButtonType.Button" Disabled="@(Item is not null && Security is not null && !Security(Item, securityResponse))" @onclick="AttemptDelete" Text="Confirm" />
+			<GalButton Color="Color.Error" Type="ButtonType.Button" Disabled="@(Item is not null && Security is not null && !Security(Item, securityResponse))" @onclick="AttemptDelete">Confirm</GalButton>
 		</ColumnWrapperSide>
 	</ColumnWrapper>
 </FormGroup>

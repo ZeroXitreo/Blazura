@@ -3,5 +3,6 @@
 public enum Style
 {
     Normal,
-    Outline
+    Outline,
+    Clear,
 }
