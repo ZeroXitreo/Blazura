@@ -27,6 +27,11 @@
         RunBodyCheck();
     }
 
+    public async Task TriggerRender()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
     public void RunBodyCheck()
     {
         backdrop.SetBackdrop(this.GetType(), renderFragments.Count != 0);
