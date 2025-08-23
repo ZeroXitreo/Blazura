@@ -60,8 +60,6 @@
         $movement: 6rem;
 
         position: relative;
-        background-color: $colorPaper;
-        padding: min(4rem,10%) min(6rem,15%);
         margin: $spacing;
         box-shadow: $shadow;
         transform: translateY(-$movement);
@@ -69,6 +67,10 @@
         animation-duration: .2s;
         animation-fill-mode: both;
         animation-timing-function: ease-in;
+
+        .boxSpacer {
+            padding: min(4rem,10%) min(6rem,15%);
+        }
 
         > .close:first-child {
             position: absolute;
