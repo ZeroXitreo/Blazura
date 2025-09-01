@@ -151,7 +151,8 @@ button,
 			box-shadow: 0 0 0 1px inset var(--internalColour), 0 0 0 0 var(--internalColour);
 		}
 
-		&:hover {
+		&:hover,
+		&:focus-within {
 			&:before {
 				opacity: .1;
 			}
@@ -179,7 +180,8 @@ button,
 			opacity: 0;
 		}
 
-		&:hover {
+		&:hover,
+		&:focus-within {
 			&:before {
 				opacity: .1;
 			}
