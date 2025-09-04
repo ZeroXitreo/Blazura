@@ -3,26 +3,39 @@
 
 @foreach (var renderFragment in renderFragments)
 {
-    <div class="DrawerBackdrop" @onclick="() => Close(renderFragment)"></div>
-    <div class="Drawer">
-        @renderFragment
+    <div class="DrawerBackdrop @(renderFragment.Value ? "closed" : null)" @onclick="() => Close(renderFragment.Key)"></div>
+    <div class="Drawer @(renderFragment.Value ? "closed" : null)">
+        @renderFragment.Key
     </div>
 }
 
 @code {
     [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
-    private List<RenderFragment> renderFragments = [];
+
+    // boolean indicates if it's closed
+    private Dictionary<RenderFragment, bool> renderFragments = [];
 
     public void Open(RenderFragment renderFragment)
     {
-        renderFragments.Add(renderFragment);
+        if (renderFragments.ContainsKey(renderFragment))
+        {
+            renderFragments[renderFragment] = false;
+        }
+        else
+        {
+            renderFragments.Add(renderFragment, false);
+        }
         StateHasChanged();
         RunBodyCheck();
     }
 
     public void Close(RenderFragment renderFragment)
     {
-        renderFragments.Remove(renderFragment);
+        foreach (var renderFragmentToDelete in renderFragments.Where(rf => rf.Value))
+        {
+            renderFragments.Remove(renderFragmentToDelete.Key);
+        }
+        renderFragments[renderFragment] = true;
         StateHasChanged();
         RunBodyCheck();
     }
