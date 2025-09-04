@@ -6,7 +6,7 @@
 @inject IServiceProvider ServiceProvider
 
 <Placeholder For="@ValueExpression" Format="@Format">
-    <InputText Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression" />
+    <InputText Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression" @attributes="AdditionalAttributes" />
 </Placeholder>
 
 @code {
