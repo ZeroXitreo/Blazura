@@ -14,6 +14,13 @@
     animation-fill-mode: both;
     animation-timing-function: ease-in;
 
+    @keyframes OpenModal {
+        to {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
     @keyframes CloseModal {
         from {
             visibility: visible;
@@ -23,13 +30,6 @@
         to {
             visibility: hidden;
             opacity: 0;
-        }
-    }
-
-    @keyframes OpenModal {
-        to {
-            visibility: visible;
-            opacity: 1;
         }
     }
 
