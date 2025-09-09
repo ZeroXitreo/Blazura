@@ -3,7 +3,7 @@
 
 @foreach (var renderFragment in renderFragments)
 {
-    <div class="DrawerBackdrop" @onclick="() => Close(renderFragment)"></div>
+    <div class="DrawerBackdrop" @onclick="() => Close(renderFragment.Key)"></div>
     <div class="Drawer">
         @renderFragment
     </div>
@@ -11,24 +11,35 @@
 
 @code {
     [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
-    private List<RenderFragment> renderFragments = [];
+    private Dictionary<RenderFragment, bool> renderFragments = [];
 
     public void Open(RenderFragment renderFragment)
     {
-        renderFragments.Add(renderFragment);
+        foreach (var renderFragmentToDelete in renderFragments.Where(rf => rf.Value))
+        {
+            renderFragments.Remove(renderFragmentToDelete.Key);
+        }
+        if (renderFragments.ContainsKey(renderFragment))
+        {
+            renderFragments[renderFragment] = false;
+        }
+        else
+        {
+            renderFragments.Add(renderFragment, false);
+        }
         StateHasChanged();
         RunBodyCheck();
     }
 
     public void Close(RenderFragment renderFragment)
     {
-        renderFragments.Remove(renderFragment);
+        renderFragments[renderFragment] = true;
         StateHasChanged();
         RunBodyCheck();
     }
 
     public void RunBodyCheck()
     {
-        backdrop.SetBackdrop(this.GetType(), renderFragments.Count != 0);
+        backdrop.SetBackdrop(this.GetType(), renderFragments.Any(rf => !rf.Value));
     }
 }
