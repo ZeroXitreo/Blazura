@@ -1,0 +1,24 @@
+﻿@page "/"
+@using Blazura.Models
+@using System.ComponentModel.DataAnnotations
+@using Website.Components.Examples
+@using System.IO
+@using System.Web
+@using Website.Components.Examples.SimpleInputText
+@inject IWebHostEnvironment Env
+
+<PageTitle>Home</PageTitle>
+
+<Gapper>
+    <Paper>
+        <Padder>
+            <Gapper>
+                <SimpleInputTextTemplate />
+                <CodeBlock>@File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", "SimpleInputText", "SimpleInputTextTemplate.razor"))</CodeBlock>
+            </Gapper>
+        </Padder>
+    </Paper>
+</Gapper>
+
+@code {
+}

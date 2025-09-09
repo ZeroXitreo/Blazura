@@ -1,0 +1,35 @@
+﻿@page "/banner"
+@using Website.Components.Examples.Banner
+@inject IWebHostEnvironment Env
+
+<PageTitle>Banner</PageTitle>
+
+<h1>Banner</h1>
+
+@{
+    string[] files = Directory.GetFiles(Path.Combine(Env.ContentRootPath, "Components", "Examples", this.GetType().Name), "*.razor", SearchOption.AllDirectories);
+
+    foreach (var file in files)
+    {
+        var fileName = Path.GetFileNameWithoutExtension(file);
+        var typeString = $"Website.Components.Examples.{this.GetType().Name}.{fileName}";
+        <br />
+        <Paper>
+            <Padder>
+                <Gapper>
+                    @if (Type.GetType(typeString) is { } type)
+                    {
+                        <Gapper>
+                            <DynamicComponent Type="type" />
+                        </Gapper>
+                    }
+                    <CodeBlock>@(GetCodeBlock(fileName))</CodeBlock>
+                </Gapper>
+            </Padder>
+        </Paper>
+    }
+}
+
+@code {
+    private string GetCodeBlock(string componentName) => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", this.GetType().Name, $"{componentName}.razor"));
+}

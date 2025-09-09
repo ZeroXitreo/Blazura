@@ -17,6 +17,10 @@
 
     public void Open(RenderFragment renderFragment)
     {
+        foreach (var renderFragmentToDelete in renderFragments.Where(rf => rf.Value))
+        {
+            renderFragments.Remove(renderFragmentToDelete.Key);
+        }
         if (renderFragments.ContainsKey(renderFragment))
         {
             renderFragments[renderFragment] = false;
@@ -31,11 +35,14 @@
 
     public void Close(RenderFragment renderFragment)
     {
-        foreach (var renderFragmentToDelete in renderFragments.Where(rf => rf.Value))
-        {
-            renderFragments.Remove(renderFragmentToDelete.Key);
-        }
         renderFragments[renderFragment] = true;
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
+    public void Remove(RenderFragment renderFragment)
+    {
+        renderFragments.Remove(renderFragment);
         StateHasChanged();
         RunBodyCheck();
     }
@@ -47,6 +54,6 @@
 
     public void RunBodyCheck()
     {
-        backdrop.SetBackdrop(this.GetType(), renderFragments.Count != 0);
+        backdrop.SetBackdrop(this.GetType(), renderFragments.Any(rf => !rf.Value));
     }
 }

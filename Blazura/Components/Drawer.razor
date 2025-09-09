@@ -11,7 +11,7 @@
 
     public void Dispose()
     {
-        drawerManager?.Close(ChildContent);
+        drawerManager?.Remove(ChildContent);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -20,6 +20,6 @@
         {
             await drawerManager.TriggerRender();
         }
-        base.OnAfterRender(firstRender);
+        await base.OnAfterRenderAsync(firstRender);
     }
 }
