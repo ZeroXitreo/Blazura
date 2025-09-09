@@ -1,7 +1,24 @@
-﻿<div class="Paper">
+﻿<div class="Paper @(BorderRadius.ToString()) @(DisableShadow ? "DisableShadow" : null) @(Color.ToString())">
 	@ChildContent
 </div>
 
 @code {
-	[Parameter] public RenderFragment? ChildContent { get; set; }
+	[Parameter]
+	public RenderFragment? ChildContent { get; set; }
+
+	[Parameter]
+	public Sizing BorderRadius { get; set; } = Sizing.Md;
+
+	[Parameter]
+	public bool DisableShadow { get; set; }
+
+	[Parameter]
+	public PaperColor Color { get; set; }
+
+	public enum PaperColor
+	{
+		Normal,
+		Background,
+		Contrast,
+	}
 }

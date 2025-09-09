@@ -151,7 +151,8 @@ button,
 			box-shadow: 0 0 0 1px inset var(--internalColour), 0 0 0 0 var(--internalColour);
 		}
 
-		&:hover {
+		&:hover,
+		&:focus-within {
 			&:before {
 				opacity: .1;
 			}
@@ -159,6 +160,30 @@ button,
 			&:after {
 				box-shadow: 0 0 0 1px inset var(--internalColour), 0 0 0 1px var(--internalColour);
 				opacity: 1;
+			}
+		}
+	}
+
+	&.clear {
+		position: relative;
+		background-color: transparent;
+		color: var(--internalColour);
+		box-shadow: unset;
+
+		&:before {
+			content: "";
+			@include absoluteFill;
+			border-radius: inherit;
+			background-color: var(--internalColour);
+			pointer-events: none;
+			transition-property: opacity;
+			opacity: 0;
+		}
+
+		&:hover,
+		&:focus-within {
+			&:before {
+				opacity: .1;
 			}
 		}
 	}

@@ -3,14 +3,16 @@
 
 @foreach (var renderFragment in renderFragments)
 {
-    <div class="DrawerBackdrop" @onclick="() => Close(renderFragment.Key)"></div>
-    <div class="Drawer">
-        @renderFragment
+    <div class="DrawerBackdrop @(renderFragment.Value ? "closed" : null)" @onclick="() => Close(renderFragment.Key)"></div>
+    <div class="Drawer @(renderFragment.Value ? "closed" : null)">
+        @renderFragment.Key
     </div>
 }
 
 @code {
     [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
+
+    // boolean indicates if it's closed
     private Dictionary<RenderFragment, bool> renderFragments = [];
 
     public void Open(RenderFragment renderFragment)
@@ -36,6 +38,11 @@
         renderFragments[renderFragment] = true;
         StateHasChanged();
         RunBodyCheck();
+    }
+
+    public async Task TriggerRender()
+    {
+        await InvokeAsync(StateHasChanged);
     }
 
     public void RunBodyCheck()

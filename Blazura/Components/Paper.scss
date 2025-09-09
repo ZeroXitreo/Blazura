@@ -1,7 +1,49 @@
 ﻿@import "../Styles/Root.scss";
 
 .Paper {
-	border-radius: $radius * 2;
-	box-shadow: $shadow;
-	@include setBackgroundColor($colorPaper);
+    box-shadow: $shadow;
+
+    &.Xxs {
+        border-radius: $spacing * .25;
+    }
+
+    &.Xs {
+        border-radius: $spacing * .5;
+    }
+
+    &.Sm {
+        border-radius: $spacing * .75;
+    }
+
+    &.Md {
+        border-radius: $spacing;
+    }
+
+    &.Lg {
+        border-radius: $spacing * 2;
+    }
+
+    &.Xl {
+        border-radius: $spacing * 3;
+    }
+
+    &.Xxl {
+        border-radius: $spacing * 4;
+    }
+
+    &.DisableShadow {
+        box-shadow: unset;
+    }
+
+    &.Normal {
+        @include setBackgroundColor($colorPaper);
+    }
+
+    &.Background {
+        @include setBackgroundColor($colorBackground);
+    }
+
+    &.Contrast {
+        @include setBackgroundColor($colorBackgroundAlt);
+    }
 }
