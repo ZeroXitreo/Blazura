@@ -1,0 +1,24 @@
+﻿@page "/drawer"
+@using Website.Components.Examples.Drawer
+@inject IWebHostEnvironment Env
+
+<PageTitle>Banner</PageTitle>
+
+<h1>Banner</h1>
+
+<Paper>
+    <Padder>
+        <Gapper Sizing="Sizing.Xl">
+            <Gapper>
+                <div>
+                    <DrawerExample />
+                </div>
+                <CodeBlock>@(GetCodeBlock<DrawerExample>())</CodeBlock>
+            </Gapper>
+        </Gapper>
+    </Padder>
+</Paper>
+
+@code {
+    private string GetCodeBlock<T>() => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", nameof(Drawer), $"{typeof(T).Name}.razor"));
+}

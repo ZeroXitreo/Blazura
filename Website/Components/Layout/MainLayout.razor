@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using Blazura.Components.Layout
+@inherits LayoutComponentBase
+@layout RootLayout
 
 <div class="page">
     <div class="sidebar">
@@ -7,7 +9,13 @@
 
     <main>
         <article>
-            @Body
+            <Clamp>
+                <Padder Sides="Side.TopBottom" Sizing="Sizing.Xxl">
+                    <Gapper Sizing="Sizing.Xxl">
+                        @Body
+                    </Gapper>
+                </Padder>
+            </Clamp>
         </article>
     </main>
 </div>

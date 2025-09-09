@@ -40,6 +40,13 @@
         RunBodyCheck();
     }
 
+    public void Remove(RenderFragment renderFragment)
+    {
+        renderFragments.Remove(renderFragment);
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
     public async Task TriggerRender()
     {
         await InvokeAsync(StateHasChanged);
