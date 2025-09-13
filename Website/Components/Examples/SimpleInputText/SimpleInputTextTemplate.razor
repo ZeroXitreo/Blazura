@@ -1,0 +1,12 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+<Gapper>
+    <div>A simple text input field</div>
+    <SimpleInputText @bind-Value="simpleInputTextValue" />
+    Output: @simpleInputTextValue
+</Gapper>
+
+@code {
+    [Display(Name = "Simple input text")]
+    private string simpleInputTextValue = string.Empty;
+}
