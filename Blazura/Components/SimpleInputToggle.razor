@@ -3,33 +3,44 @@
 @using Microsoft.Extensions.DependencyInjection
 @inject IServiceProvider ServiceProvider
 
-<button type="button" class="SimpleInputToggle RippleEffect" @onclick="() => ToggleOption()">
-	<Flexer>
-		<FlexerFiller>
-			<DisplayName For="ValueExpression" Format="Format" />
-			</FlexerFiller>
-		<div class="shell @(Value ? "active" : null)">
-			<div class="bullet"></div>
-		</div>
-	</Flexer>
+<button type="button" class="SimpleInputToggle RippleEffect" @onclick="() => ToggleOption()" disabled="@Disabled">
+    <Flexer>
+        <FlexerFiller>
+            <DisplayName For="ValueExpression" Format="Format" />
+        </FlexerFiller>
+        <div class="shell @(Value ? "active" : null)">
+            <div class="bullet"></div>
+        </div>
+    </Flexer>
 </button>
 
 @code {
-	[Parameter] public bool Value { get; set; } = default!;
-	[Parameter] public EventCallback<bool> ValueChanged { get; set; } = default!;
-	[Parameter] public Expression<Func<bool>>? ValueExpression { get; set; }
-	[Parameter] public Func<string, string> Format { get; set; } = (str) => str;
+    [Parameter]
+    public bool Value { get; set; } = default!;
 
-	private IInputFormatter? InputFormatter;
-	protected override void OnInitialized()
-	{
-		InputFormatter = ServiceProvider.GetService<IInputFormatter>();
-		Format = InputFormatter?.Format ?? Format;
-	}
+    [Parameter]
+    public EventCallback<bool> ValueChanged { get; set; } = default!;
 
-	private async Task ToggleOption()
-	{
-		Value = !Value;
-		await ValueChanged.InvokeAsync(Value);
-	}
+    [Parameter]
+    public Expression<Func<bool>>? ValueExpression { get; set; }
+
+    [Parameter]
+    public Func<string, string> Format { get; set; } = (str) => str;
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    private IInputFormatter? InputFormatter;
+
+    protected override void OnInitialized()
+    {
+        InputFormatter = ServiceProvider.GetService<IInputFormatter>();
+        Format = InputFormatter?.Format ?? Format;
+    }
+
+    private async Task ToggleOption()
+    {
+        Value = !Value;
+        await ValueChanged.InvokeAsync(Value);
+    }
 }

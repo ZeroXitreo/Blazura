@@ -1,51 +1,79 @@
 ﻿@import "../Styles/Root.scss";
 
 .SimpleInputToggle {
-	display: block;
-	border-radius: $radius;
-	cursor: pointer;
-	padding: 1rem;
-	// Button reset
-	background-color: unset;
-	text-align: unset;
-	box-shadow: unset;
-	color: inherit;
-	font-weight: unset;
+    display: block;
+    border-radius: $radius;
+    cursor: pointer;
+    padding: 1rem;
+    // Button reset
+    background-color: unset;
+    text-align: unset;
+    box-shadow: unset;
+    color: inherit;
+    font-weight: unset;
+    position: relative;
 
-	&:hover,
-	&:focus {
-		color: inherit;
-	}
+    &:before {
+        @include absoluteFill();
+        content: "";
+        border-radius: inherit;
+        background-color: currentColor;
+        transition-property: opacity;
+        opacity: 0;
+    }
 
-	.shell {
-		$height: 1rem;
-		$width: 2.5rem;
-		$size: 1.5rem;
-		height: $height;
-		width: $width;
-		background-color: $colorDashed;
-		border-radius: $height / 2;
-		margin: ($size - $height) / 2;
-		position: relative;
+    &:hover,
+    &:focus {
+        color: inherit;
 
-		.bullet {
-			height: $size;
-			width: $size;
-			margin-top: ($height - $size) / 2;
-			margin-left: ($height - $size) / 2;
-			background-color: currentColor;
-			border-radius: 50%;
-			position: absolute;
-			transition-property: left, background-color;
-			left: 0;
-		}
+        &:before {
+            opacity: .1;
+        }
+    }
 
-		&.active {
+    .shell {
+        $containerSize: 2rem;
+        $bulletSize: 1.5rem;
+        $travel: 1.5rem;
 
-			.bullet {
-				left: $width - $height;
-				background-color: $colorAccent;
-			}
-		}
-	}
+        height: $containerSize;
+        width: $containerSize + $travel;
+        border-radius: $containerSize / 2;
+        margin: ($bulletSize - $containerSize) / 2;
+        position: relative;
+
+        &:before {
+            content: "";
+            @include absoluteFill();
+            border-radius: inherit;
+            // Transition
+            transition-property: background-color, opacity;
+            background-color: currentColor;
+            opacity: .2;
+        }
+
+        .bullet {
+            height: $bulletSize;
+            width: $bulletSize;
+            margin-top: ($containerSize - $bulletSize) / 2;
+            margin-left: ($containerSize - $bulletSize) / 2;
+            background-color: currentColor;
+            border-radius: 50%;
+            position: absolute;
+            transition-property: left;
+            left: 0;
+        }
+
+        &.active {
+
+            &:before {
+                background-color: $colorAccent;
+                opacity: 1;
+            }
+
+            .bullet {
+                left: $travel;
+            }
+        }
+    }
 }

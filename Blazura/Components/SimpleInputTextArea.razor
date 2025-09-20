@@ -1,0 +1,21 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Reflection
+@using System.Linq.Expressions
+@using Microsoft.Extensions.DependencyInjection
+@inherits InputTextArea
+@inject IServiceProvider ServiceProvider
+
+<Placeholder For="@ValueExpression" Format="@Format">
+    <InputTextArea Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression" @attributes="AdditionalAttributes" />
+</Placeholder>
+
+@code {
+    [Parameter] public Func<string, string> Format { get; set; } = (str) => str;
+
+    private IInputFormatter? InputFormatter;
+    protected override void OnInitialized()
+    {
+        InputFormatter = ServiceProvider.GetService<IInputFormatter>();
+        Format = InputFormatter?.Format ?? Format;
+    }
+}
