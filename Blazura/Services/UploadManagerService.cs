@@ -17,20 +17,7 @@ public class UploadManagerService : IUploadManagerService
             initialUploadPath = Path.Combine(uploadPath, folderName);
         }
 
-        if (!Directory.Exists(Path.Combine(rootPath, initialUploadPath)))
-        {
-            if (!Directory.Exists(Path.Combine(rootPath, uploadPath)))
-            {
-                if (!Directory.Exists(rootPath))
-                {
-                    Directory.CreateDirectory(rootPath);
-                }
-
-                Directory.CreateDirectory(Path.Combine(rootPath, uploadPath));
-            }
-
-            Directory.CreateDirectory(Path.Combine(rootPath, initialUploadPath));
-        }
+        GenerateDirectories(initialUploadPath);
 
         string filePath = initialUploadPath;
 
@@ -55,21 +42,7 @@ public class UploadManagerService : IUploadManagerService
             initialUploadPath = Path.Combine(uploadPath, folderName);
         }
 
-        // Generate path if not exists
-        if (!Directory.Exists(Path.Combine(rootPath, initialUploadPath)))
-        {
-            if (!Directory.Exists(Path.Combine(rootPath, uploadPath)))
-            {
-                if (!Directory.Exists(rootPath))
-                {
-                    Directory.CreateDirectory(rootPath);
-                }
-
-                Directory.CreateDirectory(Path.Combine(rootPath, uploadPath));
-            }
-
-            Directory.CreateDirectory(Path.Combine(rootPath, initialUploadPath));
-        }
+        GenerateDirectories(initialUploadPath);
 
         // Process upload of file
         string filePath = initialUploadPath;
@@ -102,6 +75,31 @@ public class UploadManagerService : IUploadManagerService
         }
 
         return false;
+    }
+
+    public async Task<string> GetBrowserFileAsUrl(IBrowserFile browserFile)
+    {
+        using MemoryStream stream = new();
+        await browserFile.OpenReadStream(MaxFileSize).CopyToAsync(stream);
+        return $"data:{browserFile.ContentType};base64,{Convert.ToBase64String(stream.ToArray())}";
+    }
+
+    private void GenerateDirectories(string initialUploadPath)
+    {
+        if (!Directory.Exists(Path.Combine(rootPath, initialUploadPath)))
+        {
+            if (!Directory.Exists(Path.Combine(rootPath, uploadPath)))
+            {
+                if (!Directory.Exists(rootPath))
+                {
+                    Directory.CreateDirectory(rootPath);
+                }
+
+                Directory.CreateDirectory(Path.Combine(rootPath, uploadPath));
+            }
+
+            Directory.CreateDirectory(Path.Combine(rootPath, initialUploadPath));
+        }
     }
 
     private void ClearEmptyDirectory(DirectoryInfo directory)
