@@ -9,4 +9,5 @@ public interface IUploadManagerService
     public Task<string> UploadAsync(IFormFile formFile, string? folderName = null);
     public Task<string> UploadAsync(IBrowserFile formFile, string? folderName = null);
     public bool Delete(string path);
+    Task<string> GetBrowserFileAsUrl(IBrowserFile browserFile);
 }
