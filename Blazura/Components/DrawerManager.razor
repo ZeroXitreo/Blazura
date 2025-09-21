@@ -20,6 +20,7 @@
         foreach (var renderFragmentToDelete in renderFragments.Where(rf => rf.Value))
         {
             renderFragments.Remove(renderFragmentToDelete.Key);
+            StateHasChanged();
         }
         if (renderFragments.ContainsKey(renderFragment))
         {
