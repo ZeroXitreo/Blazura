@@ -1,0 +1,11 @@
+
+<div class="SimpleListContainer">
+    <Gapper Sizing="Sizing.Xxs">
+        @ChildContent
+    </Gapper>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+}

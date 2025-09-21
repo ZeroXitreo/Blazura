@@ -1,0 +1,16 @@
+@import "../Styles/Root.scss";
+
+.SimpleListItem {
+    border-radius: $spacing / 2;
+    @include setBackgroundColor($colorBackgroundAlt);
+
+    &:first-child {
+        border-start-start-radius: $spacing;
+        border-start-end-radius: $spacing;
+    }
+
+    &:last-child {
+        border-end-start-radius: $spacing;
+        border-end-end-radius: $spacing;
+    }
+}
