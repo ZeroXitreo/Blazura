@@ -1,0 +1,20 @@
+@import "../Styles/Root.scss";
+
+.State {
+    text-align: center;
+    padding: 4rem 0;
+
+    .stateIcon {
+        font-size: 5em;
+        display: flex;
+        justify-content: center;
+    }
+
+    .title {
+        font-weight: bold;
+    }
+
+    .description {
+        opacity: .5;
+    }
+}
