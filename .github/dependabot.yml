@@ -10,3 +10,8 @@ updates:
           - "Microsoft.AspNetCore.*"
           - "Microsoft.EntityFrameworkCore.*"
           - "Microsoft.Extensions.*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
