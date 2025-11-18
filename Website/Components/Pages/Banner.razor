@@ -15,7 +15,7 @@
         var typeString = $"Website.Components.Examples.{this.GetType().Name}.{fileName}";
         <br />
         <Paper>
-            <Padder>
+            <Pad>
                 <Gapper>
                     @if (Type.GetType(typeString) is { } type)
                     {
@@ -25,7 +25,7 @@
                     }
                     <CodeBlock>@(GetCodeBlock(fileName))</CodeBlock>
                 </Gapper>
-            </Padder>
+            </Pad>
         </Paper>
     }
 }
