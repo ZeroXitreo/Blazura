@@ -21,10 +21,10 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Setup dotnet 9
+      - name: Setup dotnet 10
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 9
+          dotnet-version: 10
 
       - name: Install dependencies
         run: dotnet restore
