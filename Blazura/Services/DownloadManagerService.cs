@@ -1,5 +1,4 @@
-﻿
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
 namespace Blazura.Services;
 

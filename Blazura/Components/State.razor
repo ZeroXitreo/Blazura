@@ -1,0 +1,24 @@
+<div class="State">
+    <Gapper>
+        <div class="stateIcon">
+            <Icon>@Icon</Icon>
+        </div>
+        <div class="title">@Title</div>
+        @if (Description is not null)
+        {
+            <div class="description">@Description</div>
+        }
+    </Gapper>
+</div>
+
+@code {
+    [Parameter]
+    public string Icon { get; set; } = "indeterminate_question_box";
+
+    [Parameter]
+    [EditorRequired]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string? Description { get; set; }
+}

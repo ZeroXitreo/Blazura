@@ -1,0 +1,8 @@
+﻿<div class="SimpleListItem">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+}

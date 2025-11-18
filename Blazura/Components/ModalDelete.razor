@@ -2,67 +2,67 @@
 @using System.ComponentModel
 @using Blazura.Components.ColumnWrapperItems
 
-@typeparam T 
+@typeparam T
 
 @if (Item is not null)
 {
-	<FormGroup>
-		@if (ChildContent is not null)
-		{
-			@ChildContent
-		}
-		else
-		{
-			@:You are about to delete <b>@(GetName is not null ? GetName(Item) : "this")</b>, are you sure you want to do this?
-		}
-	</FormGroup>
+    <div>
+        @if (ChildContent is not null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            @:You are about to delete <b>@(GetName is not null ? GetName(Item) : "this")</b>, are you sure you want to do this?
+        }
+    </div>
 }
 <EditForm Model="securityResponse">
 
 </EditForm>
 @if (Security is not null)
 {
-	<FormGroup>
-		<Placeholder For="() => securityResponse" Format="(o) => SecurityPlaceholder">
-			<input type="@(SecurityStrict ? "password" : null)" @bind="securityResponse" @bind:event="oninput" />
-		</Placeholder>
-	</FormGroup>
+    <div>
+        <Placeholder For="() => securityResponse" Format="(o) => SecurityPlaceholder">
+            <input type="@(SecurityStrict ? "password" : null)" @bind="securityResponse" @bind:event="oninput" />
+        </Placeholder>
+    </div>
 }
-<FormGroup>
-	<ColumnWrapper Persistent="true">
-		<ColumnWrapperMain>
-			<GalButton Type="ButtonType.Button" Style="Style.Outline" @onclick="Modal.Close">Cancel</GalButton>
-		</ColumnWrapperMain>
-		<ColumnWrapperSide>
-			<GalButton Color="Color.Error" Type="ButtonType.Button" Disabled="@(Item is not null && Security is not null && !Security(Item, securityResponse))" @onclick="AttemptDelete">Confirm</GalButton>
-		</ColumnWrapperSide>
-	</ColumnWrapper>
-</FormGroup>
+<div>
+    <ColumnWrapper Persistent="true">
+        <ColumnWrapperMain>
+            <GalButton Type="ButtonType.Button" Style="Style.Outline" @onclick="Modal.Close">Cancel</GalButton>
+        </ColumnWrapperMain>
+        <ColumnWrapperSide>
+            <GalButton Color="Color.Error" Type="ButtonType.Button" Disabled="@(Item is not null && Security is not null && !Security(Item, securityResponse))" @onclick="AttemptDelete">Confirm</GalButton>
+        </ColumnWrapperSide>
+    </ColumnWrapper>
+</div>
 
 @code {
-	[Parameter, EditorRequired] public required Modal Modal { get; set; }
-	[Parameter, EditorRequired] public required T Item { get; set; }
-	[Parameter, EditorRequired] public required EventCallback<T> OnDelete { get; set; }
-	[Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter, EditorRequired] public required Modal Modal { get; set; }
+    [Parameter, EditorRequired] public required T Item { get; set; }
+    [Parameter, EditorRequired] public required EventCallback<T> OnDelete { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
-	private string securityResponse { get; set; } = string.Empty;
+    private string securityResponse { get; set; } = string.Empty;
 
-	[Parameter]
-	public Func<T, string>? GetName { get; set; }
+    [Parameter]
+    public Func<T, string>? GetName { get; set; }
 
-	[Parameter]
-	public Func<T, string, bool>? Security { get; set; }
+    [Parameter]
+    public Func<T, string, bool>? Security { get; set; }
 
-	[Parameter]
-	public string? SecurityPlaceholder { get; set; }
+    [Parameter]
+    public string? SecurityPlaceholder { get; set; }
 
-	[Parameter]
-	public bool SecurityStrict { get; set; }
+    [Parameter]
+    public bool SecurityStrict { get; set; }
 
-	private async Task AttemptDelete()
-	{
-		if (Security is not null && !Security(Item, securityResponse)) return;
-		await OnDelete.InvokeAsync(Item);
-		Modal.Close();
-	}
+    private async Task AttemptDelete()
+    {
+        if (Security is not null && !Security(Item, securityResponse)) return;
+        await OnDelete.InvokeAsync(Item);
+        Modal.Close();
+    }
 }

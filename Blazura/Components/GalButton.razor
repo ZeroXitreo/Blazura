@@ -1,4 +1,6 @@
-﻿<button class="RippleEffect @Style.ToString().ToLower() @Size.ToString().ToLower() @Color.ToString().ToLower() @TextType.ToString().ToLower()" type="@Type.ToString().ToLower()" disabled="@Disabled" @onclick="OnClick">
+﻿<button class="RippleEffect @Style.ToString().ToLower() @Size.ToString().ToLower() @Color.ToString().ToLower() @TextType.ToString().ToLower()"
+        type="@Type.ToString().ToLower()"
+        disabled="@Disabled" @onclick="OnClick">
     @ChildContent
 </button>
 
@@ -26,5 +28,4 @@
 
     [Parameter]
     public bool Disabled { get; set; }
-
 }

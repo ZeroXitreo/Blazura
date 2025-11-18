@@ -3,14 +3,14 @@
 
 @code {
     private HashSet<Type> backdropsByType = [];
-    public void SetBackdrop(Type type, bool hasBackdrop)
+    public void SetBackdrop(Type type, bool enabled)
     {
-        if (!hasBackdrop) {
-            backdropsByType.Remove(type);
+        if (enabled) {
+            backdropsByType.Add(type);
         }
         else
         {
-            backdropsByType.Add(type);
+            backdropsByType.Remove(type);
         }
 
         JSRuntime.InvokeVoidAsync(backdropsByType.Any() ? "disableBodyScroll" : "enableBodyScroll");

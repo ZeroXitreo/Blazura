@@ -2,59 +2,57 @@
 @using System.Numerics
 @typeparam T where T : INumberBase<T>
 
-<FormGroup>
-	<Flexer>
-		<FlexerFiller>
-			<Placeholder For="LowFor" Format="LowFormat">
-				<InputNumber @bind-Value="Low" @oninput="OnLowChange" />
-			</Placeholder>
-		</FlexerFiller>
-		<FlexerFiller>
-			<Placeholder For="HighFor" Format="HighFormat">
-				<InputNumber @bind-Value="High" @oninput="OnHighChange" />
-			</Placeholder>
-		</FlexerFiller>
-	</Flexer>
-</FormGroup>
+<Flexer>
+    <FlexerFiller>
+        <Placeholder For="LowFor" Format="LowFormat">
+            <InputNumber @bind-Value="Low" @oninput="OnLowChange" />
+        </Placeholder>
+    </FlexerFiller>
+    <FlexerFiller>
+        <Placeholder For="HighFor" Format="HighFormat">
+            <InputNumber @bind-Value="High" @oninput="OnHighChange" />
+        </Placeholder>
+    </FlexerFiller>
+</Flexer>
 
 @code {
-	[Parameter, EditorRequired] public required Expression<Func<T>> LowFor { get; set; }
-	[Parameter] public Func<string, string> LowFormat { get; set; } = (str) => str;
-	[Parameter, EditorRequired] public required Expression<Func<T>> HighFor { get; set; }
-	[Parameter] public Func<string, string> HighFormat { get; set; } = (str) => str;
+    [Parameter, EditorRequired] public required Expression<Func<T>> LowFor { get; set; }
+    [Parameter] public Func<string, string> LowFormat { get; set; } = (str) => str;
+    [Parameter, EditorRequired] public required Expression<Func<T>> HighFor { get; set; }
+    [Parameter] public Func<string, string> HighFormat { get; set; } = (str) => str;
 
-	[Parameter, EditorRequired] public required T Low { get; set; }
-	[Parameter, EditorRequired] public required T High { get; set; }
+    [Parameter, EditorRequired] public required T Low { get; set; }
+    [Parameter, EditorRequired] public required T High { get; set; }
 
-	[Parameter] public EventCallback<T> LowChanged { get; set; }
-	[Parameter] public EventCallback<T> HighChanged { get; set; }
+    [Parameter] public EventCallback<T> LowChanged { get; set; }
+    [Parameter] public EventCallback<T> HighChanged { get; set; }
 
-	[Parameter] public Func<T?>? LowestAllowed { get; set; }
-	[Parameter] public Func<T?>? HighestAllowed { get; set; }
+    [Parameter] public Func<T?>? LowestAllowed { get; set; }
+    [Parameter] public Func<T?>? HighestAllowed { get; set; }
 
-	private async Task OnLowChange(ChangeEventArgs args) => await OnChange(args, HighOrLow.Low);
+    private async Task OnLowChange(ChangeEventArgs args) => await OnChange(args, HighOrLow.Low);
 
-	private async Task OnHighChange(ChangeEventArgs args) => await OnChange(args, HighOrLow.High);
+    private async Task OnHighChange(ChangeEventArgs args) => await OnChange(args, HighOrLow.High);
 
-	private enum HighOrLow
-	{
-		Low,
-		High,
-	}
+    private enum HighOrLow
+    {
+        Low,
+        High,
+    }
 
-	private async Task OnChange(ChangeEventArgs args, HighOrLow highOrLow)
-	{
-		if (T.TryParse(args.Value?.ToString(), null, out T? val))
-		{
-			switch (highOrLow)
-			{
-				case HighOrLow.Low:
-					await LowChanged.InvokeAsync(val);
-					break;
-				case HighOrLow.High:
-					await HighChanged.InvokeAsync(val);
-					break;
-			}
-		}
-	}
+    private async Task OnChange(ChangeEventArgs args, HighOrLow highOrLow)
+    {
+        if (T.TryParse(args.Value?.ToString(), null, out T? val))
+        {
+            switch (highOrLow)
+            {
+                case HighOrLow.Low:
+                    await LowChanged.InvokeAsync(val);
+                    break;
+                case HighOrLow.High:
+                    await HighChanged.InvokeAsync(val);
+                    break;
+            }
+        }
+    }
 }
