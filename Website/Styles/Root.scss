@@ -1,0 +1,65 @@
+﻿$radius: .5rem;
+$shadow: var(--shadow);
+$shadowExtra: var(--shadowExtra);
+
+$colorAccent: var(--accent);
+$colorTint: var(--ting);
+$colorTintFaint: var(--tintFaint);
+$colorPaper: var(--box);
+$colorDashed: rgba(145, 158, 171, .2);
+
+$colorBackground: var(--background);
+$colorBackgroundLight: var(--backgroundLight);
+$colorBackgroundDark: var(--backgroundDark);
+$colorBackgroundAlt: var(--backgroundAlt);
+$colorBackgroundAltLight: var(--backgroundAltLight);
+$colorBackgroundAltDark: var(--backgroundAltDark);
+
+$colorFont: var(--font);
+$colorFont01: var(--font01);
+$colorFont05: var(--font05);
+$colorFontLight: var(--fontLight);
+$colorFontDark: var(--fontDark);
+
+
+$color__font: #4b4b4b; // Deprecated
+
+$colorInfo: var(--info);
+$colorSuccess: var(--success);
+$colorWarning: var(--warning);
+$colorError: var(--error);
+$currentBackgroundColor: var(--currentBackgroundColor);
+
+$spacing: 1rem;
+$spacing2: .25rem;
+$width: 100rem;
+
+@function sizing($level) {
+	$result: .75;
+
+	@if $level > 0 {
+		@for $_ from 1 through $level {
+			$result: $result * 2;
+		}
+	}
+
+	@return $result + rem;
+}
+
+@mixin absoluteFill {
+	position: absolute;
+	@include mimicParentAndAetEdgeMarginForPosition;
+}
+
+@mixin mimicParentAndAetEdgeMarginForPosition {
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: inherit;
+}
+
+@mixin setBackgroundColor($backgroundColor) {
+	--currentBackgroundColor: #{$backgroundColor};
+	background-color: $currentBackgroundColor;
+}
