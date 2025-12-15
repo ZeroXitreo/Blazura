@@ -50,7 +50,7 @@ jobs:
         run: dotnet pack Blazura --configuration Release --output ./artifacts -p:PackageVersion=${VERSION}
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: package
           path: ./artifacts
