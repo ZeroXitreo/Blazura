@@ -3,14 +3,18 @@
     <GalButton OnClick="OpenModal">Open modal</GalButton>
 </Gapper>
 
+<Modal2 @ref="modal">
+    <h1>A simple example</h1>
+    @username
+</Modal2>
+
 @code {
-    [CascadingParameter]
-    private ModalManager modalManager { get; set; } = null!;
+    private Modal2 modal = null!;
 
     private string username { get; set; } = string.Empty;
 
     private void OpenModal()
     {
-        ModalSimple.Open(modalManager, username);
+        modal.Open();
     }
 }

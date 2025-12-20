@@ -1,6 +1,6 @@
 @import "../Styles/Root.scss";
 
-.DrawerBackdrop {
+.Modal2Backdrop {
     z-index: 10;
     @include mimicParentAndAetEdgeMarginForPosition;
     position: fixed;
@@ -39,42 +39,117 @@
     }
 }
 
-.Drawer {
-    z-index: 10;
+.Modal2 {
+    @include mimicParentAndAetEdgeMarginForPosition;
     position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    max-width: calc(100% - 3rem);
-    width: 32rem;
-    box-shadow: $shadow;
-    background-color: $colorBackground;
-    overflow-y: auto;
-    // Animation
-    transform: translateX(100%);
-    animation-name: OpenDrawer;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, .2);
+    backdrop-filter: blur(.25rem);
+    pointer-events: none;
+    overflow: auto;
+    opacity: 0;
+    animation-name: CloseModal;
     animation-duration: .2s;
     animation-fill-mode: both;
-    animation-timing-function: ease-out;
+    animation-timing-function: ease-in;
 
-    @keyframes OpenDrawer {
+    @keyframes OpenModal {
         to {
-            transform: translateX(0);
+            visibility: visible;
+            opacity: 1;
         }
     }
 
-    &.closed {
-        pointer-events: none;
-        animation-name: CloseDrawer;
-    }
-
-    @keyframes CloseDrawer {
+    @keyframes CloseModal {
         from {
-            transform: translateX(0);
+            visibility: visible;
+            opacity: 1;
         }
 
         to {
-            transform: translateX(100%);
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+
+
+    .positionContainer {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        .ModalScreen {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .containerz {
+            margin: 0 auto;
+            max-width: $width / 5 * 2;
+            width: 100%;
+        }
+    }
+
+    .window {
+
+        $movement: 6rem;
+
+        position: relative;
+        margin: $spacing;
+        box-shadow: $shadow;
+        transform: translateY(-$movement);
+        animation-name: Popout;
+        animation-duration: .2s;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in;
+
+        .boxSpacer {
+            padding: min(4rem,10%) min(6rem,15%);
+        }
+
+        > .close:first-child {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            background-size: cover;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            margin: 0 0 $spacing;
+        }
+
+        @keyframes Popout {
+            from {
+                transform: translateY(0rem);
+            }
+
+            to {
+                transform: translateY($movement);
+            }
+        }
+    }
+
+    &.active {
+        pointer-events: unset;
+        animation-name: OpenModal;
+        animation-timing-function: ease-out;
+
+        .window {
+            animation-name: Popup;
+            animation-timing-function: ease-out;
+        }
+
+        @keyframes Popup {
+            to {
+                transform: translateY(0rem);
+            }
         }
     }
 }

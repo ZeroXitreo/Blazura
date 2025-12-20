@@ -1,0 +1,71 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+@foreach (var renderFragment in renderFragments)
+{
+    <div class="Modal2Backdrop @(renderFragment.Value ? "closed" : null)" @onclick="() => Close(renderFragment.Key)"></div>
+    <div class="Modal2 @(renderFragment.Value ? default : "active")">
+        <div class="positionContainer">
+            <div class="ModalScreen" @onclick="() => Close(renderFragment.Key)"></div>
+            <div class="containerz tiny">
+                <div class="window">
+                    <Paper>
+                        <div class="boxSpacer">
+                            @renderFragment.Key
+                        </div>
+                    </Paper>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
+
+    // boolean indicates if it's closed
+    private Dictionary<RenderFragment, bool> renderFragments = [];
+
+    public void Open(RenderFragment renderFragment)
+    {
+        foreach (var renderFragmentToDelete in renderFragments.Where(rf => rf.Value))
+        {
+            renderFragments.Remove(renderFragmentToDelete.Key);
+            StateHasChanged();
+        }
+        if (renderFragments.ContainsKey(renderFragment))
+        {
+            renderFragments[renderFragment] = false;
+        }
+        else
+        {
+            renderFragments.Add(renderFragment, false);
+        }
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
+    public void Close(RenderFragment renderFragment)
+    {
+        renderFragments[renderFragment] = true;
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
+    public void Remove(RenderFragment renderFragment)
+    {
+        renderFragments.Remove(renderFragment);
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
+    public async Task TriggerRender()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void RunBodyCheck()
+    {
+        backdrop.SetBackdrop(this.GetType(), renderFragments.Any(rf => !rf.Value));
+    }
+}

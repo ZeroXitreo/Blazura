@@ -5,13 +5,16 @@
     <CascadingValue Value="fileViewer">
         <CascadingValue Value="modalManager">
             <CascadingValue Value="drawerManager">
-                <CascadingValue Value="contextMenuManager">
-                    <CascadingValue Value="gaSnackbar">
-                        @Body
+                <CascadingValue Value="modal2Manager">
+                    <CascadingValue Value="contextMenuManager">
+                        <CascadingValue Value="gaSnackbar">
+                            @Body
+                        </CascadingValue>
+                        <GaSnackbar @ref="gaSnackbar" />
                     </CascadingValue>
-                    <GaSnackbar @ref="gaSnackbar" />
+                    <ContextMenuManager @ref="contextMenuManager" />
                 </CascadingValue>
-                <ContextMenuManager @ref="contextMenuManager" />
+                <Modal2Manager @ref="modal2Manager" />
             </CascadingValue>
             <DrawerManager @ref="drawerManager" />
         </CascadingValue>
@@ -27,6 +30,7 @@
     public FileViewer fileViewer { get; set; } = default!;
     public ModalManager modalManager { get; set; } = default!;
     public DrawerManager drawerManager { get; set; } = default!;
+    public Modal2Manager modal2Manager { get; set; } = default!;
     public ContextMenuManager contextMenuManager { get; set; } = default!;
     public GaSnackbar gaSnackbar { get; set; } = default!;
 
