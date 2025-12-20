@@ -1,9 +1,20 @@
-﻿<GalButton OnClick="() => drawer.Open()">Open drawer</GalButton>
+﻿<Gapper>
+    <SimpleInputText @bind-Value="username" />
+    <GalButton OnClick="OpenDrawer">Open drawer</GalButton>
+</Gapper>
 
 <Drawer @ref="drawer">
-    A simple example
+    <h1>A simple example</h1>
+    @username
 </Drawer>
 
 @code {
     private Drawer drawer = null!;
+
+    private string username { get; set; } = string.Empty;
+
+    private void OpenDrawer()
+    {
+        drawer.Open();
+    }
 }

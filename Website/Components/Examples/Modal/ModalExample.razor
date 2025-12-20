@@ -1,0 +1,16 @@
+﻿<Gapper>
+    <SimpleInputText @bind-Value="username" />
+    <GalButton OnClick="OpenModal">Open modal</GalButton>
+</Gapper>
+
+@code {
+    [CascadingParameter]
+    private ModalManager modalManager { get; set; } = null!;
+
+    private string username { get; set; } = string.Empty;
+
+    private void OpenModal()
+    {
+        ModalSimple.Open(modalManager, username);
+    }
+}

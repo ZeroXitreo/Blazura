@@ -1,0 +1,26 @@
+﻿@page "/modal"
+@using Website.Components.Examples.Modal
+@inject IWebHostEnvironment Env
+
+<PageTitle>Banner</PageTitle>
+
+<h1>Banner</h1>
+
+<Paper>
+    <Pad>
+        <Gapper Sizing="Sizing.Xl">
+            <Gapper>
+                <div>
+                    <ModalExample />
+                </div>
+                <CodeBlock>@(GetCodeBlock<ModalExample>())</CodeBlock>
+                ModalSimple.razor
+                <CodeBlock>@(GetCodeBlock<ModalSimple>())</CodeBlock>
+            </Gapper>
+        </Gapper>
+    </Pad>
+</Paper>
+
+@code {
+    private string GetCodeBlock<T>() => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", nameof(Modal), $"{typeof(T).Name}.razor"));
+}
