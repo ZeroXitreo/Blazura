@@ -51,9 +51,9 @@
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.0" />
         <PackageReference Include="Microsoft.ClearScript.Complete" Version="7.5.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
-        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.1" />
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.1" />
         <PackageReference Include="NetCore.AutoRegisterDi" Version="2.2.1" />
     </ItemGroup>
 
