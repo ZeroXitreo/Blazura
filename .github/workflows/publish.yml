@@ -17,7 +17,7 @@ jobs:
     needs: pack
     runs-on: ubuntu-latest
     steps:
-      - name: Download Docker image artifact
+      - name: Download package artifact
         uses: actions/download-artifact@v7
         with:
           name: package
