@@ -12,9 +12,14 @@
         manager?.Open(ChildContent);
     }
 
+    public void Close()
+    {
+        manager?.Close(ChildContent);
+    }
+
     public void Dispose()
     {
-        manager?.Remove(ChildContent);
+        manager?.Dispose(ChildContent);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

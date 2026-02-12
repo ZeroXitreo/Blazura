@@ -1,0 +1,26 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+<VStack>
+    <SimpleInputText @bind-Value="prompt" />
+    <SimpleButton OnClick="modal.Open">Open modal</SimpleButton>
+    @if (deletedItem is not null)
+    {
+        <Banner>Successfully deleted <code>@deletedItem</code></Banner>
+    }
+    </VStack>
+
+<DeleteModal @ref="modal" T="string" Item="prompt" Prompt="(item) => item.Trim()" OnSubmit="OnSubmit" />
+
+@code {
+    private DeleteModal<string> modal = null!;
+
+    [Display(Name = "Prompt")]
+    private string prompt { get; set; } = "prompt";
+
+    private string? deletedItem;
+
+    private void OnSubmit(string item)
+    {
+        deletedItem = item;
+    }
+}

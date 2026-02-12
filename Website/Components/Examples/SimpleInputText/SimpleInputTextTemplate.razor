@@ -1,10 +1,10 @@
 ﻿@using System.ComponentModel.DataAnnotations
 
-<Gapper>
+<VStack>
     <div>A simple text input field</div>
     <SimpleInputText @bind-Value="simpleInputTextValue" />
     Output: @simpleInputTextValue
-</Gapper>
+</VStack>
 
 @code {
     [Display(Name = "Simple input text")]

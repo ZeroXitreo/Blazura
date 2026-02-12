@@ -2,22 +2,39 @@
 @using Website.Components.Examples.Modal
 @inject IWebHostEnvironment Env
 
-<PageTitle>Modal</PageTitle>
+<PageTitle>Modal components</PageTitle>
 
-<h1>Modal</h1>
-
-<Paper>
-    <Pad>
-        <Gapper Sizing="Sizing.Xl">
-            <Gapper>
-                <div>
-                    <ModalExample />
-                </div>
-                <CodeBlock>@(GetCodeBlock<ModalExample>())</CodeBlock>
-            </Gapper>
-        </Gapper>
-    </Pad>
-</Paper>
+<h1>Modal components</h1>
+<VStack>
+    <h2>Modal</h2>
+    <Paper>
+        <Pad>
+            <VStack Sizing="Sizing.Xl">
+                <VStack>
+                    <div>
+                        <ModalExample />
+                    </div>
+                    <CodeBlock>@(GetCodeBlock<ModalExample>())</CodeBlock>
+                </VStack>
+            </VStack>
+        </Pad>
+    </Paper>
+</VStack>
+<VStack>
+    <h2>Delete Modal</h2>
+    <Paper>
+        <Pad>
+            <VStack Sizing="Sizing.Xl">
+                <VStack>
+                    <div>
+                        <DeleteModalExample />
+                    </div>
+                    <CodeBlock>@(GetCodeBlock<DeleteModalExample>())</CodeBlock>
+                </VStack>
+            </VStack>
+        </Pad>
+    </Paper>
+</VStack>
 
 @code {
     private string GetCodeBlock<T>() => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", nameof(Modal), $"{typeof(T).Name}.razor"));

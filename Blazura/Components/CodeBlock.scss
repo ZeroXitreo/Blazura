@@ -1,11 +1,23 @@
 @import "../Styles/Root.scss";
 
+code {
+    background-color: $colorBackgroundAlt;
+    border-radius: $radius / 2;
+    padding: $spacing / 4 $spacing / 2;
+}
+
 .CodeBlock {
     background-color: $colorBackgroundAlt;
     padding: $spacing2 * 4;
     border-radius: $radius;
 
-    pre {
-        margin: unset;
+    code {
+        background-color: unset;
+        border-radius: unset;
+        padding: unset;
+
+        pre {
+            margin: unset;
+        }
     }
 }

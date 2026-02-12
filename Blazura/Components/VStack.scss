@@ -1,15 +1,8 @@
 @import "../Styles/Root.scss";
 
-.Gapper {
+.VStack {
     display: flex;
-
-    &.Vertical {
-        flex-direction: column;
-    }
-
-    &.Horizontal {
-        flex-direction: row;
-    }
+    flex-direction: column;
 
     &.Xxs {
         gap: $spacing2;

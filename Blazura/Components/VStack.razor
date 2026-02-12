@@ -1,4 +1,4 @@
-<div class="Gapper @(Sizing.ToString()) @(Direction.ToString())">
+<div class="VStack @(Sizing.ToString())">
 	@ChildContent
 </div>
 
@@ -8,7 +8,4 @@
 
 	[Parameter]
 	public Sizing Sizing { get; set; } = Sizing.Md;
-
-	[Parameter]
-	public Direction Direction { get; set; } = Direction.Vertical;
 }

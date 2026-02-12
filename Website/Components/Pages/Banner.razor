@@ -16,15 +16,15 @@
         <br />
         <Paper>
             <Pad>
-                <Gapper>
+                <VStack>
                     @if (Type.GetType(typeString) is { } type)
                     {
-                        <Gapper>
+                        <VStack>
                             <DynamicComponent Type="type" />
-                        </Gapper>
+                        </VStack>
                     }
                     <CodeBlock>@(GetCodeBlock(fileName))</CodeBlock>
-                </Gapper>
+                </VStack>
             </Pad>
         </Paper>
     }

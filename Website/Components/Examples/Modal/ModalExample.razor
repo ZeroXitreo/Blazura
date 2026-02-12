@@ -1,17 +1,22 @@
-﻿<Gapper>
+﻿@using System.ComponentModel.DataAnnotations
+
+<VStack>
     <SimpleInputText @bind-Value="username" />
-    <GalButton OnClick="OpenModal">Open modal</GalButton>
-</Gapper>
+    <SimpleButton OnClick="OpenModal">Open modal</SimpleButton>
+</VStack>
 
 <Modal2 @ref="modal">
-    <h1>A simple example</h1>
-    @username
+    <VStack>
+        <h1>A simple example</h1>
+        <SimpleInputText @bind-Value="username" />
+    </VStack>
 </Modal2>
 
 @code {
     private Modal2 modal = null!;
 
-    private string username { get; set; } = string.Empty;
+    [Display(Name = "Username")]
+    private string username { get; set; } = "Username example";
 
     private void OpenModal()
     {

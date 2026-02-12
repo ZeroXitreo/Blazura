@@ -9,16 +9,16 @@
 
 <PageTitle>Home</PageTitle>
 
-<Gapper>
+<VStack>
     <Paper>
         <Pad>
-            <Gapper>
+            <VStack>
                 <SimpleInputTextTemplate />
                 <CodeBlock>@File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", "SimpleInputText", "SimpleInputTextTemplate.razor"))</CodeBlock>
-            </Gapper>
+            </VStack>
         </Pad>
     </Paper>
-</Gapper>
+</VStack>
 
 @code {
 }

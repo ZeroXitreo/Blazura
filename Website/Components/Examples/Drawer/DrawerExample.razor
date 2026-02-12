@@ -1,17 +1,24 @@
-﻿<Gapper>
+﻿@using System.ComponentModel.DataAnnotations
+
+<VStack>
     <SimpleInputText @bind-Value="username" />
-    <GalButton OnClick="OpenDrawer">Open drawer</GalButton>
-</Gapper>
+    <SimpleButton OnClick="OpenDrawer">Open drawer</SimpleButton>
+</VStack>
 
 <Drawer @ref="drawer">
-    <h1>A simple example</h1>
-    @username
+    <Pad>
+        <VStack>
+            <h1>A simple example</h1>
+            <SimpleInputText @bind-Value="username" />
+        </VStack>
+    </Pad>
 </Drawer>
 
 @code {
     private Drawer drawer = null!;
 
-    private string username { get; set; } = string.Empty;
+    [Display(Name = "Username")]
+    private string username { get; set; } = "Username example";
 
     private void OpenDrawer()
     {
