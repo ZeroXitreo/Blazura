@@ -1,7 +1,7 @@
 ﻿@using System.Linq.Expressions;
 @typeparam T
 
-<div class="InputMultiSelect @(isMenuOpen ? "active" : null)" @onfocusout="OnBlur" @onfocusin="OnFocus">
+<div class="InputMultiSelect @(isMenuOpen ? "active" : null)">
 	<div class="inputbordering">
 		<div class="selected">
 			@foreach (T option in Value)
@@ -10,28 +10,28 @@
 					<Chip Text="@DisplayName(option)" OnClick="() => ToggleOption(option)" TrailingIcon="close" />
 				</div>
 			}
-			<input class="PreventSubmit" @ref="inputRef" @bind="Input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="ToggleMenu" />
+			<input class="PreventSubmit" @ref="inputRef" @bind="input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="OpenMenu" @onblur="OnBlur" @onfocus="OnFocus" />
 		</div>
 	</div>
-	<div class="menu" onmousedown="event.preventDefault()">
-		<div class="options">
-			@if (Limit is null || Limit > Value.Count)
-			{
-				if (!filteredAvailableOptions.Any())
-				{
-					<div style="padding: 1rem 1rem;">
-						No options
-					</div>
-				}
-				foreach (T option in filteredAvailableOptions)
-				{
-					<div onmousedown="event.preventDefault()" class="RippleEffect option @(Value.Contains(option) ? "toggle" : null)" @onclick="() => ToggleOption(option)">
-						@DisplayName(option)
-					</div>
-				}
-			}
+	@if (!isLimitReached)
+	{
+		<div class="menu" onmousedown="event.preventDefault()">
+			<div class="options">
+					@if (!filteredAvailableOptions.Any())
+					{
+						<div style="padding: 1rem 1rem; opacity: .5;">
+							No options
+						</div>
+					}
+					@foreach (T option in filteredAvailableOptions)
+					{
+						<div onmousedown="event.preventDefault()" class="RippleEffect option @(Value.Contains(option) ? "toggle" : null)" @onclick="() => ToggleOption(option)">
+							@DisplayName(option)
+						</div>
+					}
+			</div>
 		</div>
-	</div>
+	}
 </div>
 
 @code {
@@ -48,20 +48,27 @@
 	[Parameter]
 	public Func<string, T>? CreateNew { get; set; }
 
-	public bool HasData => Value.Any() || !string.IsNullOrEmpty(Input);
+	public bool HasData => Value.Any() || !string.IsNullOrEmpty(input);
 
-	private string Input
+	private string input
 	{
-		get => field;
+		get;
 		set
 		{
 			field = value;
-			ValueChanged.InvokeAsync(Value).Wait();
+			internalSearch = value;
+			if (isFocused)
+			{
+				isMenuOpen = true;
+			}
 		}
 	} = String.Empty;
+	private string internalSearch { get; set; } = string.Empty;
 	private bool isMenuOpen;
 	private ElementReference inputRef = default!;
-	private IEnumerable<T> filteredAvailableOptions => Options?.Where(option => DisplayName(option).ToLower().Contains(Input.ToLower())) ?? [];
+	private IEnumerable<T> filteredAvailableOptions => Options?.Where(option => DisplayName(option).Contains(internalSearch, StringComparison.InvariantCultureIgnoreCase)) ?? [];
+	private bool isLimitReached => Limit is not null && Value.Count >= Limit;
+	private bool isFocused;
 
 	private async Task OnKeyDown(KeyboardEventArgs e)
 	{
@@ -69,9 +76,9 @@
 		{
 			if (isMenuOpen)
 			{
-				if (CreateNew is not null && !string.IsNullOrWhiteSpace(Input))
+				if (CreateNew is not null && !string.IsNullOrWhiteSpace(input))
 				{
-					await ToggleOption(CreateNew(Input));
+					await ToggleOption(CreateNew(input));
 				}
 				else
 				{
@@ -87,7 +94,7 @@
 				isMenuOpen = true;
 			}
 		}
-		else if (e.Key == "Backspace" && string.IsNullOrEmpty(Input))
+		else if (e.Key == "Backspace" && string.IsNullOrEmpty(input))
 		{
 			T? option = Value.LastOrDefault();
 			if (option is not null)
@@ -99,37 +106,37 @@
 		{
 
 		}
-		else
-		{
-			isMenuOpen = true;
-		}
 	}
 
 	private async Task ToggleOption(T optionValue)
 	{
-		if (!Value.Remove(optionValue) && (Limit is null || Value.Count < Limit))
+		if (!Value.Remove(optionValue) && !isLimitReached)
 		{
-			Input = string.Empty;
 			Value.Add(optionValue);
 		}
 
+		input = string.Empty;
 		await ValueChanged.InvokeAsync(Value);
-		await inputRef.FocusAsync();
 	}
 
-	private void ToggleMenu()
+	private void OpenMenu()
 	{
-		isMenuOpen = !isMenuOpen;
+		internalSearch = "";
+		isMenuOpen = true;
 	}
 
 	private void OnBlur()
 	{
+		var tempInput = input;
+		input = string.Empty;
+		internalSearch = tempInput;
+		isFocused = false;
 		isMenuOpen = false;
-		Input = string.Empty;
 	}
 
 	private void OnFocus()
 	{
-		
+		internalSearch = "";
+		isFocused = true;
 	}
 }

@@ -1,148 +1,146 @@
 ﻿@using System.Linq.Expressions
 @typeparam T
 
-<div class="InputMultiSelect @(isMenuOpen ? "active" : "") @(Disabled ? "disabled" : null)" @onfocusin="OnFocus" @onfocusout="OnBlur">
-	<div class="inputbordering">
-		<div class="selected">
-			@if (Value is not null)
-			{
-				<div class="chip">
-					@if (ValueCanBeNull)
-					{
-						<Chip Text="@DisplayName(Value)" OnClick="() => ToggleOption(default)" TrailingIcon="close" />
-					}
-					else
-					{
-						<Chip Text="@DisplayName(Value)" />
-					}
-				</div>
-			}
-			<input class="PreventSubmit" @ref="inputRef" @bind="Input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="ToggleMenu" />
-		</div>
-	</div>
-	<div class="menu" onmousedown="event.preventDefault()">
-		<div class="options">
-			@if (!filteredAvailableOptions.Any())
-			{
-				@:No options
-			}
-			@foreach (T option in filteredAvailableOptions)
-			{
-				<div class="option @(Value?.Equals(option) ?? false ? "toggle" : null)" @onclick="() => ToggleOption(option)">
-					@DisplayName(option)
-				</div>
-			}
-		</div>
-	</div>
+<div class="InputMultiSelect @(isMenuOpen ? "active" : "") @(Disabled ? "disabled" : null)">
+    <div class="inputbordering">
+        <div class="selected">
+            <input class="PreventSubmit" @bind="input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="OpenMenu" @onfocus="OnFocus" @onblur="OnBlur" />
+        </div>
+    </div>
+    <div class="menu" onmousedown="event.preventDefault()">
+        <div class="options">
+            @if (!filteredAvailableOptions.Any())
+            {
+                <div style="padding: 1rem 1rem; opacity: .5;">
+                    No options
+                </div>
+            }
+            @foreach (T option in filteredAvailableOptions)
+            {
+                <div class="option @(Value?.Equals(option) ?? false ? "toggle" : null)" @onclick="() => ToggleOption(option)">
+                    @DisplayName(option)
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
 @code {
-	[Parameter, EditorRequired]
-	public required T? Value { get; set; } // selected options
+    [Parameter, EditorRequired]
+    public required T? Value
+    {
+        get;
+        set
+        {
+            field = value;
+            if (!isFocused || string.IsNullOrEmpty(internalSearch))
+            {
+                input = value is not null ? DisplayName(value) : "";
+                internalSearch = string.Empty;
+            }
+        }
+    } // selected options
 
-	[Parameter, EditorRequired]
-	public required IEnumerable<T>? Options { get; set; } // total options
+    [Parameter]
+    public EventCallback<T> ValueChanged { get; set; }
 
-	[Parameter, EditorRequired]
-	public required Func<T, string> DisplayName { get; set; }
+    [Parameter, EditorRequired]
+    public required IEnumerable<T>? Options { get; set; } // total options
 
-	[Parameter, EditorRequired]
-	public required bool ValueCanBeNull { get; set; }
+    [Parameter, EditorRequired]
+    public required Func<T, string> DisplayName { get; set; }
 
-	[Parameter]
-	public EventCallback<T> ValueChanged { get; set; }
+    [Parameter, EditorRequired]
+    public required bool ValueCanBeNull { get; set; }
 
-	[Parameter]
-	public Func<string, T>? CreateNew { get; set; }
+    [Parameter]
+    public Func<string, T>? CreateNew { get; set; }
 
-	[Parameter]
-	public required Func<T, T?, bool>? IsEqual { get; set; }
+    [Parameter]
+    public required Func<T, T?, bool>? IsEqual { get; set; }
 
-	[Parameter]
-	public bool Disabled { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
 
-	public bool HasData => Value is not null || !string.IsNullOrEmpty(Input);
+    public bool HasData => Value is not null || !string.IsNullOrEmpty(input);
 
-	private string Input
-	{
-		get => field;
-		set
-		{
-			field = value;
-			ValueChanged.InvokeAsync(Value).Wait();
-		}
-	} = string.Empty;
-	private bool isMenuOpen;
-	private ElementReference inputRef = default!;
-	private IEnumerable<T> filteredAvailableOptions => (Options ?? []).Where(option => DisplayName(option).ToLower().Contains(Input.ToLower()));
+    private string input
+    {
+        get;
+        set
+        {
+            field = value;
+            internalSearch = value;
+            if (isFocused)
+            {
+                isMenuOpen = true;
+            }
+            // ValueChanged.InvokeAsync(Value).Wait();
+        }
+    } = string.Empty;
+    private string internalSearch { get; set; } = string.Empty;
+    private bool isMenuOpen;
+    private IEnumerable<T> filteredAvailableOptions => (Options ?? []).Where(option => DisplayName(option).Contains(internalSearch, StringComparison.InvariantCultureIgnoreCase));
+    private bool isFocused;
 
-	private async Task OnKeyDown(KeyboardEventArgs e)
-	{
-		if (e.Key == "Enter")
-		{
-			if (isMenuOpen)
-			{
-				if (CreateNew is not null && !string.IsNullOrWhiteSpace(Input))
-				{
-					await ToggleOption(CreateNew(Input));
-				}
-				else
-				{
-					T? option = filteredAvailableOptions.FirstOrDefault();
-					if (option is not null)
-					{
-						await ToggleOption(option);
-					}
-				}
-			}
-			else
-			{
-				isMenuOpen = true;
-			}
-		}
-		else if (e.Code == "Backspace" && string.IsNullOrEmpty(Input))
-		{
-			if (ValueCanBeNull)
-			{
-				await ToggleOption(default);
-			}
-		}
-		else
-		{
-			isMenuOpen = true;
-		}
-	}
+    private async Task OnKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            if (isMenuOpen)
+            {
+                if (CreateNew is not null && !string.IsNullOrWhiteSpace(input))
+                {
+                    await ToggleOption(CreateNew(input));
+                }
+                else
+                {
+                    T? option = filteredAvailableOptions.FirstOrDefault();
+                    if (option is not null)
+                    {
+                        await ToggleOption(option);
+                    }
+                }
+            }
+            else
+            {
+                isMenuOpen = true;
+            }
+        }
+        if (e.Code == "Backspace" && string.IsNullOrEmpty(input))
+        {
+            if (ValueCanBeNull)
+            {
+                await ToggleOption(default);
+            }
+        }
+    }
 
-	private async Task ToggleOption(T? optionValue)
-	{
-		Input = string.Empty;
-		Value = optionValue;
+    private async Task ToggleOption(T? optionValue)
+    {
+        isMenuOpen = false;
+        input = string.Empty;
+        await ValueChanged.InvokeAsync(optionValue);
+    }
 
-		await ValueChanged.InvokeAsync(Value);
-		OnBlur();
-	}
+    private void OpenMenu()
+    {
+        internalSearch = "";
+        isMenuOpen = true;
+    }
 
-	private void ToggleMenu()
-	{
-		isMenuOpen = !isMenuOpen;
-	}
+    private void OnBlur()
+    {
+        var tempInput = input;
+        input = Value is not null ? DisplayName(Value) : string.Empty;
+        internalSearch = tempInput;
+        isFocused = false;
+        isMenuOpen = false;
+    }
 
-	private void OpenMenu()
-	{
-		isMenuOpen = true;
-	}
-
-	private void OnBlur()
-	{
-		isMenuOpen = false;
-		if (Value is not null)
-		{
-			Input = DisplayName(Value);
-		}
-	}
-
-	private void OnFocus()
-	{
-
-	}
+    private void OnFocus()
+    {
+        internalSearch = "";
+        isFocused = true;
+    }
 }
