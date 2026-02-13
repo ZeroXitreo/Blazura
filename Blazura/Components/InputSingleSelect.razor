@@ -1,29 +1,34 @@
 ﻿@using System.Linq.Expressions
+@using System.Reflection
 @typeparam T
 
-<div class="InputMultiSelect @(isMenuOpen ? "active" : "") @(Disabled ? "disabled" : null)">
-    <div class="inputbordering">
-        <div class="selected">
-            <input class="PreventSubmit" @bind="input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="OpenMenu" @onfocus="OnFocus" @onblur="OnBlur" />
+<Placeholder For="@ValueExpression" Format="@Format" HasData="HasData">
+    <div class="InputMultiSelect @(isMenuOpen ? "active" : "") @(Disabled ? "disabled" : null)">
+        <div class="inputbordering">
+            <div style="margin: -.2rem 0;">
+                <WrapStack Sizing="Sizing.Xs">
+                    <input class="PreventSubmit inputBase" @bind="input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="OpenMenu" @onfocus="OnFocus" @onblur="OnBlur" />
+                </WrapStack>
+            </div>
+        </div>
+        <div class="menu" onmousedown="event.preventDefault()">
+            <div class="options">
+                @if (!filteredAvailableOptions.Any())
+                {
+                    <div style="padding: 1rem 1rem; opacity: .5;">
+                        No options
+                    </div>
+                }
+                @foreach (T option in filteredAvailableOptions)
+                {
+                    <div class="option @(Value?.Equals(option) ?? false ? "toggle" : null)" @onclick="() => ToggleOption(option)">
+                        @DisplayName(option)
+                    </div>
+                }
+            </div>
         </div>
     </div>
-    <div class="menu" onmousedown="event.preventDefault()">
-        <div class="options">
-            @if (!filteredAvailableOptions.Any())
-            {
-                <div style="padding: 1rem 1rem; opacity: .5;">
-                    No options
-                </div>
-            }
-            @foreach (T option in filteredAvailableOptions)
-            {
-                <div class="option @(Value?.Equals(option) ?? false ? "toggle" : null)" @onclick="() => ToggleOption(option)">
-                    @DisplayName(option)
-                </div>
-            }
-        </div>
-    </div>
-</div>
+</Placeholder>
 
 @code {
     [Parameter, EditorRequired]
@@ -41,17 +46,23 @@
         }
     } // selected options
 
+    [Parameter, EditorRequired]
+    public required IEnumerable<T> Options { get; set; } // total options
+
+    [Parameter]
+    public bool Required { get; set; }
+
     [Parameter]
     public EventCallback<T> ValueChanged { get; set; }
 
-    [Parameter, EditorRequired]
-    public required IEnumerable<T>? Options { get; set; } // total options
+    [Parameter]
+    public Expression<Func<T>>? ValueExpression { get; set; }
 
-    [Parameter, EditorRequired]
-    public required Func<T, string> DisplayName { get; set; }
+    [Parameter]
+    public required Func<T, string> DisplayName { get; set; } = (value) => value?.ToString() ?? string.Empty;
 
-    [Parameter, EditorRequired]
-    public required bool ValueCanBeNull { get; set; }
+    [Parameter]
+    public Func<string, string> Format { get; set; } = (str) => str;
 
     [Parameter]
     public Func<string, T>? CreateNew { get; set; }
@@ -105,15 +116,15 @@
         }
         if (e.Code == "Backspace" && string.IsNullOrEmpty(input))
         {
-            if (ValueCanBeNull)
+            if (!Required)
             {
                 await ToggleOption(default);
             }
         }
-		if (e.Key is "﻿ArrowDown" or ﻿"ArrowUp")
-		{
+        if (e.Key is "﻿ArrowDown" or ﻿"ArrowUp")
+        {
 
-		}
+        }
     }
 
     private async Task ToggleOption(T? optionValue)

@@ -1,56 +1,75 @@
 ﻿@using System.Linq.Expressions;
 @typeparam T
 
-<div class="InputMultiSelect @(isMenuOpen ? "active" : null)">
-	<div class="inputbordering">
-		<div class="selected">
-			@foreach (T option in Value)
-			{
-				<div class="chip">
-					<Chip Text="@DisplayName(option)" OnClick="() => ToggleOption(option)" TrailingIcon="close" />
-				</div>
-			}
-			<input class="PreventSubmit" @ref="inputRef" @bind="input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="OpenMenu" @onblur="OnBlur" @onfocus="OnFocus" />
-			@if (HasData)
-			{
-				<div @onclick="ClearValue" class="RippleEffect" style="opacity: .5; cursor: pointer; width: 2rem; height: 2rem; border-radius: 50%; margin: -.5rem; display: flex; justify-content: center; align-items: center;">
-					<Icon>close</Icon>
-				</div>
-			}
-		</div>
-	</div>
-	@if (!isLimitReached)
-	{
-		<div class="menu" onmousedown="event.preventDefault()">
-			<div class="options">
-					@if (!filteredAvailableOptions.Any())
-					{
-						<div style="padding: 1rem 1rem; opacity: .5;">
-							No options
-						</div>
-					}
-					@foreach (T option in filteredAvailableOptions)
-					{
-						<div onmousedown="event.preventDefault()" class="RippleEffect option @(Value.Contains(option) ? "toggle" : null)" @onclick="() => ToggleOption(option)">
-							@DisplayName(option)
-						</div>
-					}
+<Placeholder For="@ValueExpression" Format="@Format" HasData="HasData">
+	<div class="InputMultiSelect @(isMenuOpen ? "active" : null)">
+		<div class="inputbordering">
+			<div style="margin: -.2rem 0;">
+				<HStack Sizing="Sizing.Xs">
+					<WrapStack Sizing="Sizing.Xs">
+						@foreach (T option in Value)
+						{
+							<div class="chip">
+								<Chip Text="@DisplayName(option)" OnClick="() => ToggleOption(option)" TrailingIcon="close" />
+							</div>
+						}
+						<input class="PreventSubmit inputBase" @ref="inputRef" @bind="input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="OpenMenu" @onblur="OnBlur" @onfocus="OnFocus" />
+					</WrapStack>
+					<StackWeight Weight="0">
+						@if (HasData)
+						{
+							<div @onclick="ClearValue" class="RippleEffect" style="opacity: .5; cursor: pointer; width: 2rem; height: 2rem; border-radius: 50%; margin: -.25rem; display: flex; justify-content: center; align-items: center;">
+								<Icon>close</Icon>
+							</div>
+						}
+					</StackWeight>
+				</HStack>
 			</div>
 		</div>
-	}
-</div>
+		@if (!isLimitReached)
+		{
+			<div class="menu" onmousedown="event.preventDefault()">
+				<div class="options">
+						@if (!filteredAvailableOptions.Any())
+						{
+							<div style="padding: 1rem 1rem; opacity: .5;">
+								No options
+							</div>
+						}
+						@foreach (T option in filteredAvailableOptions)
+						{
+							<div onmousedown="event.preventDefault()" class="RippleEffect option @(Value.Contains(option) ? "toggle" : null)" @onclick="() => ToggleOption(option)">
+								@DisplayName(option)
+							</div>
+						}
+				</div>
+			</div>
+		}
+	</div>
+</Placeholder>
 
 @code {
 	[Parameter, EditorRequired]
 	public required List<T> Value { get; set; } // selected options
+
 	[Parameter, EditorRequired]
-	public required List<T>? Options { get; set; } // total options
-	[Parameter, EditorRequired]
-	public required Func<T, string> DisplayName { get; set; }
+	public required IEnumerable<T> Options { get; set; } // total options
+
+	[Parameter]
+	public required Func<T, string> DisplayName { get; set; } = (value) => value?.ToString() ?? string.Empty;
+
+	[Parameter]
+	public Func<string, string> Format { get; set; } = (str) => str;
+
 	[Parameter]
 	public EventCallback<List<T>> ValueChanged { get; set; }
+
+	[Parameter]
+	public Expression<Func<List<T>>>? ValueExpression { get; set; }
+
 	[Parameter]
 	public int? Limit { get; set; }
+
 	[Parameter]
 	public Func<string, T>? CreateNew { get; set; }
 
@@ -72,7 +91,7 @@
 	private string internalSearch { get; set; } = string.Empty;
 	private bool isMenuOpen;
 	private ElementReference inputRef = default!;
-	private IEnumerable<T> filteredAvailableOptions => Options?.Where(option => DisplayName(option).Contains(internalSearch, StringComparison.InvariantCultureIgnoreCase)) ?? [];
+	private IEnumerable<T> filteredAvailableOptions => Options.Where(option => DisplayName(option).Contains(internalSearch, StringComparison.InvariantCultureIgnoreCase)) ?? [];
 	private bool isLimitReached => Limit is not null && Value.Count >= Limit;
 	private bool isFocused;
 

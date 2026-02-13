@@ -1,122 +1,113 @@
 ﻿@import "../Styles/Root.scss";
 
 .InputMultiSelect {
-	position: relative;
+    position: relative;
 
-	.menu {
-		position: absolute;
-		top: calc(100% + .25rem);
-		left: -.25rem;
-		right: -.25em;
-		min-width: 100%;
-		border-radius: .5rem;
-		cursor: auto;
-		box-shadow: $shadow;
-		max-height: 32rem;
-		overflow-y: auto;
-		z-index: 2;
-		backdrop-filter: blur(1em);
-		transition-property: opacity, visibility;
-		opacity: 0;
-		visibility: hidden;
+    .menu {
+        position: absolute;
+        top: calc(100% + .25rem);
+        left: -.25rem;
+        right: -.25em;
+        min-width: 100%;
+        border-radius: .5rem;
+        cursor: auto;
+        box-shadow: $shadow;
+        max-height: 32rem;
+        overflow-y: auto;
+        z-index: 2;
+        backdrop-filter: blur(1em);
+        transition-property: opacity, visibility;
+        opacity: 0;
+        visibility: hidden;
 
-		.options {
-			$gap: .25rem;
-			position: relative;
-			padding: $gap;
+        .options {
+            $gap: .25rem;
+            position: relative;
+            padding: $gap;
 
-			&:before {
-				content: "";
-				@include absoluteFill;
-				pointer-events: none;
-				opacity: .75;
-				background-color: $colorBackground;
-				z-index: -1;
-			}
+            &:before {
+                content: "";
+                @include absoluteFill;
+                pointer-events: none;
+                opacity: .75;
+                background-color: $colorBackground;
+                z-index: -1;
+            }
 
-			.option {
-				border: unset;
-				background: unset;
-				font: unset;
-				line-height: 1.5rem;
-				white-space: nowrap;
-				text-align: unset;
-				padding: $spacing2 $spacing2 * 4;
-				cursor: pointer;
-				display: block;
-				font-weight: 700;
-				width: calc(100%);
-				color: inherit;
-				background-color: transparent;
-				margin: $gap 0;
-				border-radius: .25rem;
-				overflow: hidden;
-				position: relative;
+            .option {
+                border: unset;
+                background: unset;
+                font: unset;
+                line-height: 1.5rem;
+                white-space: nowrap;
+                text-align: unset;
+                padding: $spacing2 $spacing2 * 4;
+                cursor: pointer;
+                display: block;
+                font-weight: 700;
+                width: calc(100%);
+                color: inherit;
+                background-color: transparent;
+                margin: $gap 0;
+                border-radius: .25rem;
+                overflow: hidden;
+                position: relative;
 
-				&:first-child {
-					margin-top: unset;
-				}
+                &:first-child {
+                    margin-top: unset;
+                }
 
-				&:last-child {
-					margin-bottom: unset;
-				}
+                &:last-child {
+                    margin-bottom: unset;
+                }
 
-				&:before {
-					content: "";
-					position: absolute;
-					pointer-events: none;
-					top: 0;
-					left: 0;
-					right: 0;
-					bottom: 0;
-					background-color: $colorFont;
-					z-index: -1;
-					transition-property: opacity;
-					opacity: 0;
-				}
+                &:before {
+                    content: "";
+                    position: absolute;
+                    pointer-events: none;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: $colorFont;
+                    z-index: -1;
+                    transition-property: opacity;
+                    opacity: 0;
+                }
 
-				&:hover,
-				&.toggle {
+                &:hover,
+                &.toggle {
 
-					&:before {
-						opacity: .2;
-					}
-				}
-			}
-		}
-	}
+                    &:before {
+                        opacity: .2;
+                    }
+                }
+            }
+        }
+    }
 
-	&.active {
+    &.active {
 
-		.menu {
-			opacity: 1;
-			visibility: unset;
-		}
-	}
+        .menu {
+            opacity: 1;
+            visibility: unset;
+        }
+    }
 
-	&.disabled {
-		pointer-events: none;
-		opacity: .5;
+    &.disabled {
+        pointer-events: none;
+        opacity: .5;
 
-		.menu {
-			opacity: 0;
-			visibility: hidden;
-		}
-	}
+        .menu {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
 
-	.selected {
-		display: flex;
-		flex-wrap: wrap;
-		gap: .5rem;
-
-		.chip {
-			margin: -.18rem 0;
-		}
-
-		input {
-			min-width: 1rem;
-			flex-grow: 1;
-			border-radius: unset;
-		}
-	}
+    .inputBase {
+        height: 1.5rem;
+        min-width: 1rem;
+        flex-grow: 1;
+        border-radius: unset;
+    }
 }

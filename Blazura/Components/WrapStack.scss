@@ -1,12 +1,8 @@
 @import "../Styles/Root.scss";
 
-.HStack {
+.WrapStack {
     display: flex;
-    flex-direction: row;
-
-    &.None {
-        gap: unset;
-    }
+    flex-wrap: wrap;
 
     &.Xxs {
         gap: $spacing2;
@@ -34,9 +30,5 @@
 
     &.Xxl {
         gap: $spacing2 * 16;
-    }
-
-    > * {
-        flex: 1;
     }
 }
