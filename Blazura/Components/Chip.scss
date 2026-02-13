@@ -1,46 +1,31 @@
 ﻿@import "../Styles/Root.scss";
 
 .Chip {
-	padding: .1em .2em;
-	border-radius: .375rem;
-	overflow: hidden;
-	color: $colorAccent;
-	font-weight: 600;
-	font-size: 0.875em;
-	vertical-align: middle;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	line-height: 1em;
-	opacity: .9;
-	position: relative;
+    padding: .25rem .25rem;
+    border-radius: $spacing / 4;
+    line-height: 1rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: flex;
+    gap: .25rem;
+    background-color: $colorAccent;
+    color: hsl(from $colorAccent h s calc(l - 40));
 
-	&:before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		border-radius: inherit;
-		background-color: currentColor;
-		opacity: .2;
-		z-index: -1;
-	}
+    $colors: ( "error": $colorError, "warning": $colorWarning, "info": $colorInfo,"success": $colorSuccess, );
 
-	&.error {
-		color: $colorError;
-	}
+    @each $name, $color in $colors {
+        &.#{$name} {
+            background-color: $color;
+            color: hsl(from $color h s calc(l - 40));
+        }
+    }
 
-	&.warning {
-		color: $colorWarning;
-	}
+    &.clickable {
+        cursor: pointer;
+    }
 
-	&.info {
-		color: $colorInfo;
-	}
-
-	&.success {
-		color: $colorSuccess;
-	}
+    .icon {
+        font-family: "Material Symbols Rounded";
+        font-size: 1em;
+    }
 }

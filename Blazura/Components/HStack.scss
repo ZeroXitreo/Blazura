@@ -3,6 +3,11 @@
 .HStack {
     display: flex;
     flex-direction: row;
+    align-items: center;
+
+    &.None {
+        gap: unset;
+    }
 
     &.Xxs {
         gap: $spacing2;
@@ -30,5 +35,9 @@
 
     &.Xxl {
         gap: $spacing2 * 16;
+    }
+
+    > * {
+        flex: 1;
     }
 }

@@ -1,54 +1,32 @@
 ﻿<nav class="nav">
     <Pad>
         <VStack>
-            <NavLink href="">
-                <SimpleButton>
-                    <Flexer Horizonal="HorizonalDirection.SpaceBetween" VerticalAlignment="VerticalAlignment.Middle">
-                        <div>
-                            <span>Home</span>
-                        </div>
-                        <div>
-                        </div>
-                    </Flexer>
-                </SimpleButton>
-            </NavLink>
-
-            <NavLink href="banner">
-                <SimpleButton>
-                    <Flexer Horizonal="HorizonalDirection.SpaceBetween" VerticalAlignment="VerticalAlignment.Middle">
-                        <div>
-                            <span>Banner</span>
-                        </div>
-                        <div>
-                        </div>
-                    </Flexer>
-                </SimpleButton>
-            </NavLink>
-
-            <NavLink href="drawer">
-                <SimpleButton>
-                    <Flexer Horizonal="HorizonalDirection.SpaceBetween" VerticalAlignment="VerticalAlignment.Middle">
-                        <div>
-                            <span>Drawer</span>
-                        </div>
-                        <div>
-                        </div>
-                    </Flexer>
-                </SimpleButton>
-            </NavLink>
-
-            <NavLink href="modal">
-                <SimpleButton>
-                    <Flexer Horizonal="HorizonalDirection.SpaceBetween" VerticalAlignment="VerticalAlignment.Middle">
-                        <div>
-                            <span>Modal</span>
-                        </div>
-                        <div>
-                        </div>
-                    </Flexer>
-                </SimpleButton>
-            </NavLink>
+            @foreach (var navLink in navLinks)
+            {
+                <NavLink href="@navLink.Value">
+                    <SimpleButton>
+                        <Flexer Horizonal="HorizonalDirection.SpaceBetween" VerticalAlignment="VerticalAlignment.Middle">
+                            <div>
+                                <span>@navLink.Key</span>
+                            </div>
+                            <div>
+                            </div>
+                        </Flexer>
+                    </SimpleButton>
+                </NavLink>
+            }
         </VStack>
     </Pad>
 </nav>
 
+@code {
+    private Dictionary<string, string> navLinks = new()
+    {
+        { "Home", "" },
+        { "Banner", "banner" },
+        { "Drawer", "drawer" },
+        { "Modal", "modal" },
+        { "Chip", "chip" },
+        { "SimpleSelect", "select" },
+    };
+}

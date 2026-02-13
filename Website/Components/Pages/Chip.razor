@@ -1,0 +1,24 @@
+﻿@page "/chip"
+@using Website.Components.Examples.Chip
+@inject IWebHostEnvironment Env
+
+<PageTitle>Chip</PageTitle>
+
+<h1>Chip</h1>
+
+<Paper>
+    <Pad>
+        <VStack Sizing="Sizing.Xl">
+            <VStack>
+                <StackWeight>
+                    <ChipExample />
+                </StackWeight>
+                <CodeBlock>@(GetCodeBlock<ChipExample>())</CodeBlock>
+            </VStack>
+        </VStack>
+    </Pad>
+</Paper>
+
+@code {
+    private string GetCodeBlock<T>() => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", nameof(Chip), $"{typeof(T).Name}.razor"));
+}

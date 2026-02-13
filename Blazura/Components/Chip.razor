@@ -1,5 +1,7 @@
-﻿<div class="Chip @Colour?.ToString().ToLower()" title="@Description">
+﻿<div class="Chip @Colour?.ToString().ToLower() @(OnClick.HasDelegate ? "clickable" : null) @(OnClick.HasDelegate ? "RippleEffect" : null)" title="@Description" @onclick="OnClick">
+	<div class="icon">@LeadingIcon</div>
 	@Text
+	<div class="icon">@TrailingIcon</div>
 </div>
 
 @code {
@@ -12,6 +14,12 @@
 	[Parameter]
 	public string? Description { get; set; }
 
-	// [Parameter]
-	// public EventCallback? OnClick { get; set; }
+	[Parameter]
+	public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+	[Parameter]
+	public string? LeadingIcon { get; set; }
+
+	[Parameter]
+	public string? TrailingIcon { get; set; }
 }

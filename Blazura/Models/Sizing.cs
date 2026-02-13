@@ -2,6 +2,7 @@
 
 public enum Sizing
 {
+    None, // None
     Xxs, // Extra Extra Small
     Xs, // Extra Small
     Sm, // Small

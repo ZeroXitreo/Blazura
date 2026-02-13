@@ -1,28 +1,31 @@
 ﻿@using System.Linq.Expressions;
 @typeparam T
 
-<div class="InputMultiSelect @(isMenuOpen ? "active" : null)" @onfocusin="OnFocus" @onfocusout="OnBlur" tabindex="0">
+<div class="InputMultiSelect @(isMenuOpen ? "active" : null)" @onfocusout="OnBlur" @onfocusin="OnFocus">
 	<div class="inputbordering">
 		<div class="selected">
 			@foreach (T option in Value)
 			{
-				<div class="chip" tabindex="0">
-					<Flexer noGap="true">
-						@DisplayName(option)
-						<div class="icon" @onclick="() => ToggleOption(option)" tabindex="0">cancel</div>
-					</Flexer>
+				<div class="chip">
+					<Chip Text="@DisplayName(option)" OnClick="() => ToggleOption(option)" TrailingIcon="close" />
 				</div>
 			}
-			<input class="PreventSubmit" @ref="inputRef" @bind="Input" @bind:event="oninput" @onkeydown="OnKeyDown" />
+			<input class="PreventSubmit" @ref="inputRef" @bind="Input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="ToggleMenu" />
 		</div>
 	</div>
-	<div class="menu">
+	<div class="menu" onmousedown="event.preventDefault()">
 		<div class="options">
 			@if (Limit is null || Limit > Value.Count)
 			{
+				if (!filteredAvailableOptions.Any())
+				{
+					<div style="padding: 1rem 1rem;">
+						No options
+					</div>
+				}
 				foreach (T option in filteredAvailableOptions)
 				{
-					<div class="option @(Value.Contains(option) ? "toggle" : null)" @onclick="() => ToggleOption(option)" tabindex="0">
+					<div onmousedown="event.preventDefault()" class="RippleEffect option @(Value.Contains(option) ? "toggle" : null)" @onclick="() => ToggleOption(option)">
 						@DisplayName(option)
 					</div>
 				}
@@ -49,42 +52,56 @@
 
 	private string Input
 	{
-		get => _input;
+		get => field;
 		set
 		{
-			_input = value;
+			field = value;
 			ValueChanged.InvokeAsync(Value).Wait();
 		}
-	}
-	private string _input = String.Empty;
+	} = String.Empty;
 	private bool isMenuOpen;
 	private ElementReference inputRef = default!;
 	private IEnumerable<T> filteredAvailableOptions => Options?.Where(option => DisplayName(option).ToLower().Contains(Input.ToLower())) ?? [];
 
 	private async Task OnKeyDown(KeyboardEventArgs e)
 	{
-		if (e.Code == "Enter" || e.Key == "Enter" || e.Code == "NumpadEnter")
+		if (e.Key == "Enter")
 		{
-			if (CreateNew is not null && !string.IsNullOrWhiteSpace(Input))
+			if (isMenuOpen)
 			{
-				await ToggleOption(CreateNew(Input));
+				if (CreateNew is not null && !string.IsNullOrWhiteSpace(Input))
+				{
+					await ToggleOption(CreateNew(Input));
+				}
+				else
+				{
+					T? option = filteredAvailableOptions.FirstOrDefault();
+					if (option is not null)
+					{
+						await ToggleOption(option);
+					}
+				}
 			}
 			else
 			{
-				T? option = filteredAvailableOptions.FirstOrDefault();
-				if (option is not null)
-				{
-					await ToggleOption(option);
-				}
+				isMenuOpen = true;
 			}
 		}
-		if (e.Code == "Backspace" && string.IsNullOrEmpty(Input))
+		else if (e.Key == "Backspace" && string.IsNullOrEmpty(Input))
 		{
 			T? option = Value.LastOrDefault();
 			if (option is not null)
 			{
 				await ToggleOption(option);
 			}
+		}
+		else if (e.Key is "﻿ArrowDown" or ﻿"ArrowUp")
+		{
+
+		}
+		else
+		{
+			isMenuOpen = true;
 		}
 	}
 
@@ -100,11 +117,19 @@
 		await inputRef.FocusAsync();
 	}
 
-	private async Task OnFocus()
+	private void ToggleMenu()
 	{
-		isMenuOpen = true;
-		await inputRef.FocusAsync();
+		isMenuOpen = !isMenuOpen;
 	}
 
-	private void OnBlur() => isMenuOpen = false;
+	private void OnBlur()
+	{
+		isMenuOpen = false;
+		Input = string.Empty;
+	}
+
+	private void OnFocus()
+	{
+		
+	}
 }

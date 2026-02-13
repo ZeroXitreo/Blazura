@@ -1,0 +1,10 @@
+﻿@using System.ComponentModel.DataAnnotations
+<VStack>
+    Currently selected options: @string.Join(", ", selectedOptions)
+    <InputSingleSelect @bind-Value="selectedOptions" ValueCanBeNull="false" Options="options" DisplayName="(o) => o" />
+</VStack>
+
+@code {
+    private List<string> options = ["Apple", "Banana"];
+    private string selectedOptions = "Orange";
+}

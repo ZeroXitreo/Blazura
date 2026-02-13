@@ -1,0 +1,10 @@
+﻿@using System.ComponentModel.DataAnnotations
+<VStack>
+    Currently selected options: @string.Join(", ", selectedOptions)
+    <InputMultiSelect @bind-Value="selectedOptions" Options="options" DisplayName="(o) => o" />
+</VStack>
+
+@code {
+    private List<string> options = ["Apple", "Banana"];
+    private List<string> selectedOptions = ["Apple", "Orange"];
+}

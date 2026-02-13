@@ -38,7 +38,7 @@
 				border: unset;
 				background: unset;
 				font: unset;
-				line-height: 2rem;
+				line-height: 1.5rem;
 				white-space: nowrap;
 				text-align: unset;
 				padding: $spacing2 $spacing2 * 4;
@@ -110,49 +110,7 @@
 		gap: .5rem;
 
 		.chip {
-			$height: 1.1875rem;
-			padding: 0 .2em;
-			border-radius: .375rem;
-			height: $height;
-			overflow: hidden;
-			color: $colorAccent;
-			font-weight: 600;
-			font-size: 0.875em;
-			vertical-align: middle;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			opacity: .9;
-			position: relative;
-
-			&:before {
-				content: "";
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				border-radius: inherit;
-				background-color: $colorAccent;
-				opacity: .2;
-				z-index: -1;
-			}
-
-			.icon {
-				display: inline-block;
-				padding: unset;
-				color: inherit;
-				font-size: inherit;
-				vertical-align: middle;
-				border-radius: 50%;
-				cursor: pointer;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				height: calc($height - .4em);
-				width: calc($height - .4em);
-				margin-left: .2em;
-			}
+			margin: -.18rem 0;
 		}
 
 		input {

@@ -1,0 +1,11 @@
+<div class="StackWeight" style="--weight: @Weight;">
+	@ChildContent
+</div>
+
+@code {
+	[Parameter]
+	public RenderFragment? ChildContent { get; set; }
+
+	[Parameter]
+	public float Weight { get; set; } = 1;
+}
