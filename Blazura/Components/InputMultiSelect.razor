@@ -94,7 +94,7 @@
 				isMenuOpen = true;
 			}
 		}
-		else if (e.Key == "Backspace" && string.IsNullOrEmpty(input))
+		if (e.Key == "Backspace" && string.IsNullOrEmpty(input))
 		{
 			T? option = Value.LastOrDefault();
 			if (option is not null)
@@ -102,7 +102,7 @@
 				await ToggleOption(option);
 			}
 		}
-		else if (e.Key is "﻿ArrowDown" or ﻿"ArrowUp")
+		if (e.Key is "﻿ArrowDown" or ﻿"ArrowUp")
 		{
 
 		}

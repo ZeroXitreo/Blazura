@@ -114,6 +114,10 @@
                 await ToggleOption(default);
             }
         }
+		if (e.Key is "﻿ArrowDown" or ﻿"ArrowUp")
+		{
+
+		}
     }
 
     private async Task ToggleOption(T? optionValue)
@@ -131,7 +135,7 @@
 
     private void OnBlur()
     {
-        var tempInput = input;
+        var tempInput = internalSearch;
         input = Value is not null ? DisplayName(Value) : string.Empty;
         internalSearch = tempInput;
         isFocused = false;
