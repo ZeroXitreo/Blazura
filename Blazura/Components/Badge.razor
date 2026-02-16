@@ -1,6 +1,6 @@
 ﻿<div class="BadgeContainer">
 	@ChildContent
-	<div class="Badge @(HideBadge ? "hidden" : null) @(BadgeAnchor.ToString())">@Text</div>
+	<div class="Badge @(HideBadge ? "hidden" : null) @(BadgeAnchor.ToString()) @(Color.ToString())">@Text</div>
 </div>
 
 @code {
@@ -8,11 +8,14 @@
 	public RenderFragment? ChildContent { get; set; }
 
 	[Parameter]
-	public object? Text { get; set; }
+	public string Text { get; set; } = string.Empty;
 
 	[Parameter]
 	public bool HideBadge { get; set; }
 
 	[Parameter]
-    public BadgeAnchor BadgeAnchor { get; set; } = BadgeAnchor.TopRight;
+	public BadgeAnchor BadgeAnchor { get; set; } = BadgeAnchor.TopRight;
+
+	[Parameter]
+	public Color Color { get; set; } = Color.Error;
 }

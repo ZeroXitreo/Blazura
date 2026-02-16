@@ -9,14 +9,15 @@
     display: flex;
     gap: .25rem;
     background-color: $colorAccent;
-    color: hsl(from $colorAccent h s calc(l - 40));
+    color: $colorFontDark;
+    /*color: hsl(from $colorAccent h s calc(l + 40));*/
 
     $colors: ( "error": $colorError, "warning": $colorWarning, "info": $colorInfo,"success": $colorSuccess, );
 
     @each $name, $color in $colors {
         &.#{$name} {
             background-color: $color;
-            color: hsl(from $color h s calc(l - 40));
+            color: $colorFontDark;
         }
     }
 

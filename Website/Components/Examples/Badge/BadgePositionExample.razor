@@ -1,0 +1,35 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+<VStack>
+    <HStack>
+        <Badge Text="1337" BadgeAnchor="BadgeAnchor.TopLeft">
+            <SimpleButton>Top left</SimpleButton>
+        </Badge>
+        <Badge Text="1337" BadgeAnchor="BadgeAnchor.TopMiddle">
+            <SimpleButton>Top middle</SimpleButton>
+        </Badge>
+        <Badge Text="1337" BadgeAnchor="BadgeAnchor.TopRight">
+            <SimpleButton>Top right</SimpleButton>
+        </Badge>
+    </HStack>
+    <HStack>
+        <Badge Text="1337" BadgeAnchor="BadgeAnchor.MiddleLeft" Color="Color.Info">
+            <SimpleButton>Middle left</SimpleButton>
+        </Badge>
+        <StackWeight/>
+        <Badge Text="1337" BadgeAnchor="BadgeAnchor.MiddleRight" Color="Color.Error">
+            <SimpleButton>Middle right</SimpleButton>
+        </Badge>
+    </HStack>
+    <HStack>
+        <Badge Text="1337" BadgeAnchor="BadgeAnchor.BottomLeft" Color="Color.Warning">
+            <SimpleButton>Bottom left</SimpleButton>
+        </Badge>
+        <Badge Text="1337" BadgeAnchor="BadgeAnchor.BottomMiddle" Color="Color.Success">
+            <SimpleButton>Bottom middle</SimpleButton>
+        </Badge>
+        <Badge Text="1337" BadgeAnchor="BadgeAnchor.BottomRight" Color="Color.Accent">
+            <SimpleButton>Bottom right</SimpleButton>
+        </Badge>
+    </HStack>
+</VStack>
