@@ -1,0 +1,10 @@
+﻿@page "/stacks"
+@using Website.Components.Examples.Stacks
+@using Website.Components.Shared
+@inject IWebHostEnvironment Env
+
+<PageTitle>Stacks</PageTitle>
+
+<h1>Stacks</h1>
+<ExampleWrapper Folder="@(nameof(Stacks))" Type="typeof(VStackExample)" />
+<ExampleWrapper Folder="@(nameof(Stacks))" Type="typeof(VStackSizeExample)" />

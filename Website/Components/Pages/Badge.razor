@@ -1,34 +1,13 @@
 ﻿@page "/badge"
 @using Website.Components.Examples.Badge
+@using Website.Components.Shared
 @inject IWebHostEnvironment Env
 
 <PageTitle>Badge</PageTitle>
 
 <h1>Badge</h1>
-<Paper>
-    <Pad>
-        <VStack Sizing="Sizing.Xl">
-            <VStack>
-                <StackWeight>
-                    <BadgeExample />
-                </StackWeight>
-                <CodeBlock>@(GetCodeBlock<BadgeExample>())</CodeBlock>
-            </VStack>
-        </VStack>
-    </Pad>
-</Paper>
-<Paper>
-    <Pad>
-        <VStack Sizing="Sizing.Xl">
-            <VStack>
-                <StackWeight>
-                    <BadgePositionExample />
-                </StackWeight>
-                <CodeBlock>@(GetCodeBlock<BadgePositionExample>())</CodeBlock>
-            </VStack>
-        </VStack>
-    </Pad>
-</Paper>
+<ExampleWrapper Folder="@(nameof(Badge))" Type="typeof(BadgeExample)" />
+<ExampleWrapper Folder="@(nameof(Badge))" Type="typeof(BadgePositionExample)" />
 
 @code {
     private string GetCodeBlock<T>() => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", nameof(Badge), $"{typeof(T).Name}.razor"));

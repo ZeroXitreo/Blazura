@@ -1,34 +1,13 @@
 ﻿@page "/select"
 @using Website.Components.Examples.SimpleSelect
+@using Website.Components.Shared
 @inject IWebHostEnvironment Env
 
 <PageTitle>SimpleSelect</PageTitle>
 
 <h1>SimpleSelect</h1>
-<Paper>
-    <Pad>
-        <VStack Sizing="Sizing.Xl">
-            <VStack>
-                <StackWeight>
-                    <SelectExample />
-                </StackWeight>
-                <CodeBlock>@(GetCodeBlock<SelectExample>())</CodeBlock>
-            </VStack>
-        </VStack>
-    </Pad>
-</Paper>
-<Paper>
-    <Pad>
-        <VStack Sizing="Sizing.Xl">
-            <VStack>
-                <StackWeight>
-                    <MultiSelectExample />
-                </StackWeight>
-                <CodeBlock>@(GetCodeBlock<MultiSelectExample>())</CodeBlock>
-            </VStack>
-        </VStack>
-    </Pad>
-</Paper>
+<ExampleWrapper Folder="@(nameof(SimpleSelect))" Type="typeof(SelectExample)" />
+<ExampleWrapper Folder="@(nameof(SimpleSelect))" Type="typeof(MultiSelectExample)" />
 
 @code {
     private string GetCodeBlock<T>() => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", nameof(SimpleSelect), $"{typeof(T).Name}.razor"));

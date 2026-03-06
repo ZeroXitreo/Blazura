@@ -1,0 +1,32 @@
+﻿@inject IWebHostEnvironment env
+
+<Paper>
+    <Pad>
+        <VStack Sizing="Sizing.Xl">
+            <HStack>
+                <StackWeight Weight="2">
+                    <VStack>
+                        <h3>Code</h3>
+                        <CodeBlock>@(GetCodeBlock())</CodeBlock>
+                    </VStack>
+                </StackWeight>
+                <StackWeight Weight="1">
+                    <VStack>
+                        <h3>Output</h3>
+                        <DynamicComponent Type="Type" />
+                    </VStack>
+                </StackWeight>
+            </HStack>
+        </VStack>
+    </Pad>
+</Paper>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Folder { get; set; }
+
+    [Parameter, EditorRequired]
+    public Type Type { get; set; }
+
+    private string GetCodeBlock() => File.ReadAllText(Path.Combine(env.ContentRootPath, "Components", "Examples", Folder, $"{Type.Name}.razor"));
+}

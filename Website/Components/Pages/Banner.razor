@@ -1,5 +1,6 @@
 ﻿@page "/banner"
 @using Website.Components.Examples.Banner
+@using Website.Components.Shared
 @inject IWebHostEnvironment Env
 
 <PageTitle>Banner</PageTitle>
@@ -12,21 +13,11 @@
     foreach (var file in files)
     {
         var fileName = Path.GetFileNameWithoutExtension(file);
-        var typeString = $"Website.Components.Examples.{this.GetType().Name}.{fileName}";
-        <br />
-        <Paper>
-            <Pad>
-                <VStack>
-                    @if (Type.GetType(typeString) is { } type)
-                    {
-                        <VStack>
-                            <DynamicComponent Type="type" />
-                        </VStack>
-                    }
-                    <CodeBlock>@(GetCodeBlock(fileName))</CodeBlock>
-                </VStack>
-            </Pad>
-        </Paper>
+        var typeString = $"Website.Components.Examples.{GetType().Name}.{fileName}";
+        @if (Type.GetType(typeString) is { } type)
+        {
+            <ExampleWrapper Folder="@(GetType().Name)" Type="type" />
+        }
     }
 }
 
