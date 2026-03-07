@@ -1,6 +1,6 @@
-﻿@using static Blazura.Components.ULIconButton
+﻿@using static Blazura.Components.IconButton
 
-<ULIconButton Type="@Type" Icon="@Icon" @onclick="(e) => contextMenu.Open(e)" />
+<IconButton Type="@Type" Icon="@Icon" @onclick="(e) => contextMenu.Open(e)" />
 <ContextMenu @ref="contextMenu">
     @ChildContent
 </ContextMenu>
@@ -8,7 +8,7 @@
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string Icon { get; set; } = "more_vert";
-    [Parameter] public ULIconButtonType Type { get; set; }
+    [Parameter] public IconButtonType Type { get; set; }
 
     private ContextMenu contextMenu = default!;
 }

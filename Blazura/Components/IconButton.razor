@@ -1,0 +1,26 @@
+@switch (Type)
+{
+    case IconButtonType.Material:
+        <div class="IconButton RippleEffect" @oncontextmenu:preventDefault="@AdditionalAttributes.ContainsKey("oncontextmenu")" @attributes="AdditionalAttributes">@Icon</div>
+        break;
+    case IconButtonType.Url:
+        <div class="IconButton RippleEffect" style="background-image: url(@Icon)" @oncontextmenu:preventDefault="@AdditionalAttributes.ContainsKey("oncontextmenu")" @attributes="AdditionalAttributes" />
+        break;
+}
+
+@code {
+    [Parameter, EditorRequired]
+    public required string Icon { get; set; }
+
+    [Parameter]
+    public IconButtonType Type { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
+
+    public enum IconButtonType
+    {
+        Material,
+        Url,
+    }
+}
