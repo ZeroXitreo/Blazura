@@ -1,0 +1,8 @@
+﻿@page "/fileviewer"
+@using Website.Components.Examples.FileViewer
+@using Website.Components.Shared
+
+<PageTitle>File viewer</PageTitle>
+
+<h1>File viewer</h1>
+<ExampleWrapper Folder="@(this.GetType().Name)" Type="typeof(FileViewerExample)" />

@@ -1,19 +1,10 @@
-﻿@using System.ComponentModel.DataAnnotations
-
-<div style="display: flex; gap: .5rem;">
-    <Chip Text="awef" />
-    <Chip Text="WW" Colour="Color.Accent" LeadingIcon="info" />
-    <Chip Text="iiii" Colour="Color.Default" TrailingIcon="refresh" />
-    <Chip Text="aaaa" Colour="Color.Info" />
-    <Chip Text="jjjj" Colour="Color.Error" />
-    <Chip Text="ssss" Colour="Color.Success" />
-    <Chip Text="awef" Colour="Color.Warning" />
-    <Chip Text="awef" OnClick="OnClick" Colour="Color.Warning" LeadingIcon="close" />
-</div>
-
-@code {
-    private void OnClick()
-    {
-        
-    }
-}
+﻿<WrapStack Sizing="Sizing.Xs">
+    <Chip Text="One" />
+    <Chip Text="Two" Colour="Color.Accent" LeadingIcon="info" />
+    <Chip Text="Three" Colour="Color.Default" TrailingIcon="refresh" />
+    <Chip Text="Four" Colour="Color.Info" />
+    <Chip Text="Five" Colour="Color.Error" />
+    <Chip Text="Six" Colour="Color.Success" />
+    <Chip Text="Seven" Colour="Color.Warning" />
+    <Chip Text="Eight" OnClick="() => { }" Colour="Color.Warning" LeadingIcon="close" />
+</WrapStack>

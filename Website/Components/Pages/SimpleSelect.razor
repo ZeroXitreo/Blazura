@@ -8,7 +8,3 @@
 <h1>SimpleSelect</h1>
 <ExampleWrapper Folder="@(nameof(SimpleSelect))" Type="typeof(SelectExample)" />
 <ExampleWrapper Folder="@(nameof(SimpleSelect))" Type="typeof(MultiSelectExample)" />
-
-@code {
-    private string GetCodeBlock<T>() => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", nameof(SimpleSelect), $"{typeof(T).Name}.razor"));
-}

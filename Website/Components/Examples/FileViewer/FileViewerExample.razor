@@ -1,0 +1,28 @@
+﻿<SimpleButton OnClick="OpenFileViewer">Open file viewer</SimpleButton>
+
+@code {
+    [CascadingParameter]
+    private FileViewer fileViewer { get; set; } = default!;
+
+    private List<File> files = [
+        new() {
+            Path = "/images/img1.jpg"
+        },
+        new() {
+            Path = "/images/img2.jpg"
+        },
+        new() {
+            Path = "/images/img3.png"
+        },
+    ];
+
+    private void OpenFileViewer()
+    {
+        fileViewer.Open(files.First(), files);
+    }
+
+    private class File : IPath
+    {
+        public required string Path { get; init; }
+    }
+}

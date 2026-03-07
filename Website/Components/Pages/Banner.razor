@@ -20,7 +20,3 @@
         }
     }
 }
-
-@code {
-    private string GetCodeBlock(string componentName) => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", this.GetType().Name, $"{componentName}.razor"));
-}

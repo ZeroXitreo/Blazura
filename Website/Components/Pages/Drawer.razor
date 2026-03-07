@@ -1,24 +1,9 @@
 ﻿@page "/drawer"
 @using Website.Components.Examples.Drawer
+@using Website.Components.Shared
 @inject IWebHostEnvironment Env
 
 <PageTitle>Drawer</PageTitle>
 
 <h1>Drawer</h1>
-
-<Paper>
-    <Pad>
-        <VStack Sizing="Sizing.Xl">
-            <VStack>
-                <StackWeight>
-                    <DrawerExample />
-                </StackWeight>
-                <CodeBlock>@(GetCodeBlock<DrawerExample>())</CodeBlock>
-            </VStack>
-        </VStack>
-    </Pad>
-</Paper>
-
-@code {
-    private string GetCodeBlock<T>() => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", nameof(Drawer), $"{typeof(T).Name}.razor"));
-}
+<ExampleWrapper Folder="@(this.GetType().Name)" Type="typeof(DrawerExample)" />

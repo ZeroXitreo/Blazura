@@ -1,41 +1,10 @@
 ﻿@page "/modal"
 @using Website.Components.Examples.Modal
+@using Website.Components.Shared
 @inject IWebHostEnvironment Env
 
 <PageTitle>Modal components</PageTitle>
 
 <h1>Modal components</h1>
-<VStack>
-    <h2>Modal</h2>
-    <Paper>
-        <Pad>
-            <VStack Sizing="Sizing.Xl">
-                <VStack>
-                    <StackWeight>
-                        <ModalExample />
-                    </StackWeight>
-                    <CodeBlock>@(GetCodeBlock<ModalExample>())</CodeBlock>
-                </VStack>
-            </VStack>
-        </Pad>
-    </Paper>
-</VStack>
-<VStack>
-    <h2>Delete Modal</h2>
-    <Paper>
-        <Pad>
-            <VStack Sizing="Sizing.Xl">
-                <VStack>
-                    <div>
-                        <DeleteModalExample />
-                    </div>
-                    <CodeBlock>@(GetCodeBlock<DeleteModalExample>())</CodeBlock>
-                </VStack>
-            </VStack>
-        </Pad>
-    </Paper>
-</VStack>
-
-@code {
-    private string GetCodeBlock<T>() => File.ReadAllText(Path.Combine(Env.ContentRootPath, "Components", "Examples", nameof(Modal), $"{typeof(T).Name}.razor"));
-}
+<ExampleWrapper Folder="@(this.GetType().Name)" Type="typeof(ModalExample)" />
+<ExampleWrapper Folder="@(this.GetType().Name)" Type="typeof(DeleteModalExample)" />
