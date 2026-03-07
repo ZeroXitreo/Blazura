@@ -3,7 +3,7 @@
 .HStack {
     display: flex;
     flex-direction: row;
-
+    // Gap
     &.None {
         gap: unset;
     }
@@ -51,7 +51,23 @@
     &.Stretch {
         align-items: stretch;
     }
+    // StackBehaviour
+    &.StackBehaviourLeft {
+        justify-content: flex-start;
+    }
 
+    &.StackBehaviourCenter {
+        justify-content: center;
+    }
+
+    &.StackBehaviourRight {
+        justify-content: flex-end;
+    }
+
+    &.StackBehaviourSeperate {
+        justify-content: space-between;
+    }
+    // Default
     > * {
         flex: 1;
     }
