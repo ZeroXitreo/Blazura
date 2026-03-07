@@ -1,0 +1,8 @@
+﻿@foreach (var heightAlignment in Enum.GetValues<HeightAlignment>())
+{
+    <HStack HeightAlignment="heightAlignment">
+        <SimpleButton Size="Size.Small">Small</SimpleButton>
+        <SimpleButton>Medium</SimpleButton>
+        <SimpleButton Size="Size.Large">Large</SimpleButton>
+    </HStack>
+}

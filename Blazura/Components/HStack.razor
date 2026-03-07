@@ -1,4 +1,4 @@
-﻿<div class="HStack @(Sizing.ToString())">
+﻿<div class="HStack @(Sizing.ToString()) @(HeightAlignment.ToString())">
 	@ChildContent
 </div>
 
@@ -8,4 +8,7 @@
 
 	[Parameter]
 	public Sizing Sizing { get; set; } = Sizing.Md;
+
+	[Parameter]
+	public HeightAlignment HeightAlignment { get; set; } = HeightAlignment.Stretch;
 }

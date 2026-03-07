@@ -35,6 +35,22 @@
     &.Xxl {
         gap: $spacing2 * 16;
     }
+    // HeightAlignment
+    &.Top {
+        align-items: flex-start;
+    }
+
+    &.Center {
+        align-items: center;
+    }
+
+    &.Bottom {
+        align-items: flex-end;
+    }
+
+    &.Stretch {
+        align-items: stretch;
+    }
 
     > * {
         flex: 1;

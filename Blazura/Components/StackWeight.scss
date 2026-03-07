@@ -2,4 +2,7 @@
 
 .StackWeight {
     flex: var(--weight);
+    display: inherit;
+    align-items: inherit;
+    flex-direction: column;
 }

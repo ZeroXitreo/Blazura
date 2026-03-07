@@ -1,4 +1,4 @@
-<div class="StackWeight" style="--weight: @Weight;">
+<div class="StackWeight" style="--weight: @(Weight is not null ? Weight : "auto");">
 	@ChildContent
 </div>
 
@@ -7,5 +7,5 @@
 	public RenderFragment? ChildContent { get; set; }
 
 	[Parameter]
-	public float Weight { get; set; } = 1;
+	public uint? Weight { get; set; } = 1;
 }
