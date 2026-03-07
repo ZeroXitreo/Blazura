@@ -2,22 +2,16 @@
 
 <Paper>
     <Pad>
-        <VStack Sizing="Sizing.Xl">
-            <HStack>
-                <StackWeight Weight="2">
-                    <VStack>
-                        <h3>Code</h3>
-                        <CodeBlock>@(GetCodeBlock())</CodeBlock>
-                    </VStack>
-                </StackWeight>
-                <StackWeight Weight="1">
-                    <VStack>
-                        <h3>Output</h3>
-                        <DynamicComponent Type="Type" />
-                    </VStack>
-                </StackWeight>
-            </HStack>
-        </VStack>
+        <HStack HeightAlignment="HeightAlignment.Stretch">
+            <StackWeight Weight="2">
+                <CodeBlock>@(GetCodeBlock())</CodeBlock>
+            </StackWeight>
+            <StackWeight Weight="1">
+                <div>
+                    <DynamicComponent Type="Type" />
+                </div>
+            </StackWeight>
+        </HStack>
     </Pad>
 </Paper>
 

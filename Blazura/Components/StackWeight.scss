@@ -3,6 +3,15 @@
 .StackWeight {
     flex: var(--weight);
     display: inherit;
-    align-items: inherit;
     flex-direction: column;
+}
+
+.HStack {
+    &.Stretch {
+        .StackWeight {
+            > * {
+                flex: 1;
+            }
+        }
+    }
 }
