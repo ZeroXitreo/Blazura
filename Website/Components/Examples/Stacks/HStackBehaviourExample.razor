@@ -1,0 +1,16 @@
+﻿<VStack>
+    @foreach (var stackBehaviour in Enum.GetValues<StackBehaviour>())
+    {
+        <HStack StackBehaviour="stackBehaviour">
+            <StackWeight Weight="null">
+                <SimpleButton Size="Size.Small">Left</SimpleButton>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <SimpleButton>Center</SimpleButton>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <SimpleButton Size="Size.Large">Right</SimpleButton>
+            </StackWeight>
+        </HStack>
+    }
+</VStack>
