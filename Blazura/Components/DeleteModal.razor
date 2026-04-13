@@ -12,40 +12,57 @@
 
     <VStack>
         <h1>Confirm deletion</h1>
-        @if (ChildContent is not null)
-        {
-            @ChildContent
-        }
-        else
-        {
-            @:Are you sure you want to do this?
-        }
-        @if (Prompt is not null)
-        {
-            <div>
-                To confirm, please write <code>@Prompt(Item)</code> below
-            </div>
-            <div>
-                <Placeholder For="() => promptResponse">
-                    <input @bind="promptResponse" @bind:event="oninput" />
-                </Placeholder>
-            </div>
-        }
-        <HStack>
-            <StackWeight>
-                <SimpleButton Style="Style.Outline" @onclick="modal.Close">Cancel</SimpleButton>
-            </StackWeight>
-            <StackWeight Weight="2">
-                <SimpleButton Color="Color.Error" Type="ButtonType.Button" @onclick="Submit" Disabled="@(Prompt is not null ? Prompt(Item) != promptResponse : false)">Confirm</SimpleButton>
-            </StackWeight>
-        </HStack>
+        <div class="DeleteModal">
+            <VStack>
+                @if (ChildContent is not null)
+                {
+                    @ChildContent
+                }
+                else
+                {
+                    <div>
+                        Are you sure you want to do this?
+                    </div>
+                }
+                @{
+                    string? prompt = null;
+                    if (Prompt is not null)
+                    {
+                        var proposedPrompt = Prompt(Item);
+                        if (!string.IsNullOrWhiteSpace(Prompt(Item)))
+                        {
+                            prompt = proposedPrompt;
+                        }
+                    }
+                }
+                @if (prompt is not null)
+                {
+                    <div>
+                        To confirm, please write <code>@prompt</code> below
+                    </div>
+                    <div>
+                        <Placeholder For="() => promptResponse">
+                            <input @bind="promptResponse" @bind:event="oninput" />
+                        </Placeholder>
+                    </div>
+                }
+                <HStack>
+                    <StackWeight>
+                        <SimpleButton Style="Style.Outline" @onclick="modal.Close">Cancel</SimpleButton>
+                    </StackWeight>
+                    <StackWeight Weight="2">
+                        <SimpleButton Color="Color.Error" Type="ButtonType.Button" @onclick="Submit" Disabled="@(prompt is not null ? prompt != promptResponse : false)">Confirm</SimpleButton>
+                    </StackWeight>
+                </HStack>
+            </VStack>
+        </div>
     </VStack>
 </Modal2>
 
 @code {
 
     [Parameter]
-    public Func<T, string>? Prompt { get; set; }
+    public Func<T, string?>? Prompt { get; set; }
 
     [Parameter, EditorRequired]
     public EventCallback<T> OnSubmit { get; set; }
