@@ -5,6 +5,11 @@
 @typeparam T
 
 <Modal2 @ref="modal">
+    @if (Item is null)
+    {
+        return;
+    }
+
     <VStack>
         <h1>Confirm deletion</h1>
         @if (ChildContent is not null)
@@ -38,8 +43,6 @@
 </Modal2>
 
 @code {
-    [Parameter, EditorRequired]
-    public required T Item { get; set; }
 
     [Parameter]
     public Func<T, string>? Prompt { get; set; }
@@ -51,12 +54,14 @@
     public required RenderFragment? ChildContent { get; set; }
 
     private Modal2 modal = default!;
+    private T? Item { get; set; }
 
     [Display(Name = "Prompt")]
     private string promptResponse { get; set; } = string.Empty;
 
-    public async Task Open()
+    public async Task Open(T itemToDelete)
     {
+        Item = itemToDelete;
         promptResponse = string.Empty;
         modal.Open();
     }

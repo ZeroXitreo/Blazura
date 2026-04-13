@@ -2,14 +2,14 @@
 
 <VStack>
     <SimpleInputText @bind-Value="prompt" />
-    <SimpleButton OnClick="modal.Open">Open modal</SimpleButton>
+    <SimpleButton OnClick="() => modal.Open(prompt)">Open modal</SimpleButton>
     @if (deletedItem is not null)
     {
         <Banner>Successfully deleted <code>@deletedItem</code></Banner>
     }
 </VStack>
 
-<DeleteModal @ref="modal" T="string" Item="prompt" Prompt="(item) => item.Trim()" OnSubmit="OnSubmit" />
+<DeleteModal @ref="modal" T="string" Prompt="(item) => item.Trim()" OnSubmit="OnSubmit" />
 
 @code {
     private DeleteModal<string> modal = null!;
