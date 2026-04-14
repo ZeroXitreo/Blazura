@@ -6,8 +6,8 @@ namespace Blazura.Services;
 public interface IUploadManagerService
 {
     public static long MaxFileSize { get; }
-    public Task<string> UploadAsync(IFormFile formFile, string? folderName = null);
-    public Task<string> UploadAsync(IBrowserFile formFile, string? folderName = null);
+    public Task<string> UploadAsync(IFormFile formFile, params string[] paths);
+    public Task<string> UploadAsync(IBrowserFile formFile, params string[] paths);
     public bool Delete(string path);
     Task<string> GetBrowserFileAsUrl(IBrowserFile browserFile);
 }

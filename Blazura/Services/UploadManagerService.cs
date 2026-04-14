@@ -9,17 +9,11 @@ public class UploadManagerService : IUploadManagerService
     private readonly string uploadPath = "uploads";
     public static long MaxFileSize => 1024L * 1024L * 1024L;
 
-    public async Task<string> UploadAsync(IFormFile formFile, string? folderName)
+    public async Task<string> UploadAsync(IFormFile formFile, params string[] paths)
     {
-        string initialUploadPath = uploadPath;
-        if (folderName is not null)
-        {
-            initialUploadPath = Path.Combine(uploadPath, folderName);
-        }
+        var filePath = GenerateFilePath(paths);
 
-        GenerateDirectories(initialUploadPath);
-
-        string filePath = initialUploadPath;
+        GenerateDirectories(filePath);
 
         filePath = Path.Combine(filePath, Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName));
 
@@ -34,28 +28,21 @@ public class UploadManagerService : IUploadManagerService
         return $"/{filePath}";
     }
 
-    public async Task<string> UploadAsync(IBrowserFile file, string? folderName)
+    public async Task<string> UploadAsync(IBrowserFile file, params string[] paths)
     {
-        string initialUploadPath = uploadPath;
-        if (folderName is not null)
-        {
-            initialUploadPath = Path.Combine(uploadPath, folderName);
-        }
+        var filePath = GenerateFilePath(paths);
 
-        GenerateDirectories(initialUploadPath);
-
-        // Process upload of file
-        string filePath = initialUploadPath;
+        GenerateDirectories(filePath);
 
         filePath = Path.Combine(filePath, Guid.NewGuid().ToString() + Path.GetExtension(file.Name));
 
         using (FileStream stream = File.Create(Path.Combine(rootPath, filePath)))
         {
-            //await file.CopyToAsync(stream);
             await file.OpenReadStream(MaxFileSize).CopyToAsync(stream);
         }
 
-        filePath = filePath.Replace("\\\\", "\\").Replace("\\", "/");
+        filePath = filePath.Replace("\\\\", "\\");
+        filePath = filePath.Replace("\\", "/");
 
         return $"/{filePath}";
     }
@@ -113,5 +100,15 @@ public class UploadManagerService : IUploadManagerService
                 ClearEmptyDirectory(parent);
             }
         }
+    }
+
+    private string GenerateFilePath(params string[] paths)
+    {
+        string initialUploadPath = uploadPath;
+        foreach (var path in paths)
+        {
+            initialUploadPath = Path.Combine(uploadPath, path);
+        }
+        return initialUploadPath;
     }
 }
