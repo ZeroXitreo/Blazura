@@ -2,18 +2,18 @@
 @using System.Numerics
 @typeparam T where T : INumberBase<T>
 
-<Flexer>
-    <FlexerFiller>
+<HStack>
+    <StackWeight>
         <Placeholder For="LowFor" Format="LowFormat">
             <InputNumber @bind-Value="Low" @oninput="OnLowChange" />
         </Placeholder>
-    </FlexerFiller>
-    <FlexerFiller>
+    </StackWeight>
+    <StackWeight>
         <Placeholder For="HighFor" Format="HighFormat">
             <InputNumber @bind-Value="High" @oninput="OnHighChange" />
         </Placeholder>
-    </FlexerFiller>
-</Flexer>
+    </StackWeight>
+</HStack>
 
 @code {
     [Parameter, EditorRequired] public required Expression<Func<T>> LowFor { get; set; }

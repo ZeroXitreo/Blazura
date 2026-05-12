@@ -1,8 +1,8 @@
-﻿<SimpleButton OnClick="OpenFileViewer">Open file viewer</SimpleButton>
+﻿<SimpleButton OnClick="OpenLightbox">Open lightbox</SimpleButton>
 
 @code {
     [CascadingParameter]
-    private FileViewer fileViewer { get; set; } = default!;
+    private Lightbox lightbox { get; set; } = default!;
 
     private List<File> files = [
         new() {
@@ -16,9 +16,9 @@
         },
     ];
 
-    private void OpenFileViewer()
+    private void OpenLightbox()
     {
-        fileViewer.Open(files.First(), files);
+        lightbox.Open(files.First(), files);
     }
 
     private class File : IPath

@@ -43,7 +43,7 @@
 	[Parameter] public required Func<List<T>, Task> OnRearranged { get; set; }
 	[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; } = default!;
 	[Parameter] public Func<T, Task>? OnDelete { get; set; }
-	[CascadingParameter] private FileViewer? fileViewer { get; set; }
+	[CascadingParameter] private Lightbox? fileViewer { get; set; }
 	[CascadingParameter] private ModalManager? modalManager { get; set; }
 
 	private string[] videoExtensions = [".mp4"];

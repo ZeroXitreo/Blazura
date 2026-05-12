@@ -1,43 +1,43 @@
 ﻿<div class="BlazuraBanner @(Color.ToString())">
-        @if (IncludeIcon)
-        {
-            <FlexerChild>
-                <div class="iconHolder">
-                    @switch (Color)
-                    {
-                        case Color.Success:
-                            <Icon>check</Icon>
-                            break;
-                        case Color.Info:
-                            <Icon>info</Icon>
-                            break;
-                        case Color.Warning:
-                            <Icon>warning</Icon>
-                            break;
-                        case Color.Error:
-                            <Icon>error</Icon>
-                            break;
-                        default:
-                            <Icon>help</Icon>
-                            break;
-                    }
-                </div>
-            </FlexerChild>
-        }
-        <FlexerFiller>
-            <div class="content">
-                @if (Title is not null)
+    @if (IncludeIcon)
+    {
+        <StackWeight Weight="0">
+            <div class="iconHolder">
+                @switch (Color)
                 {
-                    <div class="title">@Title</div>
-                }
-                @if (ChildContent is not null)
-                {
-                    <div>
-                        @ChildContent
-                    </div>
+                    case Color.Success:
+                        <Icon>check</Icon>
+                        break;
+                    case Color.Info:
+                        <Icon>info</Icon>
+                        break;
+                    case Color.Warning:
+                        <Icon>warning</Icon>
+                        break;
+                    case Color.Error:
+                        <Icon>error</Icon>
+                        break;
+                    default:
+                        <Icon>help</Icon>
+                        break;
                 }
             </div>
-        </FlexerFiller>
+        </StackWeight>
+    }
+    <StackWeight>
+        <div class="content">
+            @if (Title is not null)
+            {
+                <div class="title">@Title</div>
+            }
+            @if (ChildContent is not null)
+            {
+                <div>
+                    @ChildContent
+                </div>
+            }
+        </div>
+    </StackWeight>
 </div>
 
 @code {

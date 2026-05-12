@@ -1,17 +1,15 @@
 ﻿<nav class="nav">
     <Pad>
-        <VStack>
+        <VStack Sizing="Sizing.Sm">
             @foreach (var navLink in navLinks)
             {
                 <NavLink href="@navLink.Value">
-                    <SimpleButton>
-                        <Flexer Horizonal="HorizonalDirection.SpaceBetween" VerticalAlignment="VerticalAlignment.Middle">
-                            <div>
+                    <SimpleButton Style="Style.Clear" Size="Size.Large">
+                        <HStack StackBehaviour="StackBehaviour.Left">
+                            <StackWeight Weight="null">
                                 <span>@navLink.Key</span>
-                            </div>
-                            <div>
-                            </div>
-                        </Flexer>
+                            </StackWeight>
+                        </HStack>
                     </SimpleButton>
                 </NavLink>
             }
@@ -30,6 +28,8 @@
         { "SimpleSelect", "select" },
         { "Badge", "badge" },
         { "Stacks", "stacks" },
-        { "File viewer", "fileviewer" },
+        { "Lightbox", "lightbox" },
+        { "Snackbar", "snackbar" },
+        { "Context Menu", "contextmenu" },
     };
 }
