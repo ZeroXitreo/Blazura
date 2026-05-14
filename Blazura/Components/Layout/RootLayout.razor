@@ -3,7 +3,6 @@
 
 <CascadingValue Value="backdrop">
     <CascadingValue Value="lightbox">
-        <CascadingValue Value="modalManager">
             <CascadingValue Value="drawerManager">
                 <CascadingValue Value="modal2Manager">
                     <CascadingValue Value="contextMenuManager">
@@ -17,8 +16,6 @@
                 <Modal2Manager @ref="modal2Manager" />
             </CascadingValue>
             <DrawerManager @ref="drawerManager" />
-        </CascadingValue>
-        <ModalManager @ref="modalManager" />
     </CascadingValue>
     <Lightbox @ref="lightbox" />
 </CascadingValue>
@@ -28,7 +25,6 @@
 @code {
     public Backdrop backdrop { get; set; } = default!;
     public Lightbox lightbox { get; set; } = default!;
-    public ModalManager modalManager { get; set; } = default!;
     public DrawerManager drawerManager { get; set; } = default!;
     public Modal2Manager modal2Manager { get; set; } = default!;
     public ContextMenuManager contextMenuManager { get; set; } = default!;

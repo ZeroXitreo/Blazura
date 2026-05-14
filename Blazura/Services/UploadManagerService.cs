@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
+using Microsoft.JSInterop;
 
 namespace Blazura.Services;
 
-public class UploadManagerService : IUploadManagerService
+public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
 {
     private readonly string rootPath = "wwwroot";
     private readonly string uploadPath = "uploads";
@@ -69,6 +70,21 @@ public class UploadManagerService : IUploadManagerService
         using MemoryStream stream = new();
         await browserFile.OpenReadStream(MaxFileSize).CopyToAsync(stream);
         return $"data:{browserFile.ContentType};base64,{Convert.ToBase64String(stream.ToArray())}";
+    }
+
+    /// <summary>
+    /// Experimental
+    /// </summary>
+    /// <param name="browserFile"></param>
+    /// <returns></returns>
+    public async Task<string> GetBrowserFileAsBlob(IBrowserFile browserFile)
+    {
+        using MemoryStream stream = new();
+        await browserFile.OpenReadStream(MaxFileSize).CopyToAsync(stream);
+
+        var text = await JSRuntime.InvokeAsync<string>("convertBase64ToBlob", browserFile.ContentType, Convert.ToBase64String(stream.ToArray()));
+
+        return text;
     }
 
     private void GenerateDirectories(string initialUploadPath)

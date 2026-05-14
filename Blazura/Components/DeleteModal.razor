@@ -46,11 +46,11 @@
                         </Placeholder>
                     </div>
                 }
-                <HStack>
-                    <StackWeight>
-                        <SimpleButton Style="Style.Outline" @onclick="modal.Close">Cancel</SimpleButton>
+                <HStack StackBehaviour="StackBehaviour.Right">
+                    <StackWeight Weight="null">
+                        <SimpleButton Style="Style.Clear" @onclick="modal.Close">Cancel</SimpleButton>
                     </StackWeight>
-                    <StackWeight Weight="2">
+                    <StackWeight Weight="null">
                         <SimpleButton Color="Color.Error" Type="ButtonType.Button" @onclick="Submit" Disabled="@(prompt is not null ? prompt != promptResponse : false)">Confirm</SimpleButton>
                     </StackWeight>
                 </HStack>

@@ -5,13 +5,13 @@
 	{
 		string extension = Path.GetExtension(file.Path.ToLower());
 		<div class="fileSpot @(itemDragging is not null ? "isDragging" : null)">
-			@if (OnDelete is not null)
+			@if (OnUpload is { HasDelegate: true })
 			{
 				<div class="remove" @onclick="() => PromptDeletion(file)">
 					<div class="icon">delete_forever</div>
 				</div>
 			}
-			<div class="preview" @onclick="() => OnClick(file)" dropzone="move" draggable="true" @ondragstart="() => OnDragStart(file)" @ondragend="OnDragEnd" @ondragenter="() => OnDragEnter(file)" ondragover="event.preventDefault();">
+			<div class="preview" @onclick="() => OnClick(file)" dropzone="move" draggable="@(OnRearranged is { HasDelegate: true } ? "true" : "false")" @ondragstart="() => OnDragStart(file)" @ondragend="OnDragEnd" @ondragenter="() => OnDragEnter(file)" ondragover="event.preventDefault();">
 				@if (imageExtensions.Contains(extension))
 				{
 					<img class="AdaptiveImage" src="@file.Path" />
@@ -27,10 +27,10 @@
 			</div>
 		</div>
 	}
-	@if (OnChange is { HasDelegate: true })
+	@if (OnUpload is { HasDelegate: true })
 	{
 		<label>
-			<InputFile OnChange="OnChange" multiple />
+			<InputFile OnChange="HandleUploadedFiles" multiple />
 			<div class="addFile RippleEffect" tabindex="0">
 				<div class="icon" dropzone="true">add_photo_alternate</div>
 			</div>
@@ -38,18 +38,33 @@
 	}
 </div>
 
+<DeleteModal @ref="deleteModal" T="T" OnSubmit="(file) => Delete(file)" />
+
 @code {
-	[Parameter, EditorRequired] public required List<T> Items { get; set; }
-	[Parameter] public required Func<List<T>, Task> OnRearranged { get; set; }
-	[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; } = default!;
-	[Parameter] public Func<T, Task>? OnDelete { get; set; }
-	[CascadingParameter] private Lightbox? fileViewer { get; set; }
-	[CascadingParameter] private ModalManager? modalManager { get; set; }
+	[Parameter, EditorRequired]
+	public required List<T> Items { get; set; }
+
+	[Parameter]
+	public required EventCallback<List<T>> OnRearranged { get; set; }
+
+	[Parameter]
+	public EventCallback<IReadOnlyList<IBrowserFile>> OnUpload { get; set; } = default!;
+
+	[Parameter]
+	public EventCallback<T> OnDelete { get; set; }
+
+	[CascadingParameter]
+	private Lightbox? fileViewer { get; set; }
 
 	private string[] videoExtensions = [".mp4"];
+
 	private string[] imageExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+
 	private T? itemDragging;
+
 	private void OnDragStart(T item) => itemDragging = item;
+
+	private DeleteModal<T> deleteModal = default!;
 
 	private void OnClick(T item)
 	{
@@ -72,11 +87,21 @@
 	private async Task OnDragEnd()
 	{
 		itemDragging = default;
-		await OnRearranged(Items);
+		await OnRearranged.InvokeAsync(Items);
 	}
 
-	private void PromptDeletion(T file)
+	private async Task HandleUploadedFiles(InputFileChangeEventArgs e)
 	{
-		DeleteFileModalController<T>.Open(modalManager, file, OnDelete!);
+        await OnUpload.InvokeAsync(e.GetMultipleFiles(e.FileCount));
+	}
+
+	private async Task PromptDeletion(T file)
+	{
+		await deleteModal.Open(file);
+	}
+
+	private async Task Delete(T file)
+	{
+		await OnDelete.InvokeAsync(file);
 	}
 }
