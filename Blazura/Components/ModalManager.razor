@@ -3,8 +3,8 @@
 
 @foreach (var renderFragment in renderFragments)
 {
-    <div class="Modal2Backdrop @(renderFragment.Value ? "closed" : null)" @onclick="() => Close(renderFragment.Key)"></div>
-    <div class="Modal2 @(renderFragment.Value ? default : "active")">
+    <div class="ModalBackdrop @(renderFragment.Value ? "closed" : null)" @onclick="() => Close(renderFragment.Key)"></div>
+    <div class="Modal @(renderFragment.Value ? default : "active")">
         <div class="positionContainer">
             <div class="ModalScreen" @onclick="() => Close(renderFragment.Key)"></div>
             <div class="containerz tiny">

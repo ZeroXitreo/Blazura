@@ -1,6 +1,6 @@
 @import "../Styles/Root.scss";
 
-.Modal2Backdrop {
+.ModalBackdrop {
     z-index: 10;
     @include mimicParentAndAetEdgeMarginForPosition;
     position: fixed;
@@ -39,7 +39,7 @@
     }
 }
 
-.Modal2 {
+.Modal {
     @include mimicParentAndAetEdgeMarginForPosition;
     position: fixed;
     z-index: 10;

@@ -4,7 +4,7 @@
 @using System.ComponentModel.DataAnnotations
 @typeparam T
 
-<Modal2 @ref="modal">
+<Modal @ref="modal">
     @if (Item is null)
     {
         return;
@@ -57,7 +57,7 @@
             </VStack>
         </div>
     </VStack>
-</Modal2>
+</Modal>
 
 @code {
 
@@ -70,7 +70,7 @@
     [Parameter]
     public required RenderFragment? ChildContent { get; set; }
 
-    private Modal2 modal = default!;
+    private Modal modal = default!;
     private T? Item { get; set; }
 
     [Display(Name = "Prompt")]
