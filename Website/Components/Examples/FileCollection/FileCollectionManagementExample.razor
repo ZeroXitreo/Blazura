@@ -1,0 +1,47 @@
+﻿@using Blazura.Services
+
+@inject IUploadManagerService uploadManagerService
+
+<FileCollection T="File" Items="files" OnUpload="HandleUploadedFiles" OnRearranged="Rearrange" OnDelete="Delete" />
+
+@code {
+    private List<File> files = [
+        new() {
+            Path = "/images/img1.jpg"
+        },
+        new() {
+            Path = "/images/img2.jpg"
+        },
+        new() {
+            Path = "/images/img3.png"
+        },
+    ];
+
+    private async Task HandleUploadedFiles(IReadOnlyList<IBrowserFile> browserFiles)
+    {
+        foreach (IBrowserFile browserFile in browserFiles)
+        {
+            var urlFile = await uploadManagerService.GetBrowserFileAsUrl(browserFile);
+
+            files.Add(new()
+            {
+                Path = urlFile,
+            });
+        }
+    }
+
+    private async Task Rearrange(List<File> files)
+    {
+        // Mutates the inserted list, but also brings the same list through the parameters
+    }
+
+    private async Task Delete(File file)
+    {
+        files.Remove(file);
+    }
+
+    private class File : IPath
+    {
+        public required string Path { get; set; }
+    }
+}

@@ -1,0 +1,20 @@
+﻿<FileCollection T="File" Items="files" />
+
+@code {
+    private List<File> files = [
+        new() {
+            Path = "/images/img1.jpg"
+        },
+        new() {
+            Path = "/images/img2.jpg"
+        },
+        new() {
+            Path = "/images/img3.png"
+        },
+    ];
+
+    private class File : IPath
+    {
+        public required string Path { get; set; }
+    }
+}

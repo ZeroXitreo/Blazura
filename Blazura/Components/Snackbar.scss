@@ -1,7 +1,7 @@
 ﻿@import "../Styles/Root.scss";
 
-.GaSnackbar {
-	$gap: $spacing / 4;
+.Snackbar {
+	$gap: $spacing / 2;
 	position: fixed;
 	pointer-events: none;
 	top: 0;
@@ -27,6 +27,7 @@
 		animation-duration: $animationTime;
 		animation-fill-mode: both;
 		min-width: 20rem;
+		max-width: 20rem;
 		display: grid;
 		grid-template-rows: 1fr;
 		transition: grid-template-rows 0.5s ease-out;
@@ -77,8 +78,8 @@
 			overflow: hidden;
 
 			.iconHolder {
-				width: 3rem;
-				height: 3rem;
+				min-width: 3rem;
+				min-height: 3rem;
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -91,13 +92,18 @@
 					content: "";
 					@include absoluteFill;
 					background-color: currentColor;
-					opacity: .25;
+					opacity: .1;
 					border-radius: inherit;
 				}
 			}
 
 			.text {
 				margin: .5rem;
+				font-size: 13px;
+				font-weight: bold;
+				line-height: 1.5em;
+				display: flex;
+				align-items: center;
 			}
 
 			.close {

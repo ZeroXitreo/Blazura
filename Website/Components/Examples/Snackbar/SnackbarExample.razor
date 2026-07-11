@@ -1,0 +1,37 @@
+﻿<VStack>
+    <SimpleButton Style="Style.Clear" OnClick="ShowSnackbar">Default snackbar</SimpleButton>
+    <SimpleButton Style="Style.Clear" Color="Color.Success" OnClick="ShowSnackbarSuccess">Success snackbar</SimpleButton>
+    <SimpleButton Style="Style.Clear" Color="Color.Info" OnClick="ShowSnackbarInfo">Info snackbar</SimpleButton>
+    <SimpleButton Style="Style.Clear" Color="Color.Warning" OnClick="ShowSnackbarWarning">Warning snackbar</SimpleButton>
+    <SimpleButton Style="Style.Clear" Color="Color.Error" OnClick="ShowSnackbarError">Error snackbar</SimpleButton>
+</VStack>
+
+@code {
+    [CascadingParameter]
+    private Snackbar snackbar { get; set; } = default!;
+
+    private void ShowSnackbar()
+    {
+        snackbar.Push("This is a normal snackbar");
+    }
+
+    private void ShowSnackbarSuccess()
+    {
+        snackbar.Push("This is a snackbar as success", SnackbarType.Success);
+    }
+
+    private void ShowSnackbarInfo()
+    {
+        snackbar.Push("This is a snackbar as info", SnackbarType.Info);
+    }
+
+    private void ShowSnackbarWarning()
+    {
+        snackbar.Push("This is a snackbar as warning", SnackbarType.Warning);
+    }
+
+    private void ShowSnackbarError()
+    {
+        snackbar.Push("This is a snackbar as error", SnackbarType.Error);
+    }
+}

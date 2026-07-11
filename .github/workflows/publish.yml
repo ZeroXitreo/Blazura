@@ -14,6 +14,8 @@ jobs:
       package_version: ${{ github.event.release.tag_name }}
 
   deploy:
+    permissions:
+      id-token: write
     needs: pack
     runs-on: ubuntu-latest
     steps:
@@ -30,7 +32,11 @@ jobs:
           echo Version: $VERSION
           echo "VERSION=${VERSION#v}" >> $GITHUB_ENV
 
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Push
-        run: dotnet nuget push Blazura.${VERSION}.nupkg --source nuget.org --api-key ${NUGET_API_KEY}
-        env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push Blazura.${VERSION}.nupkg --source nuget.org --api-key ${{steps.login.outputs.NUGET_API_KEY}}

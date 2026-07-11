@@ -1,40 +1,33 @@
-<div class="Modal @(IsOpen ? "active" : default)">
-    <div class="positionContainer">
-        <div class="ModalScreen" @onclick="Close"></div>
-        <div class="containerz tiny">
-            <div class="window">
-                <Paper>
-                    <div class="boxSpacer">
-                        <h2 style="text-align: center">@Title</h2>
-                        @ChildContent
-                    </div>
-                </Paper>
-            </div>
-        </div>
-    </div>
-</div>
+﻿@implements IDisposable
 
 @code {
-    [Parameter, EditorRequired] public required string Title { get; set; }
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
 
-    [Parameter] public ModalManager? modalManager { get; set; }
+    [CascadingParameter]
+    private ModalManager? manager { get; set; }
 
-    private bool isOpen = true;
-    public bool IsOpen
+    public void Open()
     {
-        get => isOpen;
-        set
-        {
-            isOpen = value;
-            StateHasChanged();
-        }
+        manager?.Open(ChildContent);
     }
 
     public void Close()
     {
-        if (!IsOpen) return;
-        if (modalManager is not null) modalManager.InstanceCount--;
-        IsOpen = false;
+        manager?.Close(ChildContent);
+    }
+
+    public void Dispose()
+    {
+        manager?.Dispose(ChildContent);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (manager is not null)
+        {
+            await manager.TriggerRender();
+        }
+        await base.OnAfterRenderAsync(firstRender);
     }
 }

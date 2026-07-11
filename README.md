@@ -18,7 +18,7 @@ Blazura is an early-stage, component-driven UI library for Blazor. It offers a g
 
 Before you begin, ensure you have the following installed:
 
-- [.NET SDK 9.0 or later](https://dotnet.microsoft.com/download)
+- [.NET SDK 10.0 or later](https://dotnet.microsoft.com/download)
 - [Node.js and npm](https://nodejs.org/) (for SCSS/JS bundling)
 
 ## Getting started

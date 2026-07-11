@@ -5,15 +5,15 @@
     <SimpleButton OnClick="OpenModal">Open modal</SimpleButton>
 </VStack>
 
-<Modal2 @ref="modal">
+<Modal @ref="modal">
     <VStack>
         <h1>A simple example</h1>
         <SimpleInputText @bind-Value="username" />
     </VStack>
-</Modal2>
+</Modal>
 
 @code {
-    private Modal2 modal = null!;
+    private Modal modal = null!;
 
     [Display(Name = "Username")]
     private string username { get; set; } = "Username example";

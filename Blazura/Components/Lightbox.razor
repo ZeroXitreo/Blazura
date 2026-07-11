@@ -1,7 +1,7 @@
 ﻿@implements IDisposable
 @inject NavigationManager NavigationManager
 
-<div class="FileViewer @(Item is not null && isOpen ? "active" : null)">
+<div class="Lightbox @(Item is not null && isOpen ? "active" : null)">
 	<div class="bd" @onclick="Close"></div>
 	<div class="main">
 		@if (Item is not null)
@@ -19,10 +19,10 @@
 				else
 				{
 					<a class="button RippleEffect" href="@Item.Path" download="@Path.GetFileName(Item.Path)">
-						<Flexer>
+						<HStack>
 							<div class="icon">download</div>
 							<div class="text">Download</div>
-						</Flexer>
+						</HStack>
 					</a>
 				}
 			</div>

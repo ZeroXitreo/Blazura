@@ -1,0 +1,20 @@
+﻿@using Blazura.Components.ContextMenuComponents
+
+<SimpleButton OnClick="OpenContextMenu">Open context menu</SimpleButton>
+
+<ContextMenu @ref="contextMenu">
+    <ContextMenuDisplay UpperText="Username" LowerText="example@examples.com" />
+    <ContextMenuHr />
+    <ContextMenuItem Text="Settings" Icon="settings" />
+    <ContextMenuHr />
+    <ContextMenuItem Text="Log out" Colour="Color.Error" Icon="logout" />
+</ContextMenu>
+
+@code {
+    private ContextMenu contextMenu { get; set; } = default!;
+
+    private void OpenContextMenu(MouseEventArgs e)
+    {
+        contextMenu.Open(e);
+    }
+}

@@ -13,6 +13,12 @@
     font-weight: unset;
     position: relative;
 
+    .description {
+        font-size: 13px;
+        line-height: 1.5;
+        opacity: .8;
+    }
+    
     &:before {
         @include absoluteFill();
         content: "";
@@ -36,7 +42,8 @@
         $bulletSize: 1.5rem;
         $travel: 1.5rem;
 
-        height: $containerSize;
+        min-height: $containerSize;
+        max-height: $containerSize;
         width: $containerSize + $travel;
         border-radius: $containerSize / 2;
         margin: ($bulletSize - $containerSize) / 2;

@@ -1,82 +1,71 @@
 ﻿@using Microsoft.JSInterop
-@using Blazura.Components.Layout
-@implements IDisposable
-@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
-@foreach (var modalWrapper in modalWrappers)
+@foreach (var renderFragment in renderFragments)
 {
-    <Modal Title="@modalWrapper.Title" @ref="modalWrapper.ModalRef" modalManager="this">
-        <DynamicComponent Type="@modalWrapper.ComponentType" Parameters="@modalWrapper.ComposedParameters" />
-    </Modal>
+    <div class="ModalBackdrop @(renderFragment.Value ? "closed" : null)" @onclick="() => Close(renderFragment.Key)"></div>
+    <div class="Modal @(renderFragment.Value ? default : "active")">
+        <div class="positionContainer">
+            <div class="ModalScreen" @onclick="() => Close(renderFragment.Key)"></div>
+            <div class="containerz tiny">
+                <div class="window">
+                    <Paper>
+                        <div class="boxSpacer">
+                            @renderFragment.Key
+                        </div>
+                    </Paper>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 @code {
     [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
-    private List<ModalWrapper> modalWrappers = [];
 
-    private int instanceCount;
-    public int InstanceCount
+    // boolean indicates if it's closed
+    private Dictionary<RenderFragment, bool> renderFragments = [];
+
+    public void Open(RenderFragment renderFragment)
     {
-        get => instanceCount;
-        set
+        foreach (var renderFragmentToDelete in renderFragments.Where(rf => rf.Value))
         {
-            instanceCount = value;
-            backdrop.SetBackdrop(this.GetType(), InstanceCount != 0);
+            renderFragments.Remove(renderFragmentToDelete.Key);
+            StateHasChanged();
         }
-    }
-
-
-    public void Open<TComponent>(string title) where TComponent : IComponent, IModalContainer
-    {
-        Open<TComponent>(title, []);
-    }
-
-    public void Open<TComponent>(string title, Dictionary<string, object?> parameters) where TComponent : IComponent, IModalContainer
-    {
-        parameters[nameof(IModalContainer.ModalManager)] = this;
-        modalWrappers.Add(new()
-            {
-                ComponentType = typeof(TComponent),
-                Title = title,
-                Parameters = parameters
-            });
-        InstanceCount++;
-        StateHasChanged();
-    }
-
-    private record ModalWrapper
-    {
-        public required Type ComponentType { get; set; }
-        public required string Title { get; set; }
-        public required Dictionary<string, object?> Parameters { get; set; }
-        public Modal ModalRef { get; set; } = default!;
-
-        public Dictionary<string, object?> ComposedParameters
+        if (renderFragments.ContainsKey(renderFragment))
         {
-            get
-            {
-                var parameters = new Dictionary<string, object?>(Parameters);
-                parameters[nameof(IModalContainer.ModalRef)] = ModalRef;
-                return parameters;
-            }
+            renderFragments[renderFragment] = false;
         }
-    }
-
-    protected override void OnInitialized()
-    {
-        NavigationManager.LocationChanged += LocationChanged!;
-        base.OnInitialized();
-    }
-
-    void LocationChanged(object sender, LocationChangedEventArgs e)
-    {
-        modalWrappers.Clear();
-        InstanceCount = 0;
+        else
+        {
+            renderFragments.Add(renderFragment, false);
+        }
         StateHasChanged();
+        RunBodyCheck();
     }
 
-    void IDisposable.Dispose()
+    public void Close(RenderFragment renderFragment)
     {
-        NavigationManager.LocationChanged -= LocationChanged!;
+        renderFragments[renderFragment] = true;
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
+    public void Dispose(RenderFragment renderFragment)
+    {
+        renderFragments.Remove(renderFragment);
+        StateHasChanged();
+        RunBodyCheck();
+    }
+
+    public async Task TriggerRender()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void RunBodyCheck()
+    {
+        backdrop.SetBackdrop(this.GetType(), renderFragments.Any(rf => !rf.Value));
     }
 }

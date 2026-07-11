@@ -4,7 +4,7 @@
 @using System.ComponentModel.DataAnnotations
 @typeparam T
 
-<Modal2 @ref="modal">
+<Modal @ref="modal">
     @if (Item is null)
     {
         return;
@@ -46,18 +46,18 @@
                         </Placeholder>
                     </div>
                 }
-                <HStack>
-                    <StackWeight>
-                        <SimpleButton Style="Style.Outline" @onclick="modal.Close">Cancel</SimpleButton>
+                <HStack StackBehaviour="StackBehaviour.Right">
+                    <StackWeight Weight="null">
+                        <SimpleButton Style="Style.Clear" @onclick="modal.Close">Cancel</SimpleButton>
                     </StackWeight>
-                    <StackWeight Weight="2">
+                    <StackWeight Weight="null">
                         <SimpleButton Color="Color.Error" Type="ButtonType.Button" @onclick="Submit" Disabled="@(prompt is not null ? prompt != promptResponse : false)">Confirm</SimpleButton>
                     </StackWeight>
                 </HStack>
             </VStack>
         </div>
     </VStack>
-</Modal2>
+</Modal>
 
 @code {
 
@@ -70,7 +70,7 @@
     [Parameter]
     public required RenderFragment? ChildContent { get; set; }
 
-    private Modal2 modal = default!;
+    private Modal modal = default!;
     private T? Item { get; set; }
 
     [Display(Name = "Prompt")]

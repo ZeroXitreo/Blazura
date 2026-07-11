@@ -5,19 +5,23 @@
 
 <Placeholder For="ValueExpression" Format="Format">
     <div class="SimpleInputUnitNumber">
-        <Flexer>
+        <HStack HeightAlignment="HeightAlignment.Center" Sizing="Sizing.None">
             @if (Prefix is not null)
             {
-                <div class="prefix">@Prefix</div>
+                <StackWeight Weight="null">
+                    <div class="prefix">@Prefix</div>
+                </StackWeight>
             }
-            <FlexerFiller>
+            <StackWeight>
                 <InputNumber TValue="TValue" Value="Value" ValueChanged="ValueChanged" ValueExpression="ValueExpression" />
-            </FlexerFiller>
+            </StackWeight>
             @if (Suffix is not null)
             {
-                <div class="suffix">@Suffix</div>
+                <StackWeight Weight="null">
+                    <div class="suffix">@Suffix</div>
+                </StackWeight>
             }
-        </Flexer>
+        </HStack>
     </div>
 </Placeholder>
 

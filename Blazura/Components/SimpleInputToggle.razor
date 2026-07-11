@@ -4,14 +4,26 @@
 @inject IServiceProvider ServiceProvider
 
 <button type="button" class="SimpleInputToggle RippleEffect" @onclick="() => ToggleOption()" disabled="@Disabled">
-    <Flexer>
-        <FlexerFiller>
-            <DisplayName For="ValueExpression" Format="Format" />
-        </FlexerFiller>
-        <div class="shell @(Value ? "active" : null)">
-            <div class="bullet"></div>
-        </div>
-    </Flexer>
+    <HStack HeightAlignment="HeightAlignment.Stretch">
+        <StackWeight>
+            <HStack HeightAlignment="HeightAlignment.Center">
+                <VStack Sizing="Sizing.Xs">
+                    <DisplayName For="ValueExpression" Format="Format" />
+                    @if (ChildContent is not null)
+                    {
+                        <div class="description">
+                            @ChildContent
+                        </div>
+                    }
+                </VStack>
+            </HStack>
+        </StackWeight>
+        <StackWeight Weight="null">
+            <div class="shell @(Value ? "active" : null)">
+                <div class="bullet"></div>
+            </div>
+        </StackWeight>
+    </HStack>
 </button>
 
 @code {
@@ -29,6 +41,9 @@
 
     [Parameter]
     public bool Disabled { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     private IInputFormatter? InputFormatter;
 

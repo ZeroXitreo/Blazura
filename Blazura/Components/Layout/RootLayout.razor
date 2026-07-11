@@ -2,37 +2,33 @@
 
 
 <CascadingValue Value="backdrop">
-    <CascadingValue Value="fileViewer">
-        <CascadingValue Value="modalManager">
+    <CascadingValue Value="lightbox">
             <CascadingValue Value="drawerManager">
-                <CascadingValue Value="modal2Manager">
+                <CascadingValue Value="modalManager">
                     <CascadingValue Value="contextMenuManager">
                         <CascadingValue Value="gaSnackbar">
                             @Body
                         </CascadingValue>
-                        <GaSnackbar @ref="gaSnackbar" />
+                        <Snackbar @ref="gaSnackbar" />
                     </CascadingValue>
                     <ContextMenuManager @ref="contextMenuManager" />
                 </CascadingValue>
-                <Modal2Manager @ref="modal2Manager" />
+                <ModalManager @ref="modalManager" />
             </CascadingValue>
             <DrawerManager @ref="drawerManager" />
-        </CascadingValue>
-        <ModalManager @ref="modalManager" />
     </CascadingValue>
-    <FileViewer @ref="fileViewer" />
+    <Lightbox @ref="lightbox" />
 </CascadingValue>
 <Backdrop @ref="backdrop" />
 
 
 @code {
     public Backdrop backdrop { get; set; } = default!;
-    public FileViewer fileViewer { get; set; } = default!;
-    public ModalManager modalManager { get; set; } = default!;
+    public Lightbox lightbox { get; set; } = default!;
     public DrawerManager drawerManager { get; set; } = default!;
-    public Modal2Manager modal2Manager { get; set; } = default!;
+    public ModalManager modalManager { get; set; } = default!;
     public ContextMenuManager contextMenuManager { get; set; } = default!;
-    public GaSnackbar gaSnackbar { get; set; } = default!;
+    public Snackbar gaSnackbar { get; set; } = default!;
 
     protected override void OnAfterRender(bool firstRender)
     {

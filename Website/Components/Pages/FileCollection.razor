@@ -1,0 +1,8 @@
+﻿@page "/filecollection"
+@using Website.Components.Examples.FileCollection
+@using Website.Components.Shared
+
+<PageTitle>File Collection</PageTitle>
+<h1>File collection</h1>
+<ExampleWrapper Folder="@(this.GetType().Name)" Type="typeof(FileCollectionExample)" />
+<ExampleWrapper Folder="@(this.GetType().Name)" Type="typeof(FileCollectionManagementExample)" />
