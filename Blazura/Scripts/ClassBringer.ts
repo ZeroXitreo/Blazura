@@ -1,8 +1,13 @@
-﻿class ClassBringer
+﻿type ClassBringerInitiator = {
+	new(): IClassBringer;
+	readonly name: string;
+};
+
+class ClassBringer
 {
 	private static instance: ClassBringer;
 
-	private bringers: (new () => IClassBringer)[] = [];
+	private bringers: ClassBringerInitiator[] = [];
 
 	public static get Instance()
 	{
@@ -57,12 +62,13 @@
 		{
 			let bringer = this.bringers[i];
 
-			if (element.classList.contains((<any>bringer).name))
+			const bringerName = bringer.name;
+			if (element.classList.contains(bringerName))
 			{
 				this.setBringer(element, bringer);
 			}
 
-			let elements = element.getElementsByClassName((<any>bringer).name);
+			let elements = element.getElementsByClassName(bringerName);
 
 			for (var j = 0; j < elements.length; j++)
 			{
@@ -73,16 +79,17 @@
 		}
 	}
 
-	private setBringer(element: Element, bringer: new () => IClassBringer)
+	private setBringer(element: Element, bringer: ClassBringerInitiator)
 	{
-		if (!element[(<any>bringer).name])
+		const bringerName = bringer.name;
+		if (!element[bringerName])
 		{
-			element[(<any>bringer).name] = new bringer();
-			(<IClassBringer>element[(<any>bringer).name]).initialize(element);
+			element[bringerName] = new bringer();
+			(<IClassBringer>element[bringerName]).initialize(element);
 		}
 	}
 
-	public static register(bringer: new () => IClassBringer)
+	public static register(bringer: ClassBringerInitiator)
 	{
 		ClassBringer.Instance.bringers.push(bringer);
 	}
