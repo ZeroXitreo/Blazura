@@ -2,7 +2,8 @@ name: Deploy Documentation Website
 
 # TODO: Run this on publishing a new version of the package once deployment has been implemented
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
