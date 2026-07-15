@@ -1,7 +1,10 @@
 ﻿type ClassBringerInitiator = {
 	new(): IClassBringer;
-	readonly name: string;
 };
+
+type ClassBringerInitiatorCombo = {
+	readonly name: string;
+} & ClassBringerInitiator;
 
 type ClassBringerElement = Element & {
 	[key: string]: IClassBringer | undefined;
@@ -11,7 +14,7 @@ class ClassBringer
 {
 	private static instance: ClassBringer;
 
-	private bringers: ClassBringerInitiator[] = [];
+	private bringers: ClassBringerInitiatorCombo[] = [];
 
 	public static get Instance()
 	{
@@ -83,7 +86,7 @@ class ClassBringer
 		}
 	}
 
-	private setBringer(element: Element, bringer: ClassBringerInitiator)
+	private setBringer(element: Element, bringer: ClassBringerInitiatorCombo)
 	{
 		const bringerName = bringer.name;
 		const typedElement = element as ClassBringerElement;
@@ -97,7 +100,7 @@ class ClassBringer
 
 	public static register(bringer: ClassBringerInitiator)
 	{
-		ClassBringer.Instance.bringers.push(bringer);
+		ClassBringer.Instance.bringers.push(bringer as ClassBringerInitiatorCombo);
 	}
 }
 
