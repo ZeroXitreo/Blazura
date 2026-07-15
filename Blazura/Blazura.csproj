@@ -12,7 +12,13 @@
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <TypeScriptTypeScriptCompileBlocked>false</TypeScriptTypeScriptCompileBlocked>
+        <TypeScriptAdditionalFlags>--ignoreConfig</TypeScriptAdditionalFlags>
     </PropertyGroup>
+
+    <ItemGroup>
+        <Content Remove="tsconfig.json" />
+    </ItemGroup>
 
     <ItemGroup>
         <EmbeddedResource Include="**\*.js" />
