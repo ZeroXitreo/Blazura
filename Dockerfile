@@ -11,7 +11,7 @@ RUN dotnet restore Website
 
 # Build and publish a release
 RUN dotnet build Website
-RUN dotnet publish Website -o out
+RUN dotnet publish Website -c Debug -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
