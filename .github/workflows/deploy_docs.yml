@@ -2,13 +2,7 @@ name: Deploy Documentation Website
 
 # TODO: Run this on publishing a new version of the package once deployment has been implemented
 on:
-  push:
-    branches: [main]
-    paths:
-      - "**/*"
-      - "!.github/workflows/*"
-      - ".github/workflows/deploy_docs.yml"
-      - ".github/workflows/build_docs.yml"
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -33,4 +27,23 @@ jobs:
         with:
           name: ${{ vars.IMAGE_NAME }}-image
 
-# TODO: Upload & deploy the Docker image to the server
+      - name: SCP into the server
+        uses: appleboy/scp-action@5bb815ae7f76baf13e1646dc59b8239beeb6ed57 # master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "./${{ vars.IMAGE_NAME }}.tar"
+          target: "~/"
+
+      - name: Start deployment
+        uses: appleboy/ssh-action@068c0c7a4e59a5ae12fb7cb454b05735d830c82b # master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            docker load -i ${{ vars.IMAGE_NAME }}.tar &&
+            rm ${{ vars.IMAGE_NAME }}.tar &&
+            grim up ${{ vars.IMAGE_NAME }} &&
+            docker system prune -af
