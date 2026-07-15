@@ -1,0 +1,10 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+<SimpleInputToggle @bind-Value="simpleInputTextValue">
+    A little bit of description of the toggle.
+</SimpleInputToggle>
+
+@code {
+    [Display(Name = "Simple input text")]
+    private bool simpleInputTextValue {get;set;} = false;
+}
