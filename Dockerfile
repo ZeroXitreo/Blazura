@@ -7,10 +7,10 @@ COPY . ./
 RUN apt update
 RUN apt install -y nodejs
 
-RUN dotnet restore
+RUN dotnet restore Website
 
 # Build and publish a release
-RUN dotnet build
+RUN dotnet build Website
 RUN dotnet publish Website -o out
 
 # Build runtime image
