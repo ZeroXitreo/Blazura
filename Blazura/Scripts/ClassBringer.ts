@@ -3,6 +3,10 @@
 	readonly name: string;
 };
 
+type ClassBringerElement = Element & {
+	[key: string]: IClassBringer | undefined;
+};
+
 class ClassBringer
 {
 	private static instance: ClassBringer;
@@ -82,10 +86,12 @@ class ClassBringer
 	private setBringer(element: Element, bringer: ClassBringerInitiator)
 	{
 		const bringerName = bringer.name;
-		if (!element[bringerName])
+		const typedElement = element as ClassBringerElement;
+
+		if (!typedElement[bringerName])
 		{
-			element[bringerName] = new bringer();
-			(<IClassBringer>element[bringerName]).initialize(element);
+			typedElement[bringerName] = new bringer();
+			typedElement[bringerName].initialize(element);
 		}
 	}
 
