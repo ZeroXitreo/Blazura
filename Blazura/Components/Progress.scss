@@ -1,0 +1,28 @@
+@import "../Styles/Root.scss";
+
+.Progress {
+    $height: $spacing2;
+    height: $height;
+    border-radius: $height / 2;
+    position: relative;
+    overflow: hidden;
+
+    .background {
+        @include absoluteFilling;
+        opacity: .2;
+    }
+
+    .bar {
+        @include absoluteFilling;
+        transition-property: right;
+    }
+
+    @each $name, $color in $color-table {
+        &.#{$name} {
+            .background,
+            .bar {
+                background-color: $color;
+            }
+        }
+    }
+}

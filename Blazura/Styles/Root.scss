@@ -63,3 +63,20 @@ $width: 100rem;
 	--currentBackgroundColor: #{$backgroundColor};
 	background-color: $currentBackgroundColor;
 }
+
+// New one, for movable elements, like progress bar, etc.
+@mixin absoluteFilling {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+}
+
+$color-table: (
+	Default $colorFont,
+	Accent $colorAccent,
+	Info $colorInfo,
+	Success $colorSuccess,
+	Warning $colorWarning,
+	Error $colorError
+);

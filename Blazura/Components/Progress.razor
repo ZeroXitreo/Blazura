@@ -1,0 +1,17 @@
+@using System.Globalization
+
+<div class="Progress @(Color.ToString())">
+    <div class="background"></div>
+    <div class="bar" style="right: @(((1 - (Math.Clamp(Value, 0, 1))) * 100).ToString("0.00", CultureInfo.InvariantCulture))%;"></div>
+</div>
+
+@code {
+    /// <summary>
+    /// Progress value between 0 and 1
+    /// </summary>
+    [Parameter, EditorRequired]
+    public float Value { get; set; }
+
+    [Parameter]
+    public Color Color { get; set; } 
+}
