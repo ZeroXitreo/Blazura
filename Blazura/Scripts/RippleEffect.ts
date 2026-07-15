@@ -1,6 +1,6 @@
 ﻿class RippleEffect implements IClassBringer
 {
-	private container: HTMLElement;
+	private container: HTMLElement = undefined!;
 
 	initialize(container: HTMLElement)
 	{

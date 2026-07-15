@@ -1,5 +1,5 @@
 ﻿class AdaptiveImage implements IClassBringer {
-    private container: HTMLImageElement;
+    private container: HTMLImageElement = undefined!;
 
     initialize(container: HTMLImageElement) {
         this.container = container;

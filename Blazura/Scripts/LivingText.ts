@@ -1,12 +1,15 @@
 class LivingText implements IClassBringer {
-	private container: HTMLDivElement;
+	private container: HTMLDivElement = undefined!;
 
 	initialize(container: HTMLDivElement) {
 		this.container = container;
 
 		for (var i = this.container.childNodes.length - 1; i >= 0; i--) {
-			const child = this.container.childNodes[i]
-			if (child.nodeType == Node.TEXT_NODE) {
+			const child = this.container.childNodes[i];
+
+			if (!child) continue;
+
+			if (child.nodeType == Node.TEXT_NODE && child.textContent) {
 				for (var j = child.textContent.length - 1; j >= 0; j--) {
 					const char = child.textContent[j];
 					const elm = document.createElement("span");
