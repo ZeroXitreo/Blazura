@@ -1,0 +1,36 @@
+name: Deploy Documentation Website
+
+# TODO: Run this on publishing a new version of the package once deployment has been implemented
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/*"
+      - "!.github/workflows/*"
+      - ".github/workflows/deploy_docs.yml"
+      - ".github/workflows/build_docs.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  build:
+    uses: ./.github/workflows/build_docs.yml
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Docker image artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ vars.IMAGE_NAME }}-image
+          path: .
+          pattern: ${{ vars.IMAGE_NAME }}.tar
+
+      - name: Delete artifact
+        uses: geekyeggo/delete-artifact@v6
+        with:
+          name: ${{ vars.IMAGE_NAME }}-image
+
+# TODO: Upload & deploy the Docker image to the server
