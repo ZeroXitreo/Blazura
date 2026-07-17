@@ -1,47 +1,48 @@
 ﻿@using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
 
-@foreach (var modal in registeredModals)
+@foreach (var dialog in registeredDialogs)
 {
-    <div class="DialogBackdrop @(modal.IsOpen ? "opened" : "closed")" @onclick="() => modal.Close()"></div>
-    if (modal is Modal)
+    <div class="DialogBackdrop @(dialog.IsOpen ? "opened" : "closed")" @onclick="() => dialog.Close()"></div>
+    switch (dialog)
     {
-        <div class="Modal @(modal.IsOpen ? "opened" : "closed")">
-            <div class="positionContainer">
-                <div class="ModalScreen" @onclick="() => modal.Close()"></div>
-                <div class="containerz tiny">
-                    <div class="window">
-                        <Paper>
-                            <div class="boxSpacer">
-                                @modal.ChildContent
-                            </div>
-                        </Paper>
+        case Modal:
+            <div class="Modal @(dialog.IsOpen ? "opened" : "closed")">
+                <div class="positionContainer">
+                    <div class="ModalScreen" @onclick="() => dialog.Close()"></div>
+                    <div class="containerz tiny">
+                        <div class="window">
+                            <Paper>
+                                <div class="boxSpacer">
+                                    @dialog.ChildContent
+                                </div>
+                            </Paper>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
-    if (modal is Drawer drawer)
-    {
-        <div class="Drawer @(drawer.IsOpen ? "opened" : "closed")">
-            @drawer.ChildContent
-        </div>
+            break;
+        case Drawer:
+            <div class="Drawer @(dialog.IsOpen ? "opened" : "closed")">
+                @dialog.ChildContent
+            </div>
+            break;
     }
 }
 
 @code {
     [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
 
-    private HashSet<IDialog> registeredModals = [];
+    private HashSet<IDialog> registeredDialogs = [];
 
     internal void Register(IDialog dialog)
     {
-        registeredModals.Add(dialog);
+        registeredDialogs.Add(dialog);
     }
 
     internal void Unregister(IDialog dialog)
     {
-        registeredModals.Remove(dialog);
+        registeredDialogs.Remove(dialog);
         StateHasChanged();
         RunBackdropCheck();
     }
@@ -53,6 +54,6 @@
 
     internal void RunBackdropCheck()
     {
-        backdrop.SetBackdrop(this.GetType(), registeredModals.Any(m => m.IsOpen));
+        backdrop.SetBackdrop(this.GetType(), registeredDialogs.Any(m => m.IsOpen));
     }
 }
