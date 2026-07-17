@@ -1,60 +1,38 @@
 ﻿@using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
 
-@foreach (var renderFragment in renderFragments)
+@foreach (var drawer in registeredDrawers)
 {
-    <div class="DrawerBackdrop @(renderFragment.Value ? "closed" : null)" @onclick="() => Close(renderFragment.Key)"></div>
-    <div class="Drawer @(renderFragment.Value ? "closed" : null)">
-        @renderFragment.Key
+    <div class="DrawerBackdrop @(drawer.IsOpen ? "opened" : "closed")" @onclick="() => drawer.Close()"></div>
+    <div class="Drawer @(drawer.IsOpen ? "opened" : "closed")">
+        @drawer.ChildContent
     </div>
 }
 
 @code {
     [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
 
-    // boolean indicates if it's closed
-    private Dictionary<RenderFragment, bool> renderFragments = [];
+    private HashSet<Drawer> registeredDrawers = [];
 
-    public void Open(RenderFragment renderFragment)
+    internal void Register(Drawer drawer)
     {
-        foreach (var renderFragmentToDelete in renderFragments.Where(rf => rf.Value))
-        {
-            renderFragments.Remove(renderFragmentToDelete.Key);
-            StateHasChanged();
-        }
-        if (renderFragments.ContainsKey(renderFragment))
-        {
-            renderFragments[renderFragment] = false;
-        }
-        else
-        {
-            renderFragments.Add(renderFragment, false);
-        }
-        StateHasChanged();
-        RunBodyCheck();
+        registeredDrawers.Add(drawer);
     }
 
-    public void Close(RenderFragment renderFragment)
+    internal void Unregister(Drawer drawer)
     {
-        renderFragments[renderFragment] = true;
+        registeredDrawers.Remove(drawer);
         StateHasChanged();
-        RunBodyCheck();
+        RunBackdropCheck();
     }
 
-    public void Remove(RenderFragment renderFragment)
-    {
-        renderFragments.Remove(renderFragment);
-        StateHasChanged();
-        RunBodyCheck();
-    }
-
-    public async Task TriggerRender()
+    internal async Task TriggerRender()
     {
         await InvokeAsync(StateHasChanged);
     }
 
-    public void RunBodyCheck()
+    internal void RunBackdropCheck()
     {
-        backdrop.SetBackdrop(this.GetType(), renderFragments.Any(rf => !rf.Value));
+        backdrop.SetBackdrop(this.GetType(), registeredDrawers.Any(d => d.IsOpen));
     }
 }

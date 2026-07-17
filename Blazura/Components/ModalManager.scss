@@ -6,12 +6,14 @@
     position: fixed;
     backdrop-filter: blur(.25rem);
     background-color: rgba(0, 0, 0, .2);
+    pointer-events: none;
     // Animation
     transition-property: opacity, visibility;
     visibility: hidden;
     opacity: 0;
 
     &.opened {
+        pointer-events: unset;
         visibility: visible;
         opacity: 1;
     }
