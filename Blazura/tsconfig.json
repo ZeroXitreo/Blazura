@@ -6,7 +6,7 @@
 		"removeComments": true,
 		"sourceMap": false,
 		"moduleResolution": "Bundler",
-		"lib": [ "DOM" ]
+		"lib": [ "ES6", "DOM" ]
 	},
 	"exclude": [
 		"node_modules"
