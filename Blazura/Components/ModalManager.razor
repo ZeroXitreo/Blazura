@@ -23,7 +23,7 @@
 @code {
     [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
 
-    // boolean indicates if it's closed
+    // boolean indicates if it's closed and should be marked for deletion
     private Dictionary<RenderFragment, bool> renderFragments = [];
 
     public void Open(RenderFragment renderFragment)
@@ -33,30 +33,28 @@
             renderFragments.Remove(renderFragmentToDelete.Key);
             StateHasChanged();
         }
-        if (renderFragments.ContainsKey(renderFragment))
+
+        if (renderFragments.TryAdd(renderFragment, false))
         {
             renderFragments[renderFragment] = false;
         }
-        else
-        {
-            renderFragments.Add(renderFragment, false);
-        }
         StateHasChanged();
-        RunBodyCheck();
+
+        RunBackdropCheck();
     }
 
     public void Close(RenderFragment renderFragment)
     {
         renderFragments[renderFragment] = true;
         StateHasChanged();
-        RunBodyCheck();
+        RunBackdropCheck();
     }
 
     public void Dispose(RenderFragment renderFragment)
     {
         renderFragments.Remove(renderFragment);
         StateHasChanged();
-        RunBodyCheck();
+        RunBackdropCheck();
     }
 
     public async Task TriggerRender()
@@ -64,7 +62,7 @@
         await InvokeAsync(StateHasChanged);
     }
 
-    public void RunBodyCheck()
+    public void RunBackdropCheck()
     {
         backdrop.SetBackdrop(this.GetType(), renderFragments.Any(rf => !rf.Value));
     }
