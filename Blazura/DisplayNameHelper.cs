@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Blazura;
+
 public static class DisplayNameHelper
 {
     public static string GetDisplayName<T>(Expression<Func<T>> For, Func<string, string>? format = null)

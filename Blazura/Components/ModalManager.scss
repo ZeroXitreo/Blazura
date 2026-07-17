@@ -7,35 +7,13 @@
     backdrop-filter: blur(.25rem);
     background-color: rgba(0, 0, 0, .2);
     // Animation
+    transition-property: opacity, visibility;
     visibility: hidden;
     opacity: 0;
-    animation-name: OpenDrawerBackdrop;
-    animation-duration: .2s;
-    animation-fill-mode: both;
-    animation-timing-function: ease-out;
 
-    @keyframes OpenDrawerBackdrop {
-        to {
-            visibility: visible;
-            opacity: 1;
-        }
-    }
-
-    &.closed {
-        pointer-events: none;
-        animation-name: CloseDrawerBackdrop;
-    }
-
-    @keyframes CloseDrawerBackdrop {
-        from {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        to {
-            visibility: hidden;
-            opacity: 0;
-        }
+    &.opened {
+        visibility: visible;
+        opacity: 1;
     }
 }
 
@@ -43,35 +21,12 @@
     @include mimicParentAndAetEdgeMarginForPosition;
     position: fixed;
     z-index: 10;
-    background-color: rgba(0, 0, 0, .2);
-    backdrop-filter: blur(.25rem);
     pointer-events: none;
     overflow: auto;
+    // Animations
+    transition-property: opacity, visibility;
+    visibility: hidden;
     opacity: 0;
-    animation-name: CloseModal;
-    animation-duration: .2s;
-    animation-fill-mode: both;
-    animation-timing-function: ease-in;
-
-    @keyframes OpenModal {
-        to {
-            visibility: visible;
-            opacity: 1;
-        }
-    }
-
-    @keyframes CloseModal {
-        from {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        to {
-            visibility: hidden;
-            opacity: 0;
-        }
-    }
-
 
     .positionContainer {
         min-height: 100vh;
@@ -136,10 +91,10 @@
         }
     }
 
-    &.active {
+    &.opened {
         pointer-events: unset;
-        animation-name: OpenModal;
-        animation-timing-function: ease-out;
+        visibility: visible;
+        opacity: 1;
 
         .window {
             animation-name: Popup;

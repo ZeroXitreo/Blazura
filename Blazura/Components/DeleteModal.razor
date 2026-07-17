@@ -1,7 +1,4 @@
-﻿@using Microsoft.AspNetCore.Components.Forms
-@using System.ComponentModel
-@using Blazura.Components.ColumnWrapperItems
-@using System.ComponentModel.DataAnnotations
+﻿@using System.ComponentModel.DataAnnotations
 @typeparam T
 
 <Modal @ref="modal">
@@ -83,9 +80,9 @@
         modal.Open();
     }
 
-    public void Close()
+    public async Task Close()
     {
-        modal.Close();
+        await modal.Close();
     }
 
     public void Dispose()
@@ -93,9 +90,9 @@
         modal.Dispose();
     }
 
-    public void Submit()
+    public async Task Submit()
     {
-        OnSubmit.InvokeAsync(Item);
-        Close();
+        await OnSubmit.InvokeAsync(Item);
+        await Close();
     }
 }

@@ -1,17 +1,17 @@
 ﻿@using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
 
-@foreach (var renderFragment in renderFragments)
+@foreach (var modal in registeredModals)
 {
-    <div class="ModalBackdrop @(renderFragment.Value ? "closed" : null)" @onclick="() => Close(renderFragment.Key)"></div>
-    <div class="Modal @(renderFragment.Value ? default : "active")">
+    <div class="ModalBackdrop @(modal.IsOpen ? "opened" : "closed")" @onclick="() => modal.Close()"></div>
+    <div class="Modal @(modal.IsOpen ? "opened" : "closed")">
         <div class="positionContainer">
-            <div class="ModalScreen" @onclick="() => Close(renderFragment.Key)"></div>
+            <div class="ModalScreen" @onclick="() => modal.Close()"></div>
             <div class="containerz tiny">
                 <div class="window">
                     <Paper>
                         <div class="boxSpacer">
-                            @renderFragment.Key
+                            @modal.ChildContent
                         </div>
                     </Paper>
                 </div>
@@ -23,47 +23,27 @@
 @code {
     [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
 
-    // boolean indicates if it's closed and should be marked for deletion
-    private Dictionary<RenderFragment, bool> renderFragments = [];
+    private HashSet<Modal> registeredModals = [];
 
-    public void Open(RenderFragment renderFragment)
+    internal void Register(Modal modal)
     {
-        foreach (var renderFragmentToDelete in renderFragments.Where(rf => rf.Value))
-        {
-            renderFragments.Remove(renderFragmentToDelete.Key);
-            StateHasChanged();
-        }
-
-        if (renderFragments.TryAdd(renderFragment, false))
-        {
-            renderFragments[renderFragment] = false;
-        }
-        StateHasChanged();
-
-        RunBackdropCheck();
+        registeredModals.Add(modal);
     }
 
-    public void Close(RenderFragment renderFragment)
+    internal void Unregister(Modal modal)
     {
-        renderFragments[renderFragment] = true;
+        registeredModals.Remove(modal);
         StateHasChanged();
         RunBackdropCheck();
     }
 
-    public void Dispose(RenderFragment renderFragment)
-    {
-        renderFragments.Remove(renderFragment);
-        StateHasChanged();
-        RunBackdropCheck();
-    }
-
-    public async Task TriggerRender()
+    internal async Task TriggerRender()
     {
         await InvokeAsync(StateHasChanged);
     }
 
-    public void RunBackdropCheck()
+    internal void RunBackdropCheck()
     {
-        backdrop.SetBackdrop(this.GetType(), renderFragments.Any(rf => !rf.Value));
+        backdrop.SetBackdrop(this.GetType(), registeredModals.Any(m => m.IsOpen));
     }
 }

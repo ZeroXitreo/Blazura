@@ -7,23 +7,36 @@
     [CascadingParameter]
     private ModalManager? manager { get; set; }
 
-    public void Open()
-    {
-        manager?.Open(ChildContent);
-    }
-
-    public void Close()
-    {
-        manager?.Close(ChildContent);
-    }
+    internal bool IsOpen { get; set; } = false;
 
     public void Dispose()
     {
-        manager?.Dispose(ChildContent);
+        manager?.Unregister(this);
+    }
+
+    public void Open()
+    {
+        IsOpen = true;
+        manager?.RunBackdropCheck();
+    }
+
+    public async Task Close()
+    {
+        IsOpen = false;
+        if (manager is not null)
+        {
+            await manager.TriggerRender();
+        }
+        manager?.RunBackdropCheck();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (firstRender)
+        {
+            manager?.Register(this);
+        }
+
         if (manager is not null)
         {
             await manager.TriggerRender();

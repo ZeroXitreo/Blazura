@@ -1,6 +1,7 @@
 ﻿using Blazura.Models;
 
 namespace Blazura.Components;
+
 public class GaSnackbarItem
 {
     public string Text { get; set; } = default!;
