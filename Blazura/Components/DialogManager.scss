@@ -1,6 +1,6 @@
 @import "../Styles/Root.scss";
 
-.ModalBackdrop {
+.DialogBackdrop {
     z-index: 10;
     @include mimicParentAndAetEdgeMarginForPosition;
     position: fixed;
@@ -108,5 +108,25 @@
                 transform: translateY(0rem);
             }
         }
+    }
+}
+
+.Drawer {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    max-width: calc(100% - 3rem);
+    width: 32rem;
+    box-shadow: $shadow;
+    background-color: $colorBackground;
+    overflow-y: auto;
+    // Animation
+    transition-property: transform;
+    transform: translateX(0);
+
+    &.closed {
+        transform: translateX(100%);
     }
 }

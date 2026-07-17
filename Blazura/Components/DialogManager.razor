@@ -1,0 +1,58 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+@foreach (var modal in registeredModals)
+{
+    <div class="DialogBackdrop @(modal.IsOpen ? "opened" : "closed")" @onclick="() => modal.Close()"></div>
+    if (modal is Modal)
+    {
+        <div class="Modal @(modal.IsOpen ? "opened" : "closed")">
+            <div class="positionContainer">
+                <div class="ModalScreen" @onclick="() => modal.Close()"></div>
+                <div class="containerz tiny">
+                    <div class="window">
+                        <Paper>
+                            <div class="boxSpacer">
+                                @modal.ChildContent
+                            </div>
+                        </Paper>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    if (modal is Drawer drawer)
+    {
+        <div class="Drawer @(drawer.IsOpen ? "opened" : "closed")">
+            @drawer.ChildContent
+        </div>
+    }
+}
+
+@code {
+    [CascadingParameter] private Backdrop backdrop { get; set; } = default!;
+
+    private HashSet<IDialog> registeredModals = [];
+
+    internal void Register(IDialog dialog)
+    {
+        registeredModals.Add(dialog);
+    }
+
+    internal void Unregister(IDialog dialog)
+    {
+        registeredModals.Remove(dialog);
+        StateHasChanged();
+        RunBackdropCheck();
+    }
+
+    internal async Task TriggerRender()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    internal void RunBackdropCheck()
+    {
+        backdrop.SetBackdrop(this.GetType(), registeredModals.Any(m => m.IsOpen));
+    }
+}

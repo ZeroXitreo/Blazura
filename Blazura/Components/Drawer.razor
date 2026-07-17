@@ -1,13 +1,13 @@
-﻿@implements IDisposable
+﻿@implements IDialog
 
 @code {
+    [CascadingParameter]
+    private DialogManager? manager { get; set; }
+
     [Parameter]
     public required RenderFragment ChildContent { get; set; }
 
-    [CascadingParameter]
-    private DrawerManager? manager { get; set; }
-
-    internal bool IsOpen { get; set; } = false;
+    public bool IsOpen { get; set; }
 
     public void Dispose()
     {

@@ -3,19 +3,16 @@
 
 <CascadingValue Value="backdrop">
     <CascadingValue Value="lightbox">
-            <CascadingValue Value="drawerManager">
-                <CascadingValue Value="modalManager">
-                    <CascadingValue Value="contextMenuManager">
-                        <CascadingValue Value="gaSnackbar">
-                            @Body
-                        </CascadingValue>
-                        <Snackbar @ref="gaSnackbar" />
-                    </CascadingValue>
-                    <ContextMenuManager @ref="contextMenuManager" />
+        <CascadingValue Value="dialogManager">
+            <CascadingValue Value="contextMenuManager">
+                <CascadingValue Value="gaSnackbar">
+                    @Body
                 </CascadingValue>
-                <ModalManager @ref="modalManager" />
+                <Snackbar @ref="gaSnackbar" />
             </CascadingValue>
-            <DrawerManager @ref="drawerManager" />
+            <ContextMenuManager @ref="contextMenuManager" />
+        </CascadingValue>
+        <DialogManager @ref="dialogManager" />
     </CascadingValue>
     <Lightbox @ref="lightbox" />
 </CascadingValue>
@@ -25,8 +22,7 @@
 @code {
     public Backdrop backdrop { get; set; } = default!;
     public Lightbox lightbox { get; set; } = default!;
-    public DrawerManager drawerManager { get; set; } = default!;
-    public ModalManager modalManager { get; set; } = default!;
+    public DialogManager dialogManager { get; set; } = default!;
     public ContextMenuManager contextMenuManager { get; set; } = default!;
     public Snackbar gaSnackbar { get; set; } = default!;
 
