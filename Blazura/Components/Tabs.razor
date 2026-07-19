@@ -1,0 +1,44 @@
+﻿@using System.Reflection
+@using System.ComponentModel.DataAnnotations
+@typeparam TItem where TItem : struct, Enum
+
+<div class="Tabs">
+    @foreach (var item in values)
+    {
+        <div @onclick="() => ItemClicked(item)" class="tab RippleEffect @(Value.Equals(item) ? "active" : null)">
+            @GetDisplayName(item)
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public TItem Value { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<TItem> ValueChanged { get; set; }
+
+    private TItem[] values = Enum.GetValues<TItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ItemClicked(values.First());
+    }
+
+    private async Task ItemClicked(TItem item) => await ValueChanged.InvokeAsync(item);
+
+    // TODO: Fix this in blazura later
+    string GetDisplayName(object value)
+    {
+        var memberInfo = typeof(TItem)
+            .GetField(value.ToString()!, BindingFlags.Public | BindingFlags.Static);
+
+        if (memberInfo is null)
+            return value.ToString()!;
+
+        return memberInfo
+            .GetCustomAttribute<DisplayAttribute>()?
+            .GetName()
+            ?? value.ToString()!;
+    }
+}

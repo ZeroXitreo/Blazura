@@ -1,0 +1,9 @@
+﻿@page "/tabs"
+@using Website.Components.Examples.Tabs
+@using Website.Components.Shared
+@inject IWebHostEnvironment Env
+
+<PageTitle>Tabs components</PageTitle>
+
+<h1>Tabs components</h1>
+<ExampleWrapper Folder="@(this.GetType().Name)" Type="typeof(TabsExample)" />

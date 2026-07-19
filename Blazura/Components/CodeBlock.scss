@@ -10,6 +10,7 @@ code {
     background-color: $colorBackgroundAlt;
     padding: $spacing2 * 4;
     border-radius: $radius;
+    overflow-x: auto;
 
     code {
         background-color: unset;

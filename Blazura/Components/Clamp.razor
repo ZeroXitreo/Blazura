@@ -1,7 +1,11 @@
-﻿<div class="Clamp">
+﻿<div class="Clamp @(IsSmall ? "small" : null)">
 	@ChildContent
 </div>
 
 @code {
-	[Parameter] public RenderFragment? ChildContent { get; set; }
+	[Parameter]
+	public RenderFragment? ChildContent { get; set; }
+
+	[Parameter]
+	public bool IsSmall { get; set; }
 }

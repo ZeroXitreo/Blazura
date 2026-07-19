@@ -38,6 +38,7 @@
     internal void Register(IDialog dialog)
     {
         registeredDialogs.Add(dialog);
+        StateHasChanged();
     }
 
     internal void Unregister(IDialog dialog)

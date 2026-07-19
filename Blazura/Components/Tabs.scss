@@ -1,0 +1,25 @@
+@import "../Styles/Root.scss";
+
+.Tabs {
+    $gap: $spacing2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $gap;
+
+    > .tab {
+        border-radius: $radius / 2;
+        padding: $spacing2 $spacing2 * 2;
+        font-size: .8rem;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        transition-property: background-color, opacity;
+        opacity: .7;
+
+        &:hover,
+        &.active {
+            opacity: 1;
+            background-color: $colorBackground;
+        }
+    }
+}

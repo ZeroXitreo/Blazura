@@ -1,0 +1,33 @@
+﻿<VStack>
+    <Tabs @bind-Value="CurrentTab" />
+    <Paper Color="Paper.PaperColor.Contrast" DisableShadow="true">
+        <Pad>
+            @switch (CurrentTab)
+            {
+                case TabsAvailable.One:
+                    @:One
+                    break;
+                case TabsAvailable.Two:
+                    @:Two
+                    break;
+                case TabsAvailable.Three:
+                    <VStack>
+                        <StackWeight>Three</StackWeight>
+                        <SimpleButton Style="Style.Outline" OnClick="() => CurrentTab = TabsAvailable.One">Back to first fab</SimpleButton>
+                    </VStack>
+                    break;
+            }
+        </Pad>
+    </Paper>
+</VStack>
+
+@code {
+    private TabsAvailable CurrentTab { get; set; }
+
+    public enum TabsAvailable
+    {
+        One,
+        Two,
+        Three,
+    }
+}

@@ -2,16 +2,18 @@
 
 <Paper>
     <Pad>
-        <HStack HeightAlignment="HeightAlignment.Stretch">
-            <StackWeight Weight="2">
+        <VStack>
+            <DynamicComponent Type="Type" />
+            <HStack StackBehaviour="StackBehaviour.Left">
+                <StackWeight Weight="null">
+                    <SimpleButton @onclick="() => showCodeBlock = !showCodeBlock" Style="@(showCodeBlock ? Style.Normal : Style.Outline)">@(showCodeBlock ? "Hide" : "Show") Code</SimpleButton>
+                </StackWeight>
+            </HStack>
+            @if (showCodeBlock)
+            {
                 <CodeBlock>@(GetCodeBlock())</CodeBlock>
-            </StackWeight>
-            <StackWeight Weight="1">
-                <div>
-                    <DynamicComponent Type="Type" />
-                </div>
-            </StackWeight>
-        </HStack>
+            }
+        </VStack>
     </Pad>
 </Paper>
 
@@ -23,4 +25,6 @@
     public Type Type { get; set; }
 
     private string GetCodeBlock() => File.ReadAllText(Path.Combine(env.ContentRootPath, "Components", "Examples", Folder, $"{Type.Name}.razor"));
+
+    private bool showCodeBlock;
 }
