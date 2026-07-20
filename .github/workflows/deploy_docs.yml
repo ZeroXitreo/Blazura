@@ -31,7 +31,7 @@ jobs:
           name: ${{ vars.IMAGE_NAME }}-image
 
       - name: SCP into the server
-        uses: appleboy/scp-action@5bb815ae7f76baf13e1646dc59b8239beeb6ed57 # master
+        uses: appleboy/scp-action@6dba043acb2fa9973346e5025373dd76f2a50779 # master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
