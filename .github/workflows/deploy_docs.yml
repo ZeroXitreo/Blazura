@@ -40,7 +40,7 @@ jobs:
           target: "~/"
 
       - name: Start deployment
-        uses: appleboy/ssh-action@068c0c7a4e59a5ae12fb7cb454b05735d830c82b # master
+        uses: appleboy/ssh-action@b838bc2f27cd449b957159452d432aff91697637 # master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
