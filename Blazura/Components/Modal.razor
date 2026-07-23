@@ -14,9 +14,13 @@
         manager?.Unregister(this);
     }
 
-    public void Open()
+    public async Task Open()
     {
         IsOpen = true;
+        if (manager is not null)
+        {
+            await manager.TriggerRender();
+        }
         manager?.RunBackdropCheck();
     }
 
