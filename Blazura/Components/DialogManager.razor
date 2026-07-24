@@ -3,11 +3,11 @@
 
 @foreach (var dialog in registeredDialogs)
 {
-    <div class="DialogBackdrop @(dialog.IsOpen ? "opened" : "closed")" @onclick="() => dialog.Close()"></div>
+    <div @key="dialog" class="DialogBackdrop @(dialog.IsOpen ? "opened" : "closed")" @onclick="() => dialog.Close()"></div>
     switch (dialog)
     {
         case Modal:
-            <div class="Modal @(dialog.IsOpen ? "opened" : "closed")">
+            <div @key="dialog" class="Modal @(dialog.IsOpen ? "opened" : "closed")">
                 <div class="positionContainer">
                     <div class="ModalScreen" @onclick="() => dialog.Close()"></div>
                     <div class="containerz tiny">
@@ -23,7 +23,7 @@
             </div>
             break;
         case Drawer:
-            <div class="Drawer @(dialog.IsOpen ? "opened" : "closed")">
+            <div @key="dialog" class="Drawer @(dialog.IsOpen ? "opened" : "closed")">
                 @dialog.ChildContent
             </div>
             break;
