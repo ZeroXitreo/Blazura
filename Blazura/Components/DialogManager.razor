@@ -3,31 +3,33 @@
 
 @foreach (var dialog in registeredDialogs)
 {
-    <div @key="dialog" class="DialogBackdrop @(dialog.IsOpen ? "opened" : "closed")" @onclick="() => dialog.Close()"></div>
-    switch (dialog)
-    {
-        case Modal:
-            <div @key="dialog" class="Modal @(dialog.IsOpen ? "opened" : "closed")">
-                <div class="positionContainer">
-                    <div class="ModalScreen" @onclick="() => dialog.Close()"></div>
-                    <div class="containerz tiny">
-                        <div class="window">
-                            <Paper>
-                                <div class="boxSpacer">
-                                    @dialog.ChildContent
-                                </div>
-                            </Paper>
+    <div @key="dialog">
+        <div class="DialogBackdrop @(dialog.IsOpen ? "opened" : "closed")" @onclick="() => dialog.Close()"></div>
+        @switch (dialog)
+        {
+            case Modal:
+                <div class="Modal @(dialog.IsOpen ? "opened" : "closed")">
+                    <div class="positionContainer">
+                        <div class="ModalScreen" @onclick="() => dialog.Close()"></div>
+                        <div class="containerz tiny">
+                            <div class="window">
+                                <Paper>
+                                    <div class="boxSpacer">
+                                        @dialog.ChildContent
+                                    </div>
+                                </Paper>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            break;
-        case Drawer:
-            <div @key="dialog" class="Drawer @(dialog.IsOpen ? "opened" : "closed")">
-                @dialog.ChildContent
-            </div>
-            break;
-    }
+                break;
+            case Drawer:
+                <div class="Drawer @(dialog.IsOpen ? "opened" : "closed")">
+                    @dialog.ChildContent
+                </div>
+                break;
+        }
+    </div>
 }
 
 @code {
