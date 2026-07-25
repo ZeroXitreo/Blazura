@@ -16,10 +16,10 @@ abstract class Accordion {
         var content = document.getElementById(id) as HTMLDivElement;
         content.animate([
             {
-                height: content.offsetHeight + 'px', // Current height
+                height: `${content.offsetHeight}px`, // Current height
             },
             {
-                height: Accordion.calculateHeightWithoutAbsolutePosition(content) + 'px', // Open
+                height: `${Accordion.calculateHeightWithoutAbsolutePosition(content)}px`, // Open
             }
         ], Accordion.animationOptions);
     }
@@ -28,10 +28,10 @@ abstract class Accordion {
         var content = document.getElementById(id) as HTMLDivElement;
         content.animate([
             {
-                height: content.offsetHeight + 'px', // Current height
+                height: `${content.offsetHeight}px`, // Current height
             },
             {
-                height: 0 + 'px', // Closed
+                height: '0px', // Closed
             }
         ], Accordion.animationOptions);
     }
