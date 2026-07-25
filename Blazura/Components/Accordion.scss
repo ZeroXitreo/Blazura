@@ -1,0 +1,51 @@
+@import "../Styles/Root.scss";
+
+.Accordion {
+    .title {
+        /*background-color: $colorAccent;*/
+        cursor: pointer;
+        font-weight: bold;
+        color: var(--fontDark);
+        position: relative;
+        line-height: 1rem;
+        transition-property: border-end-start-radius,border-end-end-radius;
+        border-radius: .5rem;
+
+        &:before {
+            content: "stat_minus_1";
+            font-family: "Material Symbols Rounded";
+            position: absolute;
+            right: .5rem;
+            top: .5rem;
+            bottom: .5rem;
+            width: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition-property: transform;
+        }
+    }
+
+    .content {
+        border-end-start-radius: .5rem;
+        border-end-end-radius: .5rem;
+        overflow: hidden;
+        height: 0;
+    }
+
+    &.open {
+        .title {
+            border-end-start-radius: unset;
+            border-end-end-radius: unset;
+
+            &:before {
+                transform: rotate(180deg);
+            }
+        }
+
+        .content {
+            height: auto;
+            overflow: initial;
+        }
+    }
+}

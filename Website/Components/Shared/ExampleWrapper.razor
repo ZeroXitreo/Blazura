@@ -4,15 +4,11 @@
     <Pad>
         <VStack>
             <DynamicComponent Type="Type" />
-            <HStack StackBehaviour="StackBehaviour.Left">
-                <StackWeight Weight="null">
-                    <SimpleButton @onclick="() => showCodeBlock = !showCodeBlock" Style="@(showCodeBlock ? Style.Normal : Style.Outline)">@(showCodeBlock ? "Hide" : "Show") Code</SimpleButton>
-                </StackWeight>
-            </HStack>
-            @if (showCodeBlock)
-            {
-                <CodeBlock>@(GetCodeBlock())</CodeBlock>
-            }
+            <Paper Color="Paper.PaperColor.Background">
+                <Accordion Title="@(isCodeOpen ? "Hide code" : "Show code")" OnToggle="CodeToggled">
+                    <CodeBlock>@(GetCodeBlock())</CodeBlock>
+                </Accordion>
+            </Paper>
         </VStack>
     </Pad>
 </Paper>
@@ -26,5 +22,10 @@
 
     private string GetCodeBlock() => File.ReadAllText(Path.Combine(env.ContentRootPath, "Components", "Examples", Folder, $"{Type.Name}.razor"));
 
-    private bool showCodeBlock;
+    private bool isCodeOpen = false;
+
+    private async Task CodeToggled(bool isOpen)
+    {
+        isCodeOpen = isOpen;
+    }
 }
