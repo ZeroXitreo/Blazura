@@ -1,40 +1,71 @@
 ﻿<nav class="nav">
     <Pad>
         <VStack Sizing="Sizing.Xxs">
-            @foreach (var navLink in navLinks)
+            @foreach (var category in linkCategories)
             {
-                <NavLink href="@navLink.Value">
-                    <SimpleButton Style="Style.Clear" Size="Size.Large">
-                        <HStack StackBehaviour="StackBehaviour.Left">
-                            <StackWeight Weight="null">
-                                <span>@navLink.Key</span>
-                            </StackWeight>
-                        </HStack>
-                    </SimpleButton>
-                </NavLink>
+                <h3 style="font-size: .75rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    padding: 1rem;
+                    opacity: .5;">
+                    @category.Key
+                </h3>
+                @foreach (var navLink in category.Value)
+                {
+                    <NavLink href="@navLink.Value">
+                        <SimpleButton Style="Style.Clear" Size="Size.Large">
+                            <HStack StackBehaviour="StackBehaviour.Left">
+                                <StackWeight Weight="null">
+                                    <span>@navLink.Key</span>
+                                </StackWeight>
+                            </HStack>
+                        </SimpleButton>
+                    </NavLink>
+                }
             }
         </VStack>
     </Pad>
 </nav>
 
 @code {
-    private Dictionary<string, string> navLinks = new()
+    private Dictionary<string, Dictionary<string, string>> linkCategories = new()
     {
-        { "Home", "" },
-        { "Banner", "banner" },
-        { "Drawer", "drawer" },
-        { "Modal", "modal" },
-        { "Chip", "chip" },
-        { "SimpleSelect", "select" },
-        { "SimpleInputToggle", "simpleinputtoggle" },
-        { "Badge", "badge" },
-        { "Stacks", "stacks" },
-        { "Lightbox", "lightbox" },
-        { "Snackbar", "snackbar" },
-        { "Context Menu", "contextmenu" },
-        { "File Collection", "filecollection" },
-        { "Progress", "progress" },
-        { "Tabs", "tabs" },
-        { "Accordion", "accordion" },
+        { "General", new()
+            {
+                { "Home", "" },
+            }
+        },
+        { "Fundamentals", new()
+            {
+                { "Stacks", "stacks" },
+            }
+        },
+        { "Basics", new()
+            {
+                { "Banner", "banner" },
+                { "Chip", "chip" },
+                { "Badge", "badge" },
+                { "Stacks", "stacks" },
+                { "Lightbox", "lightbox" },
+                { "Context Menu", "contextmenu" },
+                { "File Collection", "filecollection" },
+                { "Progress", "progress" },
+                { "Tabs", "tabs" },
+                { "Accordion", "accordion" },
+            }
+        },
+        { "Form", new()
+            {
+                { "SimpleSelect", "select" },
+                { "SimpleInputToggle", "simpleinputtoggle" },
+            }
+        },
+        { "Dialog", new()
+            {
+                { "Drawer", "drawer" },
+                { "Modal", "modal" },
+                { "Snackbar", "snackbar" },
+            }
+        },
     };
 }
