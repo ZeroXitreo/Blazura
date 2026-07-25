@@ -1,57 +1,39 @@
-﻿class Accordion implements IClassBringer {
-    private element!: HTMLElement;
-    private content!: HTMLElement;
+﻿var openAccordion = function (id: string) {
+    var content = document.getElementById(id) as HTMLDivElement;
+    content.animate([
+        {
+            height: content.offsetHeight + 'px', // Current height
+        },
+        {
+            height: Accordion.calculateHeightWithoutAbsolutePosition(content) + 'px', // Open
+        }
+    ], Accordion.animationOptions);
+    console.log("openAccordion", id, content);
+}
 
-    initialize(element: HTMLElement): void {
-        this.element = element;
+var closeAccordion = function (id: string) {
+    var content = document.getElementById(id) as HTMLDivElement;
+    content.animate([
+        {
+            height: content.offsetHeight + 'px', // Current height
+        },
+        {
+            height: 0 + 'px', // Closed
+        }
+    ], Accordion.animationOptions);
+    console.log("closeAccordion", id, content);
+}
 
-        this.content = this.element.getElementsByClassName("content")[0] as HTMLDivElement;
-
-        var button = this.element.getElementsByClassName("title")[0] as HTMLDivElement;
-        button.addEventListener("click", this.toggle.bind(this));
+class Accordion implements IClassBringer {
+    static animationOptions: KeyframeAnimationOptions = {
+        duration: 200,
+        easing: "ease",
     }
 
-    toggle() {
-        const animationOptions: KeyframeAnimationOptions = {
-            duration: 200,
-            easing: "ease",
-        }
-        if (this.element.classList.contains("open")) {
-            this.content.animate([
-                {
-                    height: this.content.offsetHeight + 'px', // Current height
-                },
-                {
-                    height: 0 + 'px', // Closed
-                }
-            ], animationOptions);
-        }
-        else {
-            this.content.animate([
-                {
-                    height: this.content.offsetHeight + 'px', // Current height
-                },
-                {
-                    height: this.calculateHeightWithoutAbsolutePosition(this.content) + 'px', // Open
-                }
-            ], animationOptions);
-            this.content.animate([
-                {
-                    overflow: "hidden",
-                },
-                {
-                    overflow: "initial",
-                }
-            ], {
-                ...animationOptions,
-                delay: animationOptions.duration as number,
-                duration: 0,
-                fill: "backwards",
-            });
-        }
+    initialize(_element: HTMLElement): void {
     }
 
-    calculateHeightWithoutAbsolutePosition(container: HTMLElement) {
+    static calculateHeightWithoutAbsolutePosition(container: HTMLElement) {
         // Select all elements inside the container
         var elements = container.children;
 

@@ -1,10 +1,14 @@
-﻿<div class="Accordion @(IsOpen ? "open" : null)">
-    <div class="title" @onclick="TryToOpen">
+﻿@using Microsoft.JSInterop
+
+@inject IJSRuntime JSRuntime
+
+<div class="Accordion @(IsOpen ? "open" : null)">
+    <div class="title" @onclick="AttemptToggle">
         <Pad>
             @Title
         </Pad>
     </div>
-    <div class="content">
+    <div class="content" id="accordion-@this.GetHashCode()">
         <Pad Sides="Side.LeftRight | Side.Bottom">
             @ChildContent
         </Pad>
@@ -24,9 +28,15 @@
     [Parameter]
     public EventCallback<bool> OnToggle { get; set; }
 
-    private async Task TryToOpen()
+    private async Task AttemptToggle()
     {
         IsOpen = !IsOpen;
+        TriggerToggle();
         await OnToggle.InvokeAsync(IsOpen);
+    }
+
+    private void TriggerToggle()
+    {
+        JSRuntime.InvokeVoidAsync(IsOpen ? "openAccordion" : "closeAccordion", "accordion-" + this.GetHashCode());
     }
 }
