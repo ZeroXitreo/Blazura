@@ -1,36 +1,39 @@
 ﻿var openAccordion = function (id: string) {
-    var content = document.getElementById(id) as HTMLDivElement;
-    content.animate([
-        {
-            height: content.offsetHeight + 'px', // Current height
-        },
-        {
-            height: Accordion.calculateHeightWithoutAbsolutePosition(content) + 'px', // Open
-        }
-    ], Accordion.animationOptions);
-    console.log("openAccordion", id, content);
+    Accordion.openAccordion(id);
 }
 
 var closeAccordion = function (id: string) {
-    var content = document.getElementById(id) as HTMLDivElement;
-    content.animate([
-        {
-            height: content.offsetHeight + 'px', // Current height
-        },
-        {
-            height: 0 + 'px', // Closed
-        }
-    ], Accordion.animationOptions);
-    console.log("closeAccordion", id, content);
+    Accordion.closeAccordion(id);
 }
 
-class Accordion implements IClassBringer {
+abstract class Accordion {
     static animationOptions: KeyframeAnimationOptions = {
         duration: 200,
         easing: "ease",
     }
 
-    initialize(_element: HTMLElement): void {
+    static openAccordion(id: string) {
+        var content = document.getElementById(id) as HTMLDivElement;
+        content.animate([
+            {
+                height: content.offsetHeight + 'px', // Current height
+            },
+            {
+                height: Accordion.calculateHeightWithoutAbsolutePosition(content) + 'px', // Open
+            }
+        ], Accordion.animationOptions);
+    }
+
+    static closeAccordion(id: string) {
+        var content = document.getElementById(id) as HTMLDivElement;
+        content.animate([
+            {
+                height: content.offsetHeight + 'px', // Current height
+            },
+            {
+                height: 0 + 'px', // Closed
+            }
+        ], Accordion.animationOptions);
     }
 
     static calculateHeightWithoutAbsolutePosition(container: HTMLElement) {
@@ -55,5 +58,3 @@ class Accordion implements IClassBringer {
         return totalHeight;
     }
 }
-
-ClassBringer.register(Accordion);
