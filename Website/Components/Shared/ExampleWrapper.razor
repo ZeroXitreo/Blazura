@@ -4,7 +4,7 @@
     <Pad>
         <VStack>
             <DynamicComponent Type="Type" />
-            <Paper Color="Paper.PaperColor.Background">
+            <Paper Color="ColorLayer.Layer3">
                 <Accordion Title="@(isCodeOpen ? "Hide code" : "Show code")" OnToggle="CodeToggled">
                     <CodeBlock>@(GetCodeBlock())</CodeBlock>
                 </Accordion>

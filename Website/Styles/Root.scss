@@ -2,18 +2,17 @@
 $shadow: var(--shadow);
 $shadowExtra: var(--shadowExtra);
 
-$colorAccent: var(--accent);
 $colorTint: var(--ting);
 $colorTintFaint: var(--tintFaint);
-$colorPaper: var(--box);
+$colorPaper: var(--box); // Deprecated
 $colorDashed: rgba(145, 158, 171, .2);
 
-$colorBackground: var(--background);
-$colorBackgroundLight: var(--backgroundLight);
-$colorBackgroundDark: var(--backgroundDark);
-$colorBackgroundAlt: var(--backgroundAlt);
-$colorBackgroundAltLight: var(--backgroundAltLight);
-$colorBackgroundAltDark: var(--backgroundAltDark);
+$colorBackground: var(--background); // Deprecated
+$colorBackgroundLight: var(--backgroundLight); // Deprecated
+$colorBackgroundDark: var(--backgroundDark); // Deprecated
+$colorBackgroundAlt: var(--backgroundAlt); // Deprecated
+$colorBackgroundAltLight: var(--backgroundAltLight); // Deprecated
+$colorBackgroundAltDark: var(--backgroundAltDark); // Deprecated
 
 $colorFont: var(--font);
 $colorFont01: var(--font01);
@@ -21,14 +20,17 @@ $colorFont05: var(--font05);
 $colorFontLight: var(--fontLight);
 $colorFontDark: var(--fontDark);
 
-
-$color__font: #4b4b4b; // Deprecated
-
+$colorAccent: var(--accent);
 $colorInfo: var(--info);
 $colorSuccess: var(--success);
 $colorWarning: var(--warning);
 $colorError: var(--error);
 $currentBackgroundColor: var(--currentBackgroundColor);
+
+$colorLayer0: var(--layer0);
+$colorLayer1: var(--layer1);
+$colorLayer2: var(--layer2);
+$colorLayer3: var(--layer3);
 
 $spacing: 1rem;
 $spacing2: .25rem;

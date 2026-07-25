@@ -2,7 +2,7 @@
 
 .SimpleListItem {
     border-radius: $spacing / 2;
-    @include setBackgroundColor($colorBackgroundAlt);
+    @include setBackgroundColor($colorLayer1);
 
     &:first-child {
         border-start-start-radius: $spacing;

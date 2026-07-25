@@ -35,15 +35,19 @@
         box-shadow: unset;
     }
 
-    &.Normal {
-        @include setBackgroundColor($colorPaper);
+    &.Layer0 {
+        @include setBackgroundColor($colorLayer0);
     }
 
-    &.Background {
-        @include setBackgroundColor($colorBackground);
+    &.Layer1 {
+        @include setBackgroundColor($colorLayer1);
     }
 
-    &.Contrast {
-        @include setBackgroundColor($colorBackgroundAlt);
+    &.Layer2 {
+        @include setBackgroundColor($colorLayer2);
+    }
+
+    &.Layer3 {
+        @include setBackgroundColor($colorLayer3);
     }
 }
