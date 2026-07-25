@@ -12,12 +12,11 @@
     }
 
     toggle() {
-        console.log("toggle");
         const animationOptions: KeyframeAnimationOptions = {
             duration: 200,
             easing: "ease",
         }
-        if (this.content.classList.contains("opsen")) {
+        if (this.element.classList.contains("open")) {
             this.content.animate([
                 {
                     height: this.content.offsetHeight + 'px', // Current height
