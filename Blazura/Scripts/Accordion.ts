@@ -1,14 +1,14 @@
 ﻿class Accordion implements IClassBringer {
     private element!: HTMLElement;
     private content!: HTMLElement;
-    private button!: HTMLElement;
 
     initialize(element: HTMLElement): void {
         this.element = element;
 
-        this.button = this.element.getElementsByClassName("title")[0] as HTMLDivElement;
         this.content = this.element.getElementsByClassName("content")[0] as HTMLDivElement;
-        this.button.addEventListener("click", this.toggle.bind(this));
+
+        var button = this.element.getElementsByClassName("title")[0] as HTMLDivElement;
+        button.addEventListener("click", this.toggle.bind(this));
     }
 
     toggle() {
@@ -49,9 +49,6 @@
                 fill: "backwards",
             });
         }
-
-        this.content.classList.toggle("opsen");
-        this.button.classList.toggle("opsen", this.content.classList.contains("opsen"));
     }
 
     calculateHeightWithoutAbsolutePosition(container: HTMLElement) {
