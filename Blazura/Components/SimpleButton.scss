@@ -124,6 +124,30 @@ button,
         }
     }
 
+    &.glass {
+        position: relative;
+        background-color: transparent;
+        color: var(--internalColour);
+        box-shadow: unset;
+
+        &:before {
+            content: "";
+            @include absoluteFill;
+            border-radius: inherit;
+            background-color: var(--internalColour);
+            pointer-events: none;
+            transition-property: opacity;
+            opacity: 0.05;
+        }
+
+        &:hover,
+        &:focus-within {
+            &:before {
+                opacity: .1;
+            }
+        }
+    }
+
     &.small {
         padding: .5rem;
         min-height: 2rem;

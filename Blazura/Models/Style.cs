@@ -3,6 +3,7 @@
 public enum Style
 {
     Normal,
+    Glass,
     Outline,
     Clear,
 }
