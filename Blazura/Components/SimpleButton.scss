@@ -3,6 +3,7 @@
 input[type=submit],
 input[type=button],
 button,
+.SimpleButton,
 .button {
     color: $colorBackground;
     background-color: $colorFont;
@@ -136,7 +137,14 @@ button,
     &.icons {
         font-family: "Material Symbols Rounded";
     }
-}
 
-.SimpleButton {
+/*    .loading {
+        position: absolute;
+        background-color: red;
+    }
+
+    &.loading {
+        .loading {
+        }
+    }*/
 }

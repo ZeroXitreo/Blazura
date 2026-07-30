@@ -6,9 +6,11 @@
     color: transparent !important;
 
     &:before {
-        content: "";
+        content: "progress_activity";
+        font-family: "Material Symbols Rounded";
+        color: currentColor;
         animation-name: loading;
-        animation-duration: .5s;
+        animation-duration: 1s;
         animation-iteration-count: infinite;
         animation-timing-function: linear;
         position: absolute;
@@ -17,10 +19,10 @@
         left: 0;
         right: 0;
         z-index: 1;
-        background-image: url(/../../../images/propeller-white.svg);
-        background-size: 2rem 2rem;
-        background-position: center;
-        background-repeat: no-repeat;
+        color: red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         @keyframes loading {
             from {
@@ -31,9 +33,5 @@
                 transform: rotate(360deg);
             }
         }
-    }
-
-    &.dark:before {
-        background-image: url(/../../../images/propeller-black.svg);
     }
 }
