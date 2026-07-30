@@ -1,0 +1,26 @@
+﻿<HStack>
+    <VStack>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Small">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Large">Hello world!</SimpleButton>
+    </VStack>
+    <VStack>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Small">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Large">Hello world!</SimpleButton>
+    </VStack>
+    <VStack>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Small">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Large">Hello world!</SimpleButton>
+    </VStack>
+</HStack>
+
+@code {
+    private bool isLoading;
+
+    private void ToggleLoading()
+    {
+        isLoading = !isLoading;
+    }
+}

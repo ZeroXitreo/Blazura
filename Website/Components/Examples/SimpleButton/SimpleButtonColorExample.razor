@@ -1,0 +1,35 @@
+﻿<HStack>
+    <VStack>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Color="Color.Default">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Color="Color.Accent">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Color="Color.Info">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Color="Color.Success">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Color="Color.Warning">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Color="Color.Error">Hello world!</SimpleButton>
+    </VStack>
+    <VStack>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Color="Color.Default">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Color="Color.Accent">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Color="Color.Info">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Color="Color.Success">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Color="Color.Warning">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Color="Color.Error">Hello world!</SimpleButton>
+    </VStack>
+    <VStack>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Color="Color.Default">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Color="Color.Accent">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Color="Color.Info">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Color="Color.Success">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Color="Color.Warning">Hello world!</SimpleButton>
+        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Color="Color.Error">Hello world!</SimpleButton>
+    </VStack>
+</HStack>
+
+@code {
+    private bool isLoading;
+
+    private void ToggleLoading()
+    {
+        isLoading = !isLoading;
+    }
+}

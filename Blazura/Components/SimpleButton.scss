@@ -14,7 +14,6 @@ button,
     text-align: center;
     box-shadow: unset;
     line-height: 1rem;
-    padding: .625rem;
 
     &:hover,
     &:focus {
@@ -72,7 +71,7 @@ button,
             content: "";
             @include absoluteFill;
             border-radius: inherit;
-            background-color: var(--internalColour);
+            background-color: currentColor;
             pointer-events: none;
             transition-property: opacity;
             opacity: 0;
@@ -85,17 +84,17 @@ button,
             pointer-events: none;
             transition-property: opacity, box-shadow;
             opacity: .2;
-            box-shadow: 0 0 0 1px inset var(--internalColour), 0 0 0 0 var(--internalColour);
+            box-shadow: 0 0 0 1px inset currentColor;
         }
 
         &:hover,
         &:focus-within {
             &:before {
-                opacity: .1;
+                opacity: .05;
             }
 
             &:after {
-                box-shadow: 0 0 0 1px inset var(--internalColour), 0 0 0 1px var(--internalColour);
+                box-shadow: 0 0 0 2px inset currentColor;
                 opacity: 1;
             }
         }
@@ -126,8 +125,11 @@ button,
     }
 
     &.small {
-        padding-top: .4375rem;
-        padding-bottom: .4375rem;
+        padding: .5rem;
+    }
+
+    &.medium {
+        padding: 0.75rem;
     }
 
     &.large {
@@ -157,10 +159,13 @@ button,
         left: 50%;
         transform: $initialTransform;
         aspect-ratio: 1/1;
+        font-size: 1.2em;
+        // animation
         animation-name: loading;
         animation-duration: 1s;
         animation-iteration-count: infinite;
         animation-timing-function: linear;
+        // transition
         transition-property: opacity, visibility;
         opacity: 0;
         visibility: hidden;
