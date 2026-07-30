@@ -126,14 +126,20 @@ button,
 
     &.small {
         padding: .5rem;
+        min-height: 2rem;
+        min-width: 2rem;
     }
 
     &.medium {
         padding: 0.75rem;
+        min-height: 2.5rem;
+        min-width: 2.5rem;
     }
 
     &.large {
         padding: 1rem;
+        min-height: 3rem;
+        min-width: 3rem;
     }
 
     &.icons {

@@ -1,15 +1,8 @@
-﻿<VStack>
-    <HStack>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading">Hello world!</SimpleButton>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline">Hello world!</SimpleButton>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear">Hello world!</SimpleButton>
-    </HStack>
-    <HStack>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Disabled="true">Hello world!</SimpleButton>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Disabled="true" Style="Style.Outline">Hello world!</SimpleButton>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Disabled="true" Style="Style.Clear">Hello world!</SimpleButton>
-    </HStack>
-</VStack>
+﻿<HStack>
+    <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading">Hello world!</SimpleButton>
+    <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline">Hello world!</SimpleButton>
+    <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear">Hello world!</SimpleButton>
+</HStack>
 
 @code {
     private bool isLoading;

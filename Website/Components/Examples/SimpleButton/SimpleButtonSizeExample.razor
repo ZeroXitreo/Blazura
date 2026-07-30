@@ -1,20 +1,57 @@
-﻿<HStack>
-    <VStack>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Small">Hello world!</SimpleButton>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading">Hello world!</SimpleButton>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Large">Hello world!</SimpleButton>
-    </VStack>
-    <VStack>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Small">Hello world!</SimpleButton>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline">Hello world!</SimpleButton>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Large">Hello world!</SimpleButton>
-    </VStack>
-    <VStack>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Small">Hello world!</SimpleButton>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear">Hello world!</SimpleButton>
-        <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Large">Hello world!</SimpleButton>
-    </VStack>
-</HStack>
+﻿<VStack>
+    <HStack>
+        <VStack>
+            <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Small">Hello world!</SimpleButton>
+            <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading">Hello world!</SimpleButton>
+            <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Large">Hello world!</SimpleButton>
+        </VStack>
+        <VStack>
+            <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Small">Hello world!</SimpleButton>
+            <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline">Hello world!</SimpleButton>
+            <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Large">Hello world!</SimpleButton>
+        </VStack>
+        <VStack>
+            <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Small">Hello world!</SimpleButton>
+            <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear">Hello world!</SimpleButton>
+            <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Large">Hello world!</SimpleButton>
+        </VStack>
+    </HStack>
+    <HStack>
+        <HStack HeightAlignment="HeightAlignment.Center" StackBehaviour="StackBehaviour.Center">
+            <StackWeight Weight="null">
+                <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Small"></SimpleButton>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading"></SimpleButton>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Large"></SimpleButton>
+            </StackWeight>
+        </HStack>
+        <HStack HeightAlignment="HeightAlignment.Center" StackBehaviour="StackBehaviour.Center">
+            <StackWeight Weight="null">
+                <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Small"></SimpleButton>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline"></SimpleButton>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Large"></SimpleButton>
+            </StackWeight>
+        </HStack>
+        <HStack HeightAlignment="HeightAlignment.Center" StackBehaviour="StackBehaviour.Center">
+            <StackWeight Weight="null">
+                <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Small"></SimpleButton>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear"></SimpleButton>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Large"></SimpleButton>
+            </StackWeight>
+        </HStack>
+    </HStack>
+</VStack>
 
 @code {
     private bool isLoading;
