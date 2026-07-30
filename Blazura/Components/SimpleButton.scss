@@ -1,0 +1,142 @@
+@import "../Styles/Root.scss";
+
+input[type=submit],
+input[type=button],
+button,
+.button {
+    color: $colorBackground;
+    background-color: $colorFont;
+    --internalColour: #{$colorFont};
+    cursor: pointer;
+    font-weight: bold;
+    transition-property: background-color, color, opacity;
+    text-align: center;
+    box-shadow: unset;
+    line-height: 1rem;
+    padding: .625rem;
+
+    &:hover,
+    &:focus {
+        opacity: .9;
+    }
+
+    &:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+
+    &:focus,
+    &:focus-within {
+        outline: none;
+        box-shadow: unset;
+    }
+
+    &.accent {
+        color: $colorFontDark;
+        background-color: $colorAccent;
+        --internalColour: #{$colorAccent};
+    }
+
+    &.info {
+        color: $colorFontDark;
+        background-color: $colorInfo;
+        --internalColour: #{$colorInfo};
+    }
+
+    &.success {
+        color: $colorFontDark;
+        background-color: $colorSuccess;
+        --internalColour: #{$colorSuccess};
+    }
+
+    &.warning {
+        color: $colorFontDark;
+        background-color: $colorWarning;
+        --internalColour: #{$colorWarning};
+    }
+
+    &.error {
+        color: $colorFontDark;
+        background-color: $colorError;
+        --internalColour: #{$colorError};
+    }
+
+    &.outline {
+        position: relative;
+        background-color: transparent;
+        color: var(--internalColour);
+        box-shadow: unset;
+
+        &:before {
+            content: "";
+            @include absoluteFill;
+            border-radius: inherit;
+            background-color: var(--internalColour);
+            pointer-events: none;
+            transition-property: opacity;
+            opacity: 0;
+        }
+
+        &:after {
+            content: "";
+            @include absoluteFill;
+            border-radius: inherit;
+            pointer-events: none;
+            transition-property: opacity, box-shadow;
+            opacity: .2;
+            box-shadow: 0 0 0 1px inset var(--internalColour), 0 0 0 0 var(--internalColour);
+        }
+
+        &:hover,
+        &:focus-within {
+            &:before {
+                opacity: .1;
+            }
+
+            &:after {
+                box-shadow: 0 0 0 1px inset var(--internalColour), 0 0 0 1px var(--internalColour);
+                opacity: 1;
+            }
+        }
+    }
+
+    &.clear {
+        position: relative;
+        background-color: transparent;
+        color: var(--internalColour);
+        box-shadow: unset;
+
+        &:before {
+            content: "";
+            @include absoluteFill;
+            border-radius: inherit;
+            background-color: var(--internalColour);
+            pointer-events: none;
+            transition-property: opacity;
+            opacity: 0;
+        }
+
+        &:hover,
+        &:focus-within {
+            &:before {
+                opacity: .1;
+            }
+        }
+    }
+
+    &.small {
+        padding-top: .4375rem;
+        padding-bottom: .4375rem;
+    }
+
+    &.large {
+        padding: 1rem;
+    }
+
+    &.icons {
+        font-family: "Material Symbols Rounded";
+    }
+}
+
+.SimpleButton {
+}
