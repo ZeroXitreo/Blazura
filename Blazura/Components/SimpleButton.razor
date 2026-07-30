@@ -2,7 +2,7 @@
         type="@Type.ToString().ToLower()"
         disabled="@Disabled" @onclick="OnClick">
     <div class="loading">progress_activity</div>
-    @ChildContent
+    <div class="content">@ChildContent</div>
 </button>
 
 @code {

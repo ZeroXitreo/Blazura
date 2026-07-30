@@ -138,7 +138,14 @@ button,
         font-family: "Material Symbols Rounded";
     }
 
+    .content {
+        transition-property: opacity, visibility;
+        opacity: 1;
+        visibility: unset;
+    }
+
     .loading {
+        $initialTransform: translateX(-50%);
         content: "progress_activity";
         font-family: "Material Symbols Rounded";
         display: flex;
@@ -148,8 +155,7 @@ button,
         top: 0;
         bottom: 0;
         left: 50%;
-        transform: translateX(-50%);
-        background-color: red;
+        transform: $initialTransform;
         aspect-ratio: 1/1;
         animation-name: loading;
         animation-duration: 1s;
@@ -157,23 +163,28 @@ button,
         animation-timing-function: linear;
         transition-property: opacity, visibility;
         opacity: 0;
-        /*visibility: hidden;*/
+        visibility: hidden;
 
         @keyframes loading {
             from {
-                transform: translateX(-50%) rotate(0deg);
+                transform: $initialTransform rotate(0deg);
             }
 
             to {
-                transform: translateX(-50%) rotate(360deg);
+                transform: $initialTransform rotate(360deg);
             }
         }
     }
 
     &.loading {
+        .content {
+            opacity: 0;
+            visibility: hidden;
+        }
+
         .loading {
             opacity: 1;
-            visibility: visible;
+            visibility: unset;
         }
     }
 }

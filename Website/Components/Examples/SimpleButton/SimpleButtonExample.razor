@@ -2,7 +2,16 @@
     <SimpleButton>Hello world!</SimpleButton>
     <SimpleButton Style="Style.Outline">Hello world!</SimpleButton>
     <SimpleButton Style="Style.Clear">Hello world!</SimpleButton>
-    <SimpleButton IsLoading>Hello world!</SimpleButton>
-    <SimpleButton IsLoading Style="Style.Outline">Hello world!</SimpleButton>
-    <SimpleButton IsLoading Style="Style.Clear">Hello world!</SimpleButton>
+    <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading">Hello world!</SimpleButton>
+    <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline">Hello world!</SimpleButton>
+    <SimpleButton OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear">Hello world!</SimpleButton>
 </VStack>
+
+@code {
+    private bool isLoading;
+
+    private void ToggleLoading()
+    {
+        isLoading = !isLoading;
+    }
+}
