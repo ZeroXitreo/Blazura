@@ -14,6 +14,10 @@ Blazura is an early-stage, component-driven UI library for Blazor. It offers a g
 - **Localization**: Support for custom localization, allowing you to adapt component text and messages to different languages and cultures.
 - **Dark & Light Mode**: Supports both dark and light themes out of the box, automatically adapting to user preferences or system settings.
 
+### Design & documentation example
+
+<img width="1229" height="1322" alt="image" src="https://github.com/user-attachments/assets/07b4cf13-6b1b-47d9-87b4-2871be1505a7" />
+
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
