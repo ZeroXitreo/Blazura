@@ -1,0 +1,61 @@
+@import "../../Styles/Root.scss";
+
+.NavMenu {
+
+	nav {
+		ul {
+			list-style-type: none;
+			padding: unset;
+			margin: unset;
+
+			li {
+
+				> a,
+				> span {
+					display: block;
+					cursor: pointer;
+					padding: 1rem 1rem;
+					transition-property: background, color, box-shadow;
+					border-radius: $radius;
+					margin: .5rem -1rem;
+					position: relative;
+					color: currentColor;
+					outline: 0;
+
+					&:after {
+						content: "";
+						background-color: transparent;
+						position: absolute;
+						top: 0;
+						bottom: 0;
+						left: 0;
+						right: 0;
+						z-index: -1;
+						opacity: .1;
+						transition-duration: .2s;
+						transition-property: background-color;
+					}
+
+					&:hover:after,
+					&:focus:after {
+						background-color: currentColor;
+					}
+
+					&.active {
+						color: $colorAccent;
+
+						&:after {
+							background-color: $colorAccent;
+							/*opacity: 1;*/
+						}
+					}
+
+					.icon {
+						font-size: 1em;
+						opacity: .2;
+					}
+				}
+			}
+		}
+	}
+}

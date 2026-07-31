@@ -2,26 +2,80 @@
 @inherits LayoutComponentBase
 @layout RootLayout
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@implements IDisposable
+@inject NavigationManager NavigationManager
 
-    <main>
-        <article>
-            <Clamp IsSmall="true">
-                <Pad Sides="Side.TopBottom" Sizing="Sizing.Xxl">
-                    <VStack Sizing="Sizing.Xxl">
+<div class="page @(isMenuOpen ? "toggle" : "")">
+    <aside class="@(isMenuOpen ? "toggle" : "")">
+        <div class="SlinkyScroll">
+            @*             <Header OnNavigation="Close" />
+            <NavMenu OnNavigation="Close" />
+            <Footer /> *@
+            <Pad>
+                <VStack>
+                    <NavMenu />
+                    <Pad>
+                        <Footer />
+                    </Pad>
+                </VStack>
+            </Pad>
+        </div>
+    </aside>
+    <div>
+        <Pad Sizing="Sizing.Lg">
+            <HStack HeightAlignment="HeightAlignment.Center" StackBehaviour="StackBehaviour.Seperate">
+                <StackWeight Weight="null">
+                    <div class="sideMenuButton">
+                        <IconButton Icon="menu" @onclick="Open" />
+                    </div>
+                </StackWeight>
+                <StackWeight Weight="null">
+                    <HStack HeightAlignment="HeightAlignment.Center">
+                        <StackWeight Weight="null">
+                            <div class="ThemeSwitcher RippleEffect"></div>
+                        </StackWeight>
+                    </HStack>
+                </StackWeight>
+            </HStack>
+        </Pad>
+        <main>
+            <article>
+                <Clamp IsSmall="true">
+                    <Pad Sides="Side.TopBottom" Sizing="Sizing.Xxl">
                         @Body
-                    </VStack>
-                </Pad>
-            </Clamp>
-        </article>
-    </main>
+                    </Pad>
+                </Clamp>
+            </article>
+        </main>
+    </div>
 </div>
+<div class="backdrop @(isMenuOpen ? "toggle" : "")" @onclick="Close"></div>
 
 <div id="blazor-error-ui" data-nosnippet>
     An unhandled error has occurred.
     <a href="." class="reload">Reload</a>
     <span class="dismiss">🗙</span>
 </div>
+
+@code {
+    private Boolean isMenuOpen;
+
+    private void Close() => isMenuOpen = false;
+    private void Open() => isMenuOpen = true;
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += LocationChanged;
+    }
+
+    void LocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        Close();
+        StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        NavigationManager.LocationChanged -= LocationChanged;
+    }
+}
