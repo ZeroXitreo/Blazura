@@ -7,7 +7,6 @@
         font-weight: bold;
         position: relative;
         line-height: 1rem;
-        transition-property: border-end-start-radius,border-end-end-radius;
         border-radius: .5rem;
 
         &:before {
@@ -26,16 +25,12 @@
     }
 
     .content {
-        border-end-start-radius: .5rem;
-        border-end-end-radius: .5rem;
         overflow: hidden;
         height: 0;
     }
 
     &.open {
         .title {
-            border-end-start-radius: unset;
-            border-end-end-radius: unset;
 
             &:before {
                 transform: rotate(180deg);
