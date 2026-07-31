@@ -64,7 +64,7 @@
             width: $bulletSize;
             margin-top: ($containerSize - $bulletSize) / 2;
             margin-left: ($containerSize - $bulletSize) / 2;
-            background-color: currentColor;
+            background-color: $colorFontDark;
             border-radius: 50%;
             position: absolute;
             transition-property: left;
