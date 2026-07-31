@@ -1,0 +1,28 @@
+﻿@import "../../Styles/Root.scss";
+
+footer {
+    font-size: .75rem;
+
+    ul {
+        list-style: none;
+        margin: unset;
+        padding: unset;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: -.5rem;
+
+        li {
+            width: 50%;
+            margin-bottom: .5rem;
+
+            a {
+                color: inherit;
+                font-weight: 600;
+
+                &:hover {
+                    color: $colorAccent;
+                }
+            }
+        }
+    }
+}
