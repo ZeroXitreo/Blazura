@@ -1,6 +1,6 @@
 ﻿namespace Blazura.Models;
 
-public enum Sizing
+public enum Spacing
 {
     None, // None
     Xxs, // Extra Extra Small

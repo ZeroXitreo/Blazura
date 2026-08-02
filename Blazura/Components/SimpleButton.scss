@@ -141,6 +141,7 @@ button,
         background-color: transparent;
         color: var(--internalColour);
         box-shadow: unset;
+        color: color-mix(in srgb, var(--internalColour) 75%, $colorFont);
 
         &:before {
             content: "";

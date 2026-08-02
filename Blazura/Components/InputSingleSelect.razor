@@ -1,12 +1,12 @@
 ﻿@using System.Linq.Expressions
-@using System.Reflection
+
 @typeparam T
 
 <Placeholder For="@ValueExpression" Format="@Format" HasData="HasData">
     <div class="InputMultiSelect @(isMenuOpen ? "active" : "") @(Disabled ? "disabled" : null)">
         <div class="inputbordering">
             <div style="margin: -.2rem 0;">
-                <WrapStack Sizing="Sizing.Xs">
+                <WrapStack Spacing="Spacing.Xs">
                     <input class="PreventSubmit inputBase" @bind="input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="OpenMenu" @onfocus="OnFocus" @onblur="OnBlur" />
                 </WrapStack>
             </div>

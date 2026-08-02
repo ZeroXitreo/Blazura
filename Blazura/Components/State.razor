@@ -4,9 +4,9 @@
             <Icon>@Icon</Icon>
         </div>
         <div class="title">@Title</div>
-        @if (Description is not null)
+        @if (ChildContent is not null)
         {
-            <div class="description">@Description</div>
+            <div class="description">@ChildContent</div>
         }
     </VStack>
 </div>
@@ -20,5 +20,5 @@
     public string Title { get; set; }
 
     [Parameter]
-    public string? Description { get; set; }
+    public required RenderFragment ChildContent { get; set; }
 }

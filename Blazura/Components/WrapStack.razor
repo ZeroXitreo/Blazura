@@ -1,4 +1,4 @@
-﻿<div class="WrapStack @(Sizing.ToString())">
+﻿<div class="WrapStack @(Spacing.ToString())">
 	@ChildContent
 </div>
 
@@ -7,5 +7,5 @@
 	public RenderFragment? ChildContent { get; set; }
 
 	[Parameter]
-	public Sizing Sizing { get; set; } = Sizing.Md;
+	public Spacing Spacing { get; set; } = Spacing.Md;
 }

@@ -2,3 +2,23 @@
 @inject IWebHostEnvironment Env
 
 <PageTitle>Home</PageTitle>
+
+@* <VStack>
+    <SimpleInputText @bind-Value="SimpleInputString" />
+
+    <SimpleButton>@SimpleInputString</SimpleButton>
+</VStack> *@
+<State Title="Blazura's documentation homepage" Icon="draw">
+    <p>This central hub is where you can find all of our currently written documentation, guides, and reference materials.</p>
+    <p>Please note that this is a living document. We are still actively working on getting everything fully documented, so some sections may still be under construction.</p>
+    <p>Check back frequently for updates, and thank you for your patience as we build out the rest of the guides!</p>
+    <HStack StackBehaviour="StackBehaviour.Center">
+        <StackWeight Weight="null">
+            <SimpleButton Style="Style.Glass">View on GitHub</SimpleButton>
+        </StackWeight>
+    </HStack>
+</State>
+
+@code {
+    private string SimpleInputString { get; set; } = "Hello world!";
+}

@@ -1,4 +1,4 @@
-﻿<div class="HStack @(Sizing.ToString()) @(HeightAlignment.ToString()) StackBehaviour@(StackBehaviour.ToString())">
+﻿<div class="HStack @(Spacing.ToString()) @(HeightAlignment.ToString()) StackBehaviour@(StackBehaviour.ToString())">
 	@ChildContent
 </div>
 
@@ -7,7 +7,7 @@
 	public RenderFragment? ChildContent { get; set; }
 
 	[Parameter]
-	public Sizing Sizing { get; set; } = Sizing.Md;
+	public Spacing Spacing { get; set; } = Spacing.Md;
 
 	[Parameter]
 	public HeightAlignment HeightAlignment { get; set; } = HeightAlignment.Stretch;
