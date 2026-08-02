@@ -82,7 +82,7 @@
         NavigationManager.LocationChanged += LocationChanged;
     }
 
-    void LocationChanged(object sender, LocationChangedEventArgs e)
+    void LocationChanged(object? sender, LocationChangedEventArgs e)
     {
         Close();
         StateHasChanged();
