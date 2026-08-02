@@ -156,3 +156,13 @@ $sideMenuSize: 16rem;
         opacity: 1;
     }
 }
+
+#blazor-error-ui {
+    display: none;
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    border-radius: $radius;
+    background-color: $colorError;
+    color: $colorFontDark;
+}

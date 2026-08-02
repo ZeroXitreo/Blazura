@@ -52,9 +52,21 @@
 <div class="backdrop @(isMenuOpen ? "toggle" : "")" @onclick="Close"></div>
 
 <div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
+    <Pad>
+        <HStack HeightAlignment="HeightAlignment.Center" Sizing="Sizing.Xs">
+            <StackWeight>
+                An unhandled error has occurred.
+            </StackWeight>
+            <StackWeight Weight="null">
+                <a href=".">
+                    <SimpleButton Size="Size.Small">Reload</SimpleButton>
+                </a>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <SimpleButton Size="Size.Small" Style="Style.Glass"><Icon>close</Icon></SimpleButton>
+            </StackWeight>
+        </HStack>
+    </Pad>
 </div>
 
 @code {
