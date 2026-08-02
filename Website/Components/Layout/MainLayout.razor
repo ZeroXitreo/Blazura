@@ -8,11 +8,11 @@
 <div class="page @(isMenuOpen ? "toggle" : "")">
     <aside class="@(isMenuOpen ? "toggle" : "")">
         <div class="SlinkyScroll">
-            @*             <Header OnNavigation="Close" />
-            <NavMenu OnNavigation="Close" />
-            <Footer /> *@
             <Pad>
                 <VStack>
+                    <Pad>
+                        <Header />
+                    </Pad>
                     <NavMenu />
                     <Pad>
                         <Footer />
@@ -41,9 +41,9 @@
         <main>
             <article>
                 <Clamp IsSmall="true">
-                    <Pad Sides="Side.TopBottom" Sizing="Sizing.Xxl">
+                    <VStack Sizing="Sizing.Xxl">
                         @Body
-                    </Pad>
+                    </VStack>
                 </Clamp>
             </article>
         </main>
