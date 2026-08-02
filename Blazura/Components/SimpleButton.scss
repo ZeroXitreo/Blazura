@@ -15,6 +15,18 @@ button,
     box-shadow: unset;
     line-height: 1rem;
 
+    &.theme-light {
+        color: $colorBackgroundLight;
+        background-color: $colorFontLight;
+        --internalColour: #{$colorFontLight};
+    }
+
+    &.theme-dark {
+        color: $colorBackgroundDark;
+        background-color: $colorFontDark;
+        --internalColour: #{$colorFontDark};
+    }
+
     &:hover,
     &:focus {
         opacity: .9;

@@ -1,4 +1,4 @@
-﻿<button class="RippleEffect SimpleButton @Style.ToString().ToLower() @Size.ToString().ToLower() @Color.ToString().ToLower() @(IsLoading ? "loading" : null)"
+﻿<button class="RippleEffect SimpleButton @Style.ToString().ToLower() @Size.ToString().ToLower() @Color.ToString().ToLower() @(IsLoading ? "loading" : null) theme-@Theme.ToString().ToLower()"
         type="@Type.ToString().ToLower()"
         disabled="@Disabled" @onclick="OnClick">
     <div class="loading">progress_activity</div>
@@ -31,4 +31,7 @@
 
     [Parameter]
     public bool IsLoading { get; set; }
+
+    [Parameter]
+    public Theme Theme { get; set; }
 }
