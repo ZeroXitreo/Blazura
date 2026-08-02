@@ -26,7 +26,7 @@
 
 ### Design & documentation example
 
-<img width="1229" height="1322" alt="image" src="https://github.com/user-attachments/assets/07b4cf13-6b1b-47d9-87b4-2871be1505a7" />
+<img alt="image" src="https://github.com/user-attachments/assets/07b4cf13-6b1b-47d9-87b4-2871be1505a7" />
 
 ## Prerequisites
 
