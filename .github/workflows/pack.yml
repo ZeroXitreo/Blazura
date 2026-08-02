@@ -20,6 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+          
+      - name: Convert SVG to PNG (256x256) via librsvg
+        run: |
+          sudo apt-get update && sudo apt-get install -y librsvg2-bin
+          rsvg-convert -w 256 -h 256 --force-aspect-ratio logo.svg -o logo.png
+          ls -a
 
       - name: Setup dotnet 10
         uses: actions/setup-dotnet@v6
