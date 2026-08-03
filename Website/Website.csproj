@@ -43,6 +43,12 @@
 		  SourceFiles="..\Blazura\Styles\Root.scss"
 		  DestinationFiles="$(MSBuildProjectDirectory)\Styles\Root.scss"
 		  SkipUnchangedFiles="false" />
+		
+		<Message Importance="high" Text="[Blazura] Copying file: ..\Blazura\tsconfig.json to $(MSBuildProjectDirectory)\tsconfig.json" />
+		<Copy
+		  SourceFiles="..\Blazura\tsconfig.json"
+		  DestinationFiles="$(MSBuildProjectDirectory)\tsconfig.json"
+		  SkipUnchangedFiles="false" />
 	</Target>
 
 </Project>

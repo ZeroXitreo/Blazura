@@ -15,11 +15,17 @@
 		  SourceFiles="$(MSBuildThisFileDirectory)..\requiredFiles\ClassBringer.d.ts.copy"
 		  DestinationFiles="$(MSBuildProjectDirectory)\Scripts\ClassBringer.d.ts"
 		  SkipUnchangedFiles="false" />
-		
+
 		<Message Importance="high" Text="[Blazura] Copying file: $(MSBuildThisFileDirectory)..\requiredFiles\Root.scss to $(MSBuildProjectDirectory)\Styles\Root.scss" />
 		<Copy
 		  SourceFiles="$(MSBuildThisFileDirectory)..\requiredFiles\Root.scss"
 		  DestinationFiles="$(MSBuildProjectDirectory)\Styles\Root.scss"
+		  SkipUnchangedFiles="false" />
+
+		<Message Importance="high" Text="[Blazura] Copying file: $(MSBuildThisFileDirectory)..\requiredFiles\tsconfig.json to $(MSBuildProjectDirectory)\tsconfig.json" />
+		<Copy
+		  SourceFiles="$(MSBuildThisFileDirectory)..\requiredFiles\tsconfig.json"
+		  DestinationFiles="$(MSBuildProjectDirectory)\tsconfig.json"
 		  SkipUnchangedFiles="false" />
 	</Target>
 </Project>

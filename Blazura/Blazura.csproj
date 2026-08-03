@@ -66,6 +66,7 @@
 		<None Include="Scripts\IClassBringer.d.ts" Pack="true" PackagePath="requiredFiles" />
 		<None Include="Scripts\ClassBringer.d.ts.copy" Pack="true" PackagePath="requiredFiles" />
 		<None Include="Styles\Root.scss" Pack="true" PackagePath="requiredFiles" />
+		<None Include="tsconfig.json" Pack="true" PackagePath="requiredFiles" />
 	</ItemGroup>
 	
 </Project>
