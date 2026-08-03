@@ -2,7 +2,7 @@
 
 <VStack>
     Currently selected options: @string.Join(", ", selectedOptions)
-    <InputSingleSelect @bind-Value="selectedOptions" Options="options" />
+    <SelectField @bind-Value="selectedOptions" Options="options" />
 </VStack>
 
 @code {

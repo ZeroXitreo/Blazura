@@ -3,7 +3,7 @@
 @typeparam T
 
 <Placeholder For="@ValueExpression" Format="@Format" HasData="HasData">
-    <div class="InputMultiSelect @(isMenuOpen ? "active" : "") @(Disabled ? "disabled" : null)">
+    <div class="MultiSelectField @(isMenuOpen ? "active" : "") @(Disabled ? "disabled" : null)">
         <div class="inputbordering">
             <WrapStack Spacing="Spacing.Xs">
                 <input class="PreventSubmit inputBase" @bind="input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="OpenMenu" @onfocus="OnFocus" @onblur="OnBlur" />

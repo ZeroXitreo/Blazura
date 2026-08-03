@@ -2,7 +2,7 @@
 
 <VStack>
     Currently selected options: @string.Join(", ", selectedOptions)
-    <InputMultiSelect @bind-Value="selectedOptions" Options="options.Order()" />
+    <MultiSelectField @bind-Value="selectedOptions" Options="options.Order()" />
 </VStack>
 
 @code {

@@ -1,0 +1,10 @@
+﻿@page "/select"
+@using Website.Components.Examples.SelectField
+@using Website.Components.Shared
+@inject IWebHostEnvironment Env
+
+<PageTitle>SelectField</PageTitle>
+
+<h1>SelectField</h1>
+<ExampleWrapper Folder="@(nameof(SelectField))" Type="typeof(SelectFieldExample)" />
+<ExampleWrapper Folder="@(nameof(SelectField))" Type="typeof(MultiSelectFieldExample)" />
