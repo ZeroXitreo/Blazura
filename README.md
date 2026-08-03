@@ -69,17 +69,7 @@ Before you begin, ensure you have the following installed:
 
    Files to copy:
 
-   - Styles/Root.scss
-   - Scripts/IClassBringer.ts
    - tsconfig.json
-
-   Also make a new file `Scripts/ClassBringer.d.ts` and add the following:
-
-   ```typescript
-   declare class ClassBringer {
-     public static register(bringer: new () => IClassBringer): void;
-   }
-   ```
 
 4. **Register services**
 
@@ -109,6 +99,10 @@ Before you begin, ensure you have the following installed:
        <BundleComplete />
    </head>
    ```
+
+7. **Build your project**
+
+   Build your project, a few more files will appear to help you use blazura directly
 
 ## Contributing
 
