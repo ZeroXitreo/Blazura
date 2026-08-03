@@ -25,11 +25,6 @@ jobs:
           path: .
           pattern: ${{ vars.IMAGE_NAME }}.tar
 
-      - name: Delete artifact
-        uses: geekyeggo/delete-artifact@v6
-        with:
-          name: ${{ vars.IMAGE_NAME }}-image
-
       - name: SCP into the server
         uses: appleboy/scp-action@6dba043acb2fa9973346e5025373dd76f2a50779 # master
         with:
