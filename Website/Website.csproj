@@ -14,8 +14,35 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Blazura" Version="1.0.22" />
 		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.10" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Blazura\Blazura.csproj" />
+	</ItemGroup>
+	
+	<Target Name="CopyRequiredFiles" BeforeTargets="BeforeBuild">
+		<ItemGroup>
+			<SourceTSFile Include="..\Blazura\Scripts\IClassBringer.d.ts" />
+		</ItemGroup>
+
+		<Message Importance="high" Text="[Blazura] Copying file: @(SourceTSFile) to $(MSBuildProjectDirectory)\Scripts\IClassBringer.d.ts" />
+		<Copy
+		  SourceFiles="@(SourceTSFile)"
+		  DestinationFiles="$(MSBuildProjectDirectory)\Scripts\IClassBringer.d.ts"
+		  SkipUnchangedFiles="false" />
+
+		<Message Importance="high" Text="[Blazura] Copying file: ..\Blazura\Scripts\ClassBringer.d.ts.copy to $(MSBuildProjectDirectory)\Scripts\ClassBringer.d.ts" />
+		<Copy
+		  SourceFiles="..\Blazura\Scripts\ClassBringer.d.ts.copy"
+		  DestinationFiles="$(MSBuildProjectDirectory)\Scripts\ClassBringer.d.ts"
+		  SkipUnchangedFiles="false" />
+
+		<Message Importance="high" Text="[Blazura] Copying file: ..\Blazura\Styles\Root.scss to $(MSBuildProjectDirectory)\Styles\Root.scss" />
+		<Copy
+		  SourceFiles="..\Blazura\Styles\Root.scss"
+		  DestinationFiles="$(MSBuildProjectDirectory)\Styles\Root.scss"
+		  SkipUnchangedFiles="false" />
+	</Target>
 
 </Project>
