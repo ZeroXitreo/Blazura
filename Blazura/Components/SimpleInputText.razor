@@ -1,18 +1,20 @@
-﻿@using System.ComponentModel.DataAnnotations
-@using System.Reflection
-@using System.Linq.Expressions
-@using Microsoft.Extensions.DependencyInjection
+﻿@using Microsoft.Extensions.DependencyInjection
 @inherits InputText
 @inject IServiceProvider ServiceProvider
 
-<Placeholder For="@ValueExpression" Format="@Format">
-    <InputText Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression" @attributes="AdditionalAttributes" />
+<Placeholder For="@ValueExpression" Format="@Format" FieldSize="FieldSize">
+    <InputText Value="@Value" ValueChanged="@ValueChanged" ValueExpression="@ValueExpression" placeholder="Just some text..." @attributes="AdditionalAttributes" />
 </Placeholder>
 
 @code {
-    [Parameter] public Func<string, string> Format { get; set; } = (str) => str;
+    [Parameter]
+    public Func<string, string> Format { get; set; } = (str) => str;
+
+    [Parameter]
+    public FieldSize FieldSize { get; set; }
 
     private IInputFormatter? InputFormatter;
+
     protected override void OnInitialized()
     {
         InputFormatter = ServiceProvider.GetService<IInputFormatter>();

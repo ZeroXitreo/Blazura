@@ -1,8 +1,8 @@
 ﻿@import "Root.scss";
 
 @mixin default-border-shadow($color) {
-	$tempColor: #919EAB;
-	box-shadow: rgba($tempColor, 0.2) 0px 0px 2px 0px, rgba($tempColor, 0.12) 0px 12px 24px -4px;
+    $tempColor: #919EAB;
+    box-shadow: rgba($tempColor, 0.2) 0px 0px 2px 0px, rgba($tempColor, 0.12) 0px 12px 24px -4px;
 }
 
 input,
@@ -13,149 +13,146 @@ select,
 option,
 .inputbordering,
 [contenteditable="true"] {
-	background-color: transparent;
-	font: inherit;
-	border: unset;
-	margin: unset;
-	outline: unset;
-	padding: 1rem;
-	border-radius: $radius;
-	display: block;
-	width: 100%;
-	color: $colorFont;
-	word-wrap: break-word;
-	box-shadow: 0 0 0 1px inset $colorFont01;
-	transition-property: box-shadow;
+    background-color: transparent;
+    font: inherit;
+    border: unset;
+    margin: unset;
+    outline: unset;
+    padding: 1rem;
+    border-radius: $radius;
+    display: block;
+    width: 100%;
+    color: $colorFont;
+    word-wrap: break-word;
+    box-shadow: 0 0 0 1px inset $colorFont01;
+    transition-property: box-shadow;
+    line-height: 1.5rem;
 
-	&:focus,
-	&:focus-within {
-		outline: none;
-		box-shadow: 0 0 0 2px inset $colorFont;
-	}
+    &:focus,
+    &:focus-within {
+        outline: none;
+        box-shadow: 0 0 0 2px inset $colorFont;
+    }
 
-	&.invalid {
-		box-shadow: 0 0 0 1px inset $colorError;
+    &.invalid {
+        box-shadow: 0 0 0 1px inset $colorError;
 
-		&:focus {
-			box-shadow: 0 0 0 2px inset $colorError;
-		}
-	}
-
-	&.compact {
-		padding: .5em;
-	}
+        &:focus {
+            box-shadow: 0 0 0 2px inset $colorError;
+        }
+    }
 }
 
 .inputbordering {
-	input {
-		padding: unset;
-		box-shadow: none;
-		width: 3rem;
+    input {
+        padding: unset;
+        box-shadow: none;
+        width: 3rem;
 
-		&:focus {
-			box-shadow: none;
-		}
-	}
+        &:focus {
+            box-shadow: none;
+        }
+    }
 }
 
 textarea,
 [contenteditable="true"] {
-	resize: vertical;
-	min-height: 12rem;
+    resize: vertical;
+    min-height: 12rem;
 }
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-	-moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 .checkbox,
 .radio {
-	cursor: pointer;
-	display: block;
-	padding: .5rem;
-	border-radius: $radius;
-	transition: background-color .2s;
+    cursor: pointer;
+    display: block;
+    padding: .5rem;
+    border-radius: $radius;
+    transition: background-color .2s;
 
-	&.disabled {
-		opacity: .25;
-		pointer-events: none;
-	}
+    &.disabled {
+        opacity: .25;
+        pointer-events: none;
+    }
 
-	&:hover {
-		background-color: $colorTintFaint;
-	}
+    &:hover {
+        background-color: $colorTintFaint;
+    }
 
-	input[type=checkbox],
-	input[type=radio] {
-		display: none;
+    input[type=checkbox],
+    input[type=radio] {
+        display: none;
 
-		+ span {
-			display: block;
-			position: relative;
+        + span {
+            display: block;
+            position: relative;
 
-			&:before {
-				content: "";
-				position: absolute;
-				right: 0;
-				top: 0;
-				width: 1em;
-				height: 1em;
-				border: .125em solid $colorTintFaint;
-				display: inline-block;
-				vertical-align: middle;
-				transition: border-color .2s;
-			}
+            &:before {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 1em;
+                height: 1em;
+                border: .125em solid $colorTintFaint;
+                display: inline-block;
+                vertical-align: middle;
+                transition: border-color .2s;
+            }
 
-			&:after {
-				content: "";
-				position: absolute;
-				right: .25em;
-				top: .25em;
-				width: .75em;
-				height: .75em;
-				display: inline-block;
-				vertical-align: middle;
-				transition: background-color .2s, background-size .2s;
-				background-color: transparent;
-			}
-		}
+            &:after {
+                content: "";
+                position: absolute;
+                right: .25em;
+                top: .25em;
+                width: .75em;
+                height: .75em;
+                display: inline-block;
+                vertical-align: middle;
+                transition: background-color .2s, background-size .2s;
+                background-color: transparent;
+            }
+        }
 
-		&:hover + span:before {
-			border-color: currentColor;
-		}
+        &:hover + span:before {
+            border-color: currentColor;
+        }
 
-		&:checked + span:before {
-			border-color: $colorInfo;
-		}
+        &:checked + span:before {
+            border-color: $colorInfo;
+        }
 
-		&:checked + span:after {
-			background-color: $colorInfo;
-		}
-	}
+        &:checked + span:after {
+            background-color: $colorInfo;
+        }
+    }
 
-	input[type=checkbox] + span:before {
-		border-radius: $radius;
-	}
-
-
-	input[type=checkbox] + span:after {
-		border-radius: .25em;
-	}
-
-	input[type=radio] + span:before {
-		border-radius: 50%;
-	}
+        input[type=checkbox] + span:before {
+            border-radius: $radius;
+        }
 
 
-	input[type=radio] + span:after {
-		border-radius: 50%;
-	}
+        input[type=checkbox] + span:after {
+            border-radius: .25em;
+        }
+
+        input[type=radio] + span:before {
+            border-radius: 50%;
+        }
+
+
+        input[type=radio] + span:after {
+            border-radius: 50%;
+        }
 }
