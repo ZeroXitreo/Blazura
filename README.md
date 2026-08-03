@@ -63,15 +63,7 @@ Before you begin, ensure you have the following installed:
    </ItemGroup>
    ```
 
-3. **Copy files from this project to yours**
-
-   Some files is needed to be copied over to your own project in order to gain access to SCSS variables and other TypeScript functionality.
-
-   Files to copy:
-
-   - tsconfig.json
-
-4. **Register services**
+3. **Register services**
 
    In `Program.cs`, add:
 
@@ -80,7 +72,7 @@ Before you begin, ensure you have the following installed:
    builder.Services.AddBlazuraOptimizer();
    ```
 
-5. **Start using components**
+4. **Start using components**
 
    Import the Blazura namespace in your `_Imports.razor`:
 
@@ -90,7 +82,7 @@ Before you begin, ensure you have the following installed:
 
    Now you can use Blazura components in your Blazor pages.
 
-6. **Add BundleComplete to your App.razor**
+5. **Add BundleComplete to your App.razor**
 
    Add the `BundleComplete` component to your `App.razor` file to ensure all bundled assets are loaded:
 
@@ -100,7 +92,7 @@ Before you begin, ensure you have the following installed:
    </head>
    ```
 
-7. **Build your project**
+6. **Build your project**
 
    Build your project, a few more files will appear to help you use blazura directly
 
