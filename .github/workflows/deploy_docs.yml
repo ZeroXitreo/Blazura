@@ -1,15 +1,14 @@
 name: Deploy Documentation Website
 
-# TODO: Run this on publishing a new version of the package once deployment has been implemented
+permissions:
+  contents: read
+
 on:
-  push:
-    branches: [main]
+  release:
+    types: [published]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-
-permissions:
-  contents: read
 
 jobs:
   build:
