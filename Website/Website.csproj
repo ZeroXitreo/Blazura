@@ -21,4 +21,10 @@
 		<ProjectReference Include="..\Blazura\Blazura.csproj" />
 	</ItemGroup>
 
+	<Target Name="CopyLocalStylesForDocs" BeforeTargets="BeforeBuild">
+		<Copy SourceFiles="..\Blazura\Styles\Root.scss"
+			  DestinationFiles="$(MSBuildProjectDirectory)\Styles\Root.scss"
+			  SkipUnchangedFiles="true" />
+	</Target>
+
 </Project>
