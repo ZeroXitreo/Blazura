@@ -8,6 +8,7 @@
 
 <p align="center">
   <a href="https://github.com/ZeroXitreo/Blazura/actions/workflows/pack.yml"><img src="https://github.com/ZeroXitreo/Blazura/actions/workflows/pack.yml/badge.svg" alt="Build, Test, & Pack"></a>
+  <a href="https://github.com/ZeroXitreo/Blazura/actions/workflows/build_docs.yml"><img src="https://github.com/ZeroXitreo/Blazura/actions/workflows/build_docs.yml/badge.svg" alt="Documentation"></a>
   <a href="https://www.nuget.org/packages/Blazura/"><img src="https://img.shields.io/nuget/v/Blazura" alt="NuGet Version"></a>
 </p>
 
