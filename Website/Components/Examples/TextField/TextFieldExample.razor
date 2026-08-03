@@ -1,0 +1,11 @@
+﻿@using System.ComponentModel.DataAnnotations
+
+<VStack>
+    <TextField @bind-Value="textFieldValue" />
+    Output: @textFieldValue
+</VStack>
+
+@code {
+    [Display(Name = "Text field")]
+    private string textFieldValue = string.Empty;
+}

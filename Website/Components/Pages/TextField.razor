@@ -1,0 +1,9 @@
+﻿@page "/textfield"
+@using Website.Components.Examples.TextField
+@using Website.Components.Shared
+@inject IWebHostEnvironment Env
+
+<PageTitle>TextField</PageTitle>
+
+<h1>TextField</h1>
+<ExampleWrapper Folder="@(this.GetType().Name)" Type="typeof(TextFieldExample)" />

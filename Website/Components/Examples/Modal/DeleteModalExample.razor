@@ -1,7 +1,7 @@
 ﻿@using System.ComponentModel.DataAnnotations
 
 <VStack>
-    <SimpleInputText @bind-Value="prompt" />
+    <TextField @bind-Value="prompt" />
     <SimpleButton OnClick="() => modal.Open(prompt)">Open modal</SimpleButton>
     @if (deletedItem is not null)
     {

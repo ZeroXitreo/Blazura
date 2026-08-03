@@ -1,14 +1,14 @@
 ﻿@using System.ComponentModel.DataAnnotations
 
 <VStack>
-    <SimpleInputText @bind-Value="username" />
+    <TextField @bind-Value="username" />
     <SimpleButton OnClick="OpenModal">Open modal</SimpleButton>
 </VStack>
 
 <Modal @ref="modal">
     <VStack>
         <h1>A simple example</h1>
-        <SimpleInputText @bind-Value="username" />
+        <TextField @bind-Value="username" />
     </VStack>
 </Modal>
 

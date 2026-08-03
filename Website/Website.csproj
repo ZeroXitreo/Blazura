@@ -27,28 +27,16 @@
 		</ItemGroup>
 
 		<Message Importance="high" Text="[Blazura] Copying file: @(SourceTSFile) to $(MSBuildProjectDirectory)\Scripts\IClassBringer.d.ts" />
-		<Copy
-		  SourceFiles="@(SourceTSFile)"
-		  DestinationFiles="$(MSBuildProjectDirectory)\Scripts\IClassBringer.d.ts"
-		  SkipUnchangedFiles="false" />
+		<Copy SourceFiles="@(SourceTSFile)" DestinationFiles="$(MSBuildProjectDirectory)\Scripts\IClassBringer.d.ts" SkipUnchangedFiles="false" />
 
 		<Message Importance="high" Text="[Blazura] Copying file: ..\Blazura\Scripts\ClassBringer.d.ts.copy to $(MSBuildProjectDirectory)\Scripts\ClassBringer.d.ts" />
-		<Copy
-		  SourceFiles="..\Blazura\Scripts\ClassBringer.d.ts.copy"
-		  DestinationFiles="$(MSBuildProjectDirectory)\Scripts\ClassBringer.d.ts"
-		  SkipUnchangedFiles="false" />
+		<Copy SourceFiles="..\Blazura\Scripts\ClassBringer.d.ts.copy" DestinationFiles="$(MSBuildProjectDirectory)\Scripts\ClassBringer.d.ts" SkipUnchangedFiles="false" />
 
 		<Message Importance="high" Text="[Blazura] Copying file: ..\Blazura\Styles\Root.scss to $(MSBuildProjectDirectory)\Styles\Root.scss" />
-		<Copy
-		  SourceFiles="..\Blazura\Styles\Root.scss"
-		  DestinationFiles="$(MSBuildProjectDirectory)\Styles\Root.scss"
-		  SkipUnchangedFiles="false" />
+		<Copy SourceFiles="..\Blazura\Styles\Root.scss" DestinationFiles="$(MSBuildProjectDirectory)\Styles\Root.scss" SkipUnchangedFiles="false" />
 		
 		<Message Importance="high" Text="[Blazura] Copying file: ..\Blazura\tsconfig.json to $(MSBuildProjectDirectory)\tsconfig.json" />
-		<Copy
-		  SourceFiles="..\Blazura\tsconfig.json"
-		  DestinationFiles="$(MSBuildProjectDirectory)\tsconfig.json"
-		  SkipUnchangedFiles="false" />
+		<Copy SourceFiles="..\Blazura\tsconfig.json" DestinationFiles="$(MSBuildProjectDirectory)\tsconfig.json" SkipUnchangedFiles="false" />
 	</Target>
 
 </Project>

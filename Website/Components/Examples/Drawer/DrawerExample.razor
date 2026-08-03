@@ -1,7 +1,7 @@
 ﻿@using System.ComponentModel.DataAnnotations
 
 <VStack>
-    <SimpleInputText @bind-Value="username" />
+    <TextField @bind-Value="username" />
     <SimpleButton OnClick="OpenDrawer">Open drawer</SimpleButton>
 </VStack>
 
@@ -9,7 +9,7 @@
     <Pad>
         <VStack>
             <h1>A simple example</h1>
-            <SimpleInputText @bind-Value="username" />
+            <TextField @bind-Value="username" />
         </VStack>
     </Pad>
 </Drawer>
