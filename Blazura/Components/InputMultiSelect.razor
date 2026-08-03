@@ -4,27 +4,25 @@
 <Placeholder For="@ValueExpression" Format="@Format" HasData="HasData">
 	<div class="InputMultiSelect @(isMenuOpen ? "active" : null)">
 		<div class="inputbordering">
-			<div style="margin: -.2rem 0;">
-				<HStack Spacing="Spacing.Xs">
-					<WrapStack Spacing="Spacing.Xs">
-						@foreach (T option in Value)
-						{
-							<div class="chip">
-								<Chip Text="@DisplayName(option)" OnClick="() => ToggleOption(option)" TrailingIcon="close" />
-							</div>
-						}
-						<input class="PreventSubmit inputBase" @ref="inputRef" @bind="input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="OpenMenu" @onblur="OnBlur" @onfocus="OnFocus" />
-					</WrapStack>
-					<StackWeight Weight="0">
-						@if (HasData)
-						{
-							<div @onclick="ClearValue" class="RippleEffect" style="opacity: .5; cursor: pointer; width: 2rem; height: 2rem; border-radius: 50%; margin: -.25rem; display: flex; justify-content: center; align-items: center;">
-								<Icon>close</Icon>
-							</div>
-						}
-					</StackWeight>
-				</HStack>
-			</div>
+			<HStack Spacing="Spacing.Xs">
+				<WrapStack Spacing="Spacing.Xs">
+					@foreach (T option in Value)
+					{
+						<div class="chip">
+							<Chip Text="@DisplayName(option)" OnClick="() => ToggleOption(option)" TrailingIcon="close" />
+						</div>
+					}
+					<input class="PreventSubmit inputBase" @ref="inputRef" @bind="input" @bind:event="oninput" @onkeydown="OnKeyDown" @onclick="OpenMenu" @onblur="OnBlur" @onfocus="OnFocus" />
+				</WrapStack>
+				<StackWeight Weight="0">
+					@if (HasData)
+					{
+						<div @onclick="ClearValue" class="RippleEffect" style="opacity: .5; cursor: pointer; width: 2rem; height: 2rem; border-radius: 50%; margin: -.25rem; display: flex; justify-content: center; align-items: center;">
+							<Icon>close</Icon>
+						</div>
+					}
+				</StackWeight>
+			</HStack>
 		</div>
 		@if (!isLimitReached)
 		{
