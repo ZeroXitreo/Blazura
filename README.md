@@ -43,7 +43,7 @@ Before you begin, ensure you have the following installed:
 
    ```sh
    dotnet add package Blazura
-   dotnet add package Microsoft.Extensions.FileProviders.Embedded --version 9
+   dotnet add package Microsoft.Extensions.FileProviders.Embedded --version 10
    dotnet add package Microsoft.TypeScript.MSBuild
    ```
 
