@@ -17,4 +17,9 @@ RUN dotnet publish Website -c Debug -o out
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /App
 COPY --from=build-env /App/out .
+
+# Reflection for the documentation examples
+RUN mkdir -p ./Components/Examples
+COPY ./Website/Components/Examples ./Components/Examples/.
+
 ENTRYPOINT ["dotnet", "Website.dll"]
