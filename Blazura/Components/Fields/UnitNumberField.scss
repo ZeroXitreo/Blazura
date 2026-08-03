@@ -2,7 +2,7 @@
 
 .Placeholder {
     &.active {
-        > .SimpleInputUnitNumber {
+        > .UnitNumberField {
             > * {
                 opacity: 1;
             }
@@ -10,7 +10,7 @@
     }
 }
 
-.SimpleInputUnitNumber {
+.UnitNumberField {
     background-color: transparent;
     font: inherit;
     border-radius: .5rem;
