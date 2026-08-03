@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ZeroXitreo/Blazura/refs/heads/main/logo.svg" width="160" alt="Blazura SVG logo">
+  <a href="https://blazura.catbug.com/" target="_blank">
+    <img src="https://raw.githubusercontent.com/ZeroXitreo/Blazura/refs/heads/main/logo.svg" width="160" alt="Blazura SVG logo">
+  </a>
 </p>
 
 <h1 align="center">Blazura</h1>
@@ -24,9 +26,9 @@
 - **Localization**: Support for custom localization, allowing you to adapt component text and messages to different languages and cultures.
 - **Dark & Light Mode**: Supports both dark and light themes out of the box, automatically adapting to user preferences or system settings.
 
-### Design & documentation example
+### Documentation
 
-<img alt="image" src="https://github.com/user-attachments/assets/07b4cf13-6b1b-47d9-87b4-2871be1505a7" />
+Documentation can be found here: https://blazura.catbug.com/
 
 ## Prerequisites
 
