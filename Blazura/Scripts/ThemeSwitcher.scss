@@ -1,65 +1,71 @@
 ﻿@import "../Styles/Root.scss";
 
 .ThemeSwitcher {
-	border-radius: $radius;
-	height: 3rem;
-	width: 3rem;
-	cursor: pointer;
-	box-shadow: $shadow;
-	position: relative;
-	overflow: hidden;
+    border-radius: $radius;
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+    box-shadow: $shadow;
+    position: relative;
+    overflow: hidden;
 
-	&:before {
-		font-family: "Material Symbols Rounded";
-		content: "light_mode";
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		font-size: 1.5rem;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+    &:before {
+        font-family: "Material Symbols Rounded";
+        content: "light_mode";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
 
-	&.dark:before {
-		content: "dark_mode";
-	}
+html {
+    &[data-theme="dark"] {
+        .ThemeSwitcher {
+            &:before {
+                content: "dark_mode";
+            }
+        }
+    }
 }
 
 .ThemeSwitcherRipple {
-	position: fixed;
-	border-radius: 50%;
-	padding-top: 0;
-	transform: translate(-50%, -50%);
-	width: 0;
-	background-color: $colorBackgroundLight;
-	animation-fill-mode: both;
-	animation-name: ThemeSwitcherRipple;
-	animation-duration: .5s;
-	transition-duration: .5s;
-	transition-property: background-color;
-	opacity: 0;
-	z-index: 100;
+    position: fixed;
+    border-radius: 50%;
+    padding-top: 0;
+    transform: translate(-50%, -50%);
+    width: 0;
+    background-color: $colorBackgroundLight;
+    animation-fill-mode: both;
+    animation-name: ThemeSwitcherRipple;
+    animation-duration: .5s;
+    transition-duration: .5s;
+    transition-property: background-color;
+    opacity: 0;
+    z-index: 100;
 
-	&.dark {
-		background-color: $colorBackgroundDark;
-	}
+    &.dark {
+        background-color: $colorBackgroundDark;
+    }
 
-	&.release {
-		background-color: transparent;
-		pointer-events: none;
-	}
+    &.release {
+        background-color: transparent;
+        pointer-events: none;
+    }
 }
 
 @keyframes ThemeSwitcherRipple {
-	to {
-		transform: translate(-50%, -50%) scale(var(--extraSizing));
-		width: 100%;
-		padding-top: 100%;
-		top: 50%;
-		left: 50%;
-		opacity: 1;
-	}
+    to {
+        transform: translate(-50%, -50%) scale(var(--extraSizing));
+        width: 100%;
+        padding-top: 100%;
+        top: 50%;
+        left: 50%;
+        opacity: 1;
+    }
 }

@@ -1,66 +1,59 @@
-﻿const enum Theme
-{
-	dark = "dark",
-	light = "light"
+﻿const enum Theme {
+    dark = "dark",
+    light = "light"
 }
 
 const localStorageName = "theme";
 
-function getTheme(): Theme | undefined
-{
-	const localDarkTheme = localStorage.getItem(localStorageName)
-	if (localDarkTheme == Theme.dark)
-	{
-		return Theme.dark;
-	}
-	if (localDarkTheme == Theme.light)
-	{
-		return Theme.light;
-	}
+function getTheme() {
+    const storedTheme = localStorage.getItem(localStorageName)
+    switch (storedTheme) {
+        case Theme.dark:
+            return Theme.dark;
+        case Theme.light:
+            return Theme.light;
+        default:
+    }
+    return systemTheme();
 }
 
-function changeTheme(isDarkTheme?: boolean)
-{
-	if (isDarkTheme != undefined)
-	{
-		if (isDarkTheme)
-		{
-			localStorage.setItem(localStorageName, Theme.dark);
-		}
-		else
-		{
-			localStorage.setItem(localStorageName, Theme.light);
-		}
-	}
-	else
-	{
-		localStorage.removeItem(localStorageName);
-	}
-	applyTheme();
+function setTheme(theme?: Theme) {
+    if (theme != undefined) {
+        if (theme === Theme.dark) {
+            localStorage.setItem(localStorageName, Theme.dark);
+        }
+        else {
+            localStorage.setItem(localStorageName, Theme.light);
+        }
+    }
+    else {
+        localStorage.removeItem(localStorageName);
+    }
+    applyTheme();
 }
 
-/**
- * @deprecated The method should not be used, please use applyTheme instead
- */
-function triggerTheme() {
-	applyTheme();
+function systemTheme() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return Theme.dark;
+    }
+    return Theme.light;
 }
 
 function applyTheme() {
-	if (document.documentElement.dataset.themelock == "true") return;
+    if (document.documentElement.dataset.themelock == "true") return;
 
-	let theme = localStorage.getItem(localStorageName)
+    let theme = localStorage.getItem(localStorageName)
 
-	if (theme === null && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        theme = Theme.dark;
-	}
+    if (theme === null) {
+        theme = systemTheme();
+    }
 
-	if (theme == Theme.dark && document.documentElement.dataset.theme != Theme.dark) {
-		document.documentElement.dataset.theme = Theme.dark;
-	}
-	if (theme == Theme.light && document.documentElement.dataset.theme != undefined) {
-		delete document.documentElement.dataset.theme;
-	}
+    if (theme == Theme.dark && document.documentElement.dataset.theme != Theme.dark) {
+        document.documentElement.dataset.theme = Theme.dark;
+    }
+    if (theme == Theme.light && document.documentElement.dataset.theme != undefined) {
+        delete document.documentElement.dataset.theme;
+    }
 }
 
 (window as any).getTheme = getTheme
