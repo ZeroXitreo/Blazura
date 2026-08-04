@@ -23,6 +23,7 @@ RUN mkdir -p ./Components/Examples
 COPY ./Website/Components/Examples ./Components/Examples/.
 
 # SHA hash
+ARG GIT_SHA
 ENV GIT_SHA=$GIT_SHA
 
 ENTRYPOINT ["dotnet", "Website.dll"]
