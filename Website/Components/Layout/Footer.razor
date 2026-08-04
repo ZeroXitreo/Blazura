@@ -14,7 +14,7 @@
                 &copy; @DateTime.UtcNow.Year - Blazura
             </StackWeight>
             <StackWeight Weight="null">
-                <a href="https://github.com/ZeroXitreo/Blazura/commit/@commitSha">@commitSha?.Substring(0, 7)</a>
+                <a href="https://github.com/ZeroXitreo/Blazura/commit/@commitSha">@commitSha?.Substring(0, Math.Min(7, commitSha.Length))</a>
             </StackWeight>
         </HStack>
     </VStack>
