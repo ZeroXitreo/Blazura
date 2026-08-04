@@ -9,8 +9,17 @@
             Made with &#129505; by ZeroXitreo
         </StackWeight>
         <hr />
-        <StackWeight>
-            &copy; @DateTime.UtcNow.Year - Blazura
-        </StackWeight>
+        <HStack StackBehaviour="StackBehaviour.Seperate" HeightAlignment="HeightAlignment.Center">
+            <StackWeight Weight="null">
+                &copy; @DateTime.UtcNow.Year - Blazura
+            </StackWeight>
+            <StackWeight Weight="null">
+                <a href="https://github.com/ZeroXitreo/Blazura/commit/@commitSha">@commitSha?.Substring(0, 7)</a>
+            </StackWeight>
+        </HStack>
     </VStack>
 </footer>
+
+@code {
+    private string? commitSha = Environment.GetEnvironmentVariable("GIT_SHA");
+}

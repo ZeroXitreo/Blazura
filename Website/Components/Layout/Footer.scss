@@ -14,15 +14,15 @@ footer {
         li {
             width: 50%;
             margin-bottom: .5rem;
+        }
+    }
 
-            a {
-                color: inherit;
-                font-weight: 600;
+    a {
+        color: inherit;
+        font-weight: 600;
 
-                &:hover {
-                    color: $colorAccent;
-                }
-            }
+        &:hover {
+            color: $colorAccent;
         }
     }
 }
