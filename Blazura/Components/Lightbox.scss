@@ -1,119 +1,136 @@
 ﻿@import "../Styles/Root.scss";
 
 .Lightbox {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 10;
-	transition-property: visibility;
-	visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    transition-property: visibility;
+    visibility: hidden;
 
-	.bd {
-		position: absolute;
-		top: inherit;
-		left: inherit;
-		right: inherit;
-		bottom: inherit;
-		transition-property: background-color, backdrop-filter;
-		background-color: transparent;
-		backdrop-filter: blur(0);
-	}
+    .bd {
+        position: absolute;
+        top: inherit;
+        left: inherit;
+        right: inherit;
+        bottom: inherit;
+        transition-property: background-color, backdrop-filter;
+        background-color: transparent;
+        backdrop-filter: blur(0);
+    }
 
-	.main {
-		position: absolute;
-		top: inherit;
-		left: inherit;
-		right: inherit;
-		bottom: inherit;
-		pointer-events: none;
-		/*background-color: red;*/
-		display: flex;
-		flex-direction: column;
-		justify-content: end;
-		align-items: center;
-		height: 100vh;
-		transition-property: opacity;
-		opacity: 0;
-		--previewHeight: 8rem;
+    .main {
+        position: absolute;
+        top: inherit;
+        left: inherit;
+        right: inherit;
+        bottom: inherit;
+        pointer-events: none;
+        /*background-color: red;*/
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        height: 100vh;
+        transition-property: opacity;
+        opacity: 0;
+        $previewHeight: 8rem;
 
-		.show {
-			/*background-color: blue;*/
-			padding: .5rem;
-			flex-grow: 1;
-			display: flex;
-			justify-content: center;
-			align-items: center;
+        .show {
+            /*background-color: blue;*/
+            padding: .5rem;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-			> * {
-				pointer-events: auto;
-			}
+            > * {
+                pointer-events: auto;
+            }
 
-			img,
-			video {
-				border-radius: $radius;
-				margin: 0 auto;
-				display: block;
-				object-fit: contain;
-				max-height: calc(100vh - var(--previewHeight) - 3rem)
-			}
-		}
+            img,
+            video {
+                border-radius: $radius;
+                margin: 0 auto;
+                display: block;
+                object-fit: contain;
+                max-height: calc(100vh - $previewHeight - 3rem)
+            }
+        }
 
-		.previews {
-			/*background-color: green;*/
-			margin: 0 auto;
-			display: flex;
-			justify-content: center;
-			gap: 1rem;
-			padding: 1rem;
+        .previews {
+            /*background-color: green;*/
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
 
-			.preview {
-				pointer-events: auto;
-				border-radius: $radius;
+            .preview {
+                pointer-events: auto;
+                border-radius: $radius;
+                position: relative;
 
-				img,
-				.icon {
-					border-radius: $radius;
-					display: block;
-					height: var(--previewHeight);
-					aspect-ratio: 16 / 9;
-				}
+                .Clickable {
+                    @include absoluteFill();
+                    cursor: pointer;
+                }
 
-				img {
-					object-fit: cover;
-					object-position: center 25%;
-				}
+                img, .icon {
+                    border-radius: $radius;
+                    display: block;
+                    height: $previewHeight;
+                    min-width: $previewHeight * 9 / 16;
+                    max-width: $previewHeight * 16 / 9;
+                }
 
-				.icon {
-					background-color: $colorPaper;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					z-index: 0;
-					font-size: 3rem;
-				}
+                img {
+                    object-fit: cover;
+                    object-position: center 25%;
+                }
 
-				&.active {
-					padding: .25rem;
-					border: .25rem solid $colorAccent;
-					margin: -.5rem;
-					border-radius: $radius + .5rem;
-				}
-			}
-		}
-	}
+                .icon {
+                    background-color: $colorPaper;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 0;
+                    font-size: 3rem;
+                }
 
-	&.active {
-		visibility: unset;
+                &:before {
+                    content: "";
+                    position: absolute;
+                    top: -.5rem;
+                    bottom: -.5rem;
+                    left: -.5rem;
+                    right: -.5rem;
+                    border-radius: $radius + .5rem;
+                    transition-property: border;
+                    border: .25rem solid transparent;
+                }
 
-		.bd {
-			background-color: rgba(0, 0, 0, .2);
-			backdrop-filter: blur(.25rem);
-		}
+                &.active {
+                    &:before {
+                        border: .25rem solid $colorAccent;
+                    }
+                }
+            }
+        }
+    }
 
-		.main {
-			opacity: 1;
-		}
-	}
+    &.active {
+        visibility: unset;
+
+        .bd {
+            background-color: rgba(0, 0, 0, .2);
+            backdrop-filter: blur(.25rem);
+        }
+
+        .main {
+            opacity: 1;
+        }
+    }
 }

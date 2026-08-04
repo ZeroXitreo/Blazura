@@ -33,7 +33,8 @@
 				@foreach (var item in Items)
 				{
 					string extension = Path.GetExtension(item.Path.ToLower());
-					<div class="preview @(item == Item ? "active" : null)" @onclick="() => SetItem(item)">
+					<div class="preview @(item == Item ? "active" : null)">
+						<div class="Clickable RippleEffect" @onclick="() => SetItem(item)" />
 						@if (imageExtensions.Contains(extension))
 						{
 							<img src="@item.Path" />
