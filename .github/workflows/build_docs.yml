@@ -26,12 +26,12 @@ jobs:
 
       - name: Build
         uses: docker/build-push-action@v7
-        env:
-          GIT_SHA: ${{ github.sha }}
         with:
           context: .
           tags: ${{ vars.IMAGE_NAME }}:latest
           outputs: type=docker,dest=./${{ vars.IMAGE_NAME }}.tar
+          build-args: |
+            GIT_SHA=${{ github.sha }}
 
       - name: Upload Docker image artifact
         if: ${{ inputs.upload-artifact != false }}
