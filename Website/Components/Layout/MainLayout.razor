@@ -7,7 +7,7 @@
 
 <div class="page @(isMenuOpen ? "toggle" : "")">
     <aside class="@(isMenuOpen ? "toggle" : "")">
-        <div class="SlinkyScroll">
+        <Sticky>
             <Pad>
                 <VStack>
                     <Pad>
@@ -19,7 +19,7 @@
                     </Pad>
                 </VStack>
             </Pad>
-        </div>
+        </Sticky>
     </aside>
     <div>
         <Pad Spacing="Spacing.Lg">

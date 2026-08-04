@@ -11,15 +11,16 @@ $sideMenuSize: 16rem;
         width: $sideMenuSize;
         min-width: $sideMenuSize;
         border-right: 1px dashed $colorTintFaint;
+        display: flex;
+        justify-content: stretch;
+        align-items: stretch;
 
-        .SlinkyScroll {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        .Sticky {
+            flex: 1;
         }
 
         .NavMenu {
-            flex: 1;
+            min-height: 100vh;
         }
     }
 
