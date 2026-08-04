@@ -22,4 +22,7 @@ COPY --from=build-env /App/out .
 RUN mkdir -p ./Components/Examples
 COPY ./Website/Components/Examples ./Components/Examples/.
 
+# SHA hash
+ENV GIT_SHA=$GIT_SHA
+
 ENTRYPOINT ["dotnet", "Website.dll"]
