@@ -12,13 +12,13 @@
             @foreach (var navLink in category.Value)
             {
                 <NavLink href="@navLink.Value">
-                    <SimpleButton Style="Style.Clear" Size="Size.Large">
+                    <Button Style="Style.Clear" Size="Size.Large">
                         <HStack StackBehaviour="StackBehaviour.Left">
                             <StackWeight Weight="null">
                                 <span>@navLink.Key</span>
                             </StackWeight>
                         </HStack>
-                    </SimpleButton>
+                    </Button>
                 </NavLink>
             }
         }
@@ -54,7 +54,7 @@
         },
         { "Form", new()
             {
-                { "SimpleButton", "button" },
+                { "Button", "button" },
                 { "TextField", "textfield" },
                 { "SelectField", "select" },
                 { "SwitchField", "SwitchField" },

@@ -1,0 +1,75 @@
+﻿<HStack>
+    <VStack>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Small">Hello world!</Button>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading">Hello world!</Button>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Large">Hello world!</Button>
+        <HStack HeightAlignment="HeightAlignment.Center" StackBehaviour="StackBehaviour.Center">
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Small"><Icon>send</Icon></Button>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading"><Icon>send</Icon></Button>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Size="Size.Large"><Icon>send</Icon></Button>
+            </StackWeight>
+        </HStack>
+    </VStack>
+    <VStack>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Glass" Size="Size.Small">Hello world!</Button>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Glass">Hello world!</Button>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Glass" Size="Size.Large">Hello world!</Button>
+        <HStack HeightAlignment="HeightAlignment.Center" StackBehaviour="StackBehaviour.Center">
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Glass" Size="Size.Small"><Icon>send</Icon></Button>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Glass"><Icon>send</Icon></Button>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Glass" Size="Size.Large"><Icon>send</Icon></Button>
+            </StackWeight>
+        </HStack>
+    </VStack>
+    <VStack>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Small">Hello world!</Button>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline">Hello world!</Button>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Large">Hello world!</Button>
+        <HStack HeightAlignment="HeightAlignment.Center" StackBehaviour="StackBehaviour.Center">
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Small"><Icon>send</Icon></Button>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline"><Icon>send</Icon></Button>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline" Size="Size.Large"><Icon>send</Icon></Button>
+            </StackWeight>
+        </HStack>
+    </VStack>
+    <VStack>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Small">Hello world!</Button>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear">Hello world!</Button>
+        <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Large">Hello world!</Button>
+        <HStack HeightAlignment="HeightAlignment.Center" StackBehaviour="StackBehaviour.Center">
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Small"><Icon>send</Icon></Button>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear"><Icon>send</Icon></Button>
+            </StackWeight>
+            <StackWeight Weight="null">
+                <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear" Size="Size.Large"><Icon>send</Icon></Button>
+            </StackWeight>
+        </HStack>
+    </VStack>
+</HStack>
+
+@code {
+    private bool isLoading;
+
+    private void ToggleLoading()
+    {
+        isLoading = !isLoading;
+    }
+}

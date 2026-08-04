@@ -1,0 +1,15 @@
+﻿<HStack>
+    <Button OnClick="ToggleLoading" IsLoading="isLoading">Hello world!</Button>
+    <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Glass">Hello world!</Button>
+    <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Outline">Hello world!</Button>
+    <Button OnClick="ToggleLoading" IsLoading="isLoading" Style="Style.Clear">Hello world!</Button>
+</HStack>
+
+@code {
+    private bool isLoading;
+
+    private void ToggleLoading()
+    {
+        isLoading = !isLoading;
+    }
+}

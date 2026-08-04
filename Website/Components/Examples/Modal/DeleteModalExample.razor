@@ -2,7 +2,7 @@
 
 <VStack>
     <TextField @bind-Value="prompt" />
-    <SimpleButton OnClick="() => modal.Open(prompt)">Open modal</SimpleButton>
+    <Button OnClick="() => modal.Open(prompt)">Open modal</Button>
     @if (deletedItem is not null)
     {
         <Banner>Successfully deleted <code>@deletedItem</code></Banner>
