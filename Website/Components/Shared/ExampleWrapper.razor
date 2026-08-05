@@ -13,19 +13,6 @@
     </Pad>
 </Paper>
 
-<Paper>
-    <Pad>
-        <VStack>
-            <DynamicComponent Type="Type" />
-            <Paper Color="ColorLayer.Layer3">
-                <Accordion Title="@(isCodeOpen ? "Hide code" : "Show code")" OnToggle="CodeToggled">
-                    <CodeBlock>@(GetCodeBlock())</CodeBlock>
-                </Accordion>
-            </Paper>
-        </VStack>
-    </Pad>
-</Paper>
-
 @code {
     [Parameter, EditorRequired]
     public string Folder { get; set; }
