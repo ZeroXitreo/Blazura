@@ -1,6 +1,6 @@
 ﻿namespace Blazura;
 
-public interface IInputFormatter
+public interface IFieldFormat
 {
     public Func<string, string> Format { get; }
 }

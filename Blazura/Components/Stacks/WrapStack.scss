@@ -1,8 +1,8 @@
-@import "../Styles/Root.scss";
+@import "../../Styles/Root.scss";
 
-.VStack {
+.WrapStack {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
 
     &.Xxs {
         gap: $spacing2;

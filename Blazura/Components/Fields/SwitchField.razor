@@ -45,12 +45,12 @@
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    private IInputFormatter? InputFormatter;
+    private IFieldFormat? FieldFormat;
 
     protected override void OnInitialized()
     {
-        InputFormatter = ServiceProvider.GetService<IInputFormatter>();
-        Format = InputFormatter?.Format ?? Format;
+        FieldFormat = ServiceProvider.GetService<IFieldFormat>();
+        Format = FieldFormat?.Format ?? Format;
     }
 
     private async Task ToggleOption()
