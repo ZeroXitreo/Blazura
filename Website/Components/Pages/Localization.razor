@@ -17,7 +17,8 @@
         </p>
         <p>
             Example of a service that uses <code>IStringLocalizer</code>
-            <CodeBlock>using Blazura;
+        </p>
+        <CodeBlock>using Blazura;
 using Microsoft.Extensions.Localization;
 
 namespace Example;
@@ -26,7 +27,6 @@ public class FieldFormatService(IStringLocalizer&lt;SharedResource&gt; Localizer
 {
     public Func&lt;string, string&gt; Format => (str) => Localizer[str];
 }
-            </CodeBlock>
-        </p>
+        </CodeBlock>
     </Pad>
 </Paper>
