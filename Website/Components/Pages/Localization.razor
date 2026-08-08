@@ -6,19 +6,20 @@
 
 <Paper>
     <Pad>
-        <p>
-            If you want to localize your application, you can use the built-in localization features of .NET.
-            This includes using resource files (.resx) for different languages and cultures, and configuring your application to support multiple languages.
-        </p>
-        <p>
-            Make a new service class that implements the IFieldFormat interface.
-            This service will be responsible for formatting the fields based on the current culture.
-            You can then register this service in your dependency injection container and use it throughout your application to format fields according to the user's locale.
-        </p>
-        <p>
-            Example of a service that uses <code>IStringLocalizer</code>
-        </p>
-        <CodeBlock>using Blazura;
+        <VStack>
+            <p>
+                If you want to localize your application, you can use the built-in localization features of .NET.
+                This includes using resource files (.resx) for different languages and cultures, and configuring your application to support multiple languages.
+            </p>
+            <p>
+                Make a new service class that implements the IFieldFormat interface.
+                This service will be responsible for formatting the fields based on the current culture.
+                You can then register this service in your dependency injection container and use it throughout your application to format fields according to the user's locale.
+            </p>
+            <p>
+                Example of a service that uses <code>IStringLocalizer</code>
+            </p>
+            <CodeBlock>using Blazura;
 using Microsoft.Extensions.Localization;
 
 namespace Example;
@@ -27,6 +28,7 @@ public class FieldFormatService(IStringLocalizer&lt;SharedResource&gt; Localizer
 {
     public Func&lt;string, string&gt; Format => (str) => Localizer[str];
 }
-        </CodeBlock>
+            </CodeBlock>
+        </VStack>
     </Pad>
 </Paper>
