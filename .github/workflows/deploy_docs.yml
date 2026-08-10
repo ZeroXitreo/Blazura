@@ -27,7 +27,7 @@ jobs:
           pattern: ${{ vars.IMAGE_NAME }}.tar
 
       - name: SCP into the server
-        uses: appleboy/scp-action@6dba043acb2fa9973346e5025373dd76f2a50779 # master
+        uses: appleboy/scp-action@7e85c2e09aa21988492acd66466b5d68bda49e2b # master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
