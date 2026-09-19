@@ -27,7 +27,7 @@ public class BlazorCookieLoginMiddleware<T>(RequestDelegate next) where T : Iden
 
             var returnUrl = GetReturnUrl(context.Request.Query);
 
-            context.Response.Redirect(returnUrl is not null ? context.Request.Query["returnUrl"].ToString() : "/");
+            context.Response.Redirect(returnUrl is not null ? returnUrl : "/");
 
             return;
         }
