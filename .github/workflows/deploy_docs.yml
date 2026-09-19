@@ -27,7 +27,7 @@ jobs:
           pattern: ${{ vars.IMAGE_NAME }}.tar
 
       - name: SCP into the server
-        uses: appleboy/scp-action@6dba043acb2fa9973346e5025373dd76f2a50779 # master
+        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -36,7 +36,7 @@ jobs:
           target: "~/"
 
       - name: Start deployment
-        uses: appleboy/ssh-action@b838bc2f27cd449b957159452d432aff91697637 # master
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
