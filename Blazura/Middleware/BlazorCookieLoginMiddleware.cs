@@ -25,12 +25,31 @@ public class BlazorCookieLoginMiddleware<T>(RequestDelegate next) where T : Iden
                 await signInMgr.SignOutAsync();
             }
 
-			var returnUrl = context.Request.Query.ContainsKey("returnUrl") ? context.Request.Query["returnUrl"].ToString() : "/";
-			context.Response.Redirect(returnUrl);
+            var returnUrl = GetReturnUrl(context.Request.Query);
+
+            context.Response.Redirect(returnUrl is not null ? context.Request.Query["returnUrl"].ToString() : "/");
 
             return;
         }
 
         await next.Invoke(context);
+    }
+
+    private static string? GetReturnUrl(IQueryCollection query)
+    {
+        if (!query.TryGetValue("returnUrl", out var returnUrlValue) || string.IsNullOrEmpty(returnUrlValue))
+        {
+            return null;
+        }
+
+        var returnUrl = returnUrlValue.ToString();
+
+        var url = new Uri(returnUrl, UriKind.RelativeOrAbsolute);
+        if (url.IsAbsoluteUri)
+        {
+            return null;
+        }
+
+        return url.ToString();
     }
 }
