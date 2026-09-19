@@ -27,13 +27,14 @@ code {
         @include setBackgroundColor($colorLayer3);
     }
 
-    code {
-        background-color: unset;
-        border-radius: unset;
-        padding: unset;
+    pre {
+        margin: unset;
+        overflow-x: auto;
 
-        pre {
-            margin: unset;
+        code {
+            background-color: unset;
+            border-radius: unset;
+            padding: unset;
         }
     }
 }

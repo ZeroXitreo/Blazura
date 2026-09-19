@@ -1,10 +1,50 @@
 ﻿<div class="CodeBlock @(Color.ToString())">
-    <code>
+    <div class="content">
+        <style>
+                    pre {
+                        overflow-x: auto;
+                        white-space: pre;
+                        position: initial;
+                        overflow-x: auto;
+                    }
+
+                    code {
+                        /* white-space: pre-wrap; */
+                        word-break: break-word;
+                        overflow-wrap: anywhere;
+                    }
+        </style>
         <pre>
-            @ChildContent
+            <code>
+                @ChildContent
+            </code>
         </pre>
-    </code>
+    </div>
 </div>
+
+@* <style>
+    pre {
+        width: 100%;
+        border: 1px solid black;
+        float: left;
+        justify-content: center;
+        min-width: 100%;
+        box-sizing: border-box;
+        overflow: auto;
+        border-collapse: separate;
+    }
+
+    code {
+        display: inline-block;
+        white-space: pre;
+        overflow: hidden;
+        width: 100%;
+        max-width: 100%;
+    }
+</style>
+<code>
+    @ChildContent
+</code> *@
 
 @code {
     [Parameter]
