@@ -24,7 +24,10 @@ public class BlazorCookieLoginMiddleware<T>(RequestDelegate next) where T : Iden
             {
                 await signInMgr.SignOutAsync();
             }
-            context.Response.Redirect(context.Request.Path);
+
+			var returnUrl = context.Request.Query.ContainsKey("returnUrl") ? context.Request.Query["returnUrl"].ToString() : "/";
+			context.Response.Redirect(returnUrl);
+
             return;
         }
 
