@@ -67,7 +67,7 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
 
     public async Task<string> GetBrowserFileAsUrl(IBrowserFile browserFile)
     {
-        using MemoryStream stream = new();
+        using var stream = new MemoryStream();
         await browserFile.OpenReadStream(MaxFileSize).CopyToAsync(stream);
         return $"data:{browserFile.ContentType};base64,{Convert.ToBase64String(stream.ToArray())}";
     }
@@ -79,7 +79,7 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
     /// <returns></returns>
     public async Task<string> GetBrowserFileAsBlob(IBrowserFile browserFile)
     {
-        using MemoryStream stream = new();
+        using var stream = new MemoryStream();
         await browserFile.OpenReadStream(MaxFileSize).CopyToAsync(stream);
 
         var text = await JSRuntime.InvokeAsync<string>("convertBase64ToBlob", browserFile.ContentType, Convert.ToBase64String(stream.ToArray()));
