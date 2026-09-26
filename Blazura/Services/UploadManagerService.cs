@@ -50,19 +50,18 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
 
     public bool Delete(string path)
     {
-        path = Path.Combine(rootPath, path.TrimStart('/'));
-        if (File.Exists(path))
+        var fullPath = Path.Combine(rootPath, path.TrimStart('/'));
+        if (!File.Exists(fullPath)) return false;
+
+        File.Delete(fullPath);
+
+        var directory = Directory.GetParent(fullPath);
+        if (directory is not null)
         {
-            File.Delete(path);
-            DirectoryInfo? directory = Directory.GetParent(path);
-            if (directory is not null)
-            {
-                ClearEmptyDirectory(directory);
-            }
-            return true;
+            ClearEmptyDirectory(directory);
         }
 
-        return false;
+        return true;
     }
 
     public async Task<string> GetBrowserFileAsUrl(IBrowserFile browserFile)
