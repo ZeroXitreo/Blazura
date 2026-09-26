@@ -1,0 +1,64 @@
+﻿@page "/Services"
+@using Blazura.Services
+@inject IDownloadManagerService DownloadManagerService
+
+<PageTitle>Services</PageTitle>
+
+<h1>Services</h1>
+
+<Paper>
+    <Pad>
+        <VStack>
+            <h2>Download service</h2>
+            <p>
+                The DownloadManagerService allows you to download files from the server or open them in the browser.
+                You can use it to download files from a stream, a URL, or a blob.
+            </p>
+            <p>
+                The DownloadManagerService has three main methods:
+                <ul>
+                    <li><code>OpenStreamAsBlob</code>: Opens a stream as a blob in the browser.</li>
+                    <li><code>OpenStreamAsUrl</code>: Opens a stream as a URL in the browser.</li>
+                    <li><code>DownloadStream</code>: Downloads a stream as a file.</li>
+                </ul>
+            </p>
+            <p>
+                Use the buttons below to demonstrate the DownloadManagerService methods.
+            </p>
+            <HStack>
+                <Button OnClick="OpenStreamAsBlob" Style="Style.Glass">Open as blob</Button>
+                <Button OnClick="OpenStreamAsUrl" Style="Style.Glass">Open as url</Button>
+                <Button OnClick="DownloadStream" Style="Style.Glass">Download as file</Button>
+            </HStack>
+        </VStack>
+    </Pad>
+</Paper>
+
+@code {
+    private async Task OpenStreamAsBlob()
+    {
+        using var data = new MemoryStream();
+        var filePath = Path.Combine("wwwroot", "images", "img3.png");
+        var file = File.OpenRead(filePath);
+        file.CopyTo(data);
+        await DownloadManagerService.OpenStreamAsBlob(data, ApplicationType.PNG);
+    }
+
+    private async Task OpenStreamAsUrl()
+    {
+        using var data = new MemoryStream();
+        var filePath = Path.Combine("wwwroot", "images", "img3.png");
+        var file = File.OpenRead(filePath);
+        file.CopyTo(data);
+        await DownloadManagerService.OpenStreamAsUrl(data, ApplicationType.PNG);
+    }
+
+    private async Task DownloadStream()
+    {
+        using var data = new MemoryStream();
+        var filePath = Path.Combine("wwwroot", "images", "img3.png");
+        var file = File.OpenRead(filePath);
+        file.CopyTo(data);
+        await DownloadManagerService.DownloadStream(data, ApplicationType.PNG, "image.png");
+    }
+}
