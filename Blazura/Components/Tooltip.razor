@@ -1,0 +1,38 @@
+﻿<!-- Experimental -->
+
+<div class="Tooltip @(Anchor?.ToString())">
+    <div>@ChildContent</div>
+    <div class="TooltipContainer Top">
+        <div class="TooltipContainerAnim">
+            <Paper BorderRadius="Spacing.Xs" Color="ColorLayer.Layer0">
+                <Pad Spacing="Spacing.Sm">
+                    <VStack Spacing="Spacing.Xxs">
+                        @if (Title is not null)
+                        {
+                            <div class="TooltipTitle">@Title</div>
+                        }
+                        @if (Description is not null)
+                        {
+                            <div class="TooltipDescription">@Description</div>
+                        }
+                    </VStack>
+                </Pad>
+            </Paper>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Description { get; set; }
+
+    [Parameter]
+    public Anchor? Anchor { get; set; }
+}

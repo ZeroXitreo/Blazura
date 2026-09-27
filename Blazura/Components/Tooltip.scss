@@ -1,0 +1,80 @@
+@import "../Styles/Root.scss";
+
+.Tooltip {
+    position: relative;
+
+    > .TooltipContainer {
+        pointer-events: none;
+        position: absolute;
+        max-width: 120rem;
+        width: max-content;
+        max-width: 17.25rem;
+        filter: drop-shadow(0 0 2rem rgb(3 1 12 / .3));
+        z-index: 1;
+        transition-property: opacity;
+        opacity: 0;
+
+        &.Bottom {
+            transform: translateX(-50%);
+            top: calc(100% + 1rem);
+            left: 50%;
+        }
+
+        &.Top {
+            transform: translateX(-50%);
+            bottom: calc(100% + 1rem);
+            left: 50%;
+
+            .TooltipContainerAnim {
+
+                &:before {
+                    content: "";
+                    pointer-events: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    border: .5rem solid transparent;
+                    border-top-color: var(--layer0);
+                }
+            }
+        }
+
+        &.Left {
+            transform: translateY(-50%);
+            top: 50%;
+            right: calc(100% + 1rem);
+        }
+
+        &.Right {
+            transform: translateY(-50%);
+            top: 50%;
+            left: calc(100% + 1rem);
+        }
+
+        .TooltipContainerAnim {
+            transition-property: transform;
+            transform: translateY(-1rem);
+
+            .TooltipTitle {
+                font-weight: bold;
+            }
+
+            .TooltipDescription {
+                font-size: .8rem;
+                opacity: .9;
+            }
+        }
+    }
+
+    &:hover,
+    &:focus-within {
+        > .TooltipContainer {
+            opacity: 1;
+
+            .TooltipContainerAnim {
+                transform: translateY(0);
+            }
+        }
+    }
+}
