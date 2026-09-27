@@ -22,17 +22,15 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
 
     private static async Task<string> InternalUploadAsync(Stream file, string fileName, params string[] paths)
     {
-        fileName = Guid.NewGuid().ToString() + Path.GetExtension(fileName);
+        var generatedFileName = Guid.NewGuid().ToString() + Path.GetExtension(fileName);
 
-        var filePath = GenerateFilePath(paths);
+        Directory.CreateDirectory(Path.Combine([rootPath, uploadPath, .. paths]));
 
-        GenerateDirectories(filePath);
-
-        using var stream = File.Create(Path.Combine([rootPath, uploadPath, .. paths, fileName]));
+        using var stream = File.Create(Path.Combine([rootPath, uploadPath, .. paths, generatedFileName]));
 
         await file.CopyToAsync(stream);
 
-        return $"/{Path.Combine([uploadPath, .. paths, fileName]).Replace("\\\\", "\\").Replace("\\", "/")}";
+        return $"/{Path.Combine([uploadPath, .. paths, generatedFileName]).Replace("\\\\", "\\").Replace("\\", "/")}";
     }
 
     public bool Delete(string path)
@@ -73,26 +71,6 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
         return text;
     }
 
-    private static void GenerateDirectories(string filePath)
-    {
-        if (Directory.Exists(Path.Combine(rootPath, filePath)))
-        {
-            return;
-        }
-
-        if (!Directory.Exists(Path.Combine(rootPath, uploadPath)))
-        {
-            if (!Directory.Exists(rootPath))
-            {
-                Directory.CreateDirectory(rootPath);
-            }
-
-            Directory.CreateDirectory(Path.Combine(rootPath, uploadPath));
-        }
-
-        Directory.CreateDirectory(Path.Combine(rootPath, filePath));
-    }
-
     private static void ClearEmptyDirectory(DirectoryInfo directory)
     {
         if (!directory.EnumerateFileSystemInfos().Any())
@@ -104,15 +82,5 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
                 ClearEmptyDirectory(parent);
             }
         }
-    }
-
-    private static string GenerateFilePath(params string[] paths)
-    {
-        string initialUploadPath = uploadPath;
-        foreach (var path in paths)
-        {
-            initialUploadPath = Path.Combine(initialUploadPath, path);
-        }
-        return initialUploadPath;
     }
 }
