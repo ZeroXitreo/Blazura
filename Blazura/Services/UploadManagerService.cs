@@ -77,7 +77,7 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
         return text;
     }
 
-    private void GenerateDirectories(string filePath)
+    private static void GenerateDirectories(string filePath)
     {
         if (Directory.Exists(Path.Combine(rootPath, filePath)))
         {
@@ -97,7 +97,7 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
         Directory.CreateDirectory(Path.Combine(rootPath, filePath));
     }
 
-    private void ClearEmptyDirectory(DirectoryInfo directory)
+    private static void ClearEmptyDirectory(DirectoryInfo directory)
     {
         if (!directory.EnumerateFileSystemInfos().Any())
         {
@@ -110,7 +110,7 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
         }
     }
 
-    private string GenerateFilePath(params string[] paths)
+    private static string GenerateFilePath(params string[] paths)
     {
         string initialUploadPath = uploadPath;
         foreach (var path in paths)
