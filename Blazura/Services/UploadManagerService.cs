@@ -22,21 +22,17 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
 
     private static async Task<string> InternalUploadAsync(Stream file, string fileName, params string[] paths)
     {
+        fileName = Guid.NewGuid().ToString() + Path.GetExtension(fileName);
+
         var filePath = GenerateFilePath(paths);
-        Console.WriteLine(filePath);
 
         GenerateDirectories(filePath);
 
-        filePath = Path.Combine(filePath, Guid.NewGuid().ToString() + Path.GetExtension(fileName));
-
-        using var stream = File.Create(Path.Combine(rootPath, filePath));
+        using var stream = File.Create(Path.Combine([rootPath, uploadPath, .. paths, fileName]));
 
         await file.CopyToAsync(stream);
 
-        filePath = filePath.Replace("\\\\", "\\");
-        filePath = filePath.Replace("\\", "/");
-
-        return $"/{filePath}";
+        return $"/{Path.Combine([uploadPath, .. paths, fileName]).Replace("\\\\", "\\").Replace("\\", "/")}";
     }
 
     public bool Delete(string path)
