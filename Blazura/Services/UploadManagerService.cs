@@ -12,38 +12,31 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
 
     public async Task<string> UploadAsync(IFormFile formFile, params string[] paths)
     {
-        var filePath = GenerateFilePath(paths);
-
-        GenerateDirectories(filePath);
-
-        filePath = Path.Combine(filePath, Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName));
-
-        using (FileStream stream = File.Create(Path.Combine(rootPath, filePath)))
-        {
-            await formFile.CopyToAsync(stream);
-        }
-
-        filePath = filePath.Replace("\\\\", "\\");
-        filePath = filePath.Replace("\\", "/");
-
-        return $"/{filePath}";
+        return await InternalUploadAsync(formFile.OpenReadStream(), formFile.FileName, paths);
     }
 
-    public async Task<string> UploadAsync(IBrowserFile file, params string[] paths)
+    public async Task<string> UploadAsync(IBrowserFile browserFile, params string[] paths)
+    {
+        return await InternalUploadAsync(browserFile.OpenReadStream(MaxFileSize), browserFile.Name, paths);
+    }
+
+    private async Task<string> InternalUploadAsync(Stream file, string fileName, params string[] paths)
     {
         var filePath = GenerateFilePath(paths);
+        Console.WriteLine(filePath);
 
         GenerateDirectories(filePath);
 
-        filePath = Path.Combine(filePath, Guid.NewGuid().ToString() + Path.GetExtension(file.Name));
+        filePath = Path.Combine(filePath, Guid.NewGuid().ToString() + Path.GetExtension(fileName));
 
-        using (FileStream stream = File.Create(Path.Combine(rootPath, filePath)))
-        {
-            await file.OpenReadStream(MaxFileSize).CopyToAsync(stream);
-        }
+        using var stream = File.Create(Path.Combine(rootPath, filePath));
+
+        await file.CopyToAsync(stream);
 
         filePath = filePath.Replace("\\\\", "\\");
         filePath = filePath.Replace("\\", "/");
+
+        Console.WriteLine(filePath);
 
         return $"/{filePath}";
     }
@@ -86,22 +79,24 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
         return text;
     }
 
-    private void GenerateDirectories(string initialUploadPath)
+    private void GenerateDirectories(string filePath)
     {
-        if (!Directory.Exists(Path.Combine(rootPath, initialUploadPath)))
+        if (Directory.Exists(Path.Combine(rootPath, filePath)))
         {
-            if (!Directory.Exists(Path.Combine(rootPath, uploadPath)))
-            {
-                if (!Directory.Exists(rootPath))
-                {
-                    Directory.CreateDirectory(rootPath);
-                }
+            return;
+        }
 
-                Directory.CreateDirectory(Path.Combine(rootPath, uploadPath));
+        if (!Directory.Exists(Path.Combine(rootPath, uploadPath)))
+        {
+            if (!Directory.Exists(rootPath))
+            {
+                Directory.CreateDirectory(rootPath);
             }
 
-            Directory.CreateDirectory(Path.Combine(rootPath, initialUploadPath));
+            Directory.CreateDirectory(Path.Combine(rootPath, uploadPath));
         }
+
+        Directory.CreateDirectory(Path.Combine(rootPath, filePath));
     }
 
     private void ClearEmptyDirectory(DirectoryInfo directory)
