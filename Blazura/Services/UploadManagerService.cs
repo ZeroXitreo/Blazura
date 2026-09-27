@@ -122,7 +122,7 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
         string initialUploadPath = uploadPath;
         foreach (var path in paths)
         {
-            initialUploadPath = Path.Combine(uploadPath, path);
+            initialUploadPath = Path.Combine(initialUploadPath, path);
         }
         return initialUploadPath;
     }
