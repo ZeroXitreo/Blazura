@@ -6,9 +6,9 @@ namespace Blazura.Services;
 
 public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
 {
-    private readonly string rootPath = "wwwroot";
-    private readonly string uploadPath = "uploads";
-    public static long MaxFileSize => 1024L * 1024L * 1024L;
+    private readonly static string rootPath = "wwwroot";
+    private readonly static string uploadPath = "uploads";
+    public static long MaxFileSize { get; } = 1024L * 1024L * 1024L;
 
     public async Task<string> UploadAsync(IFormFile formFile, params string[] paths)
     {
@@ -20,7 +20,7 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
         return await InternalUploadAsync(browserFile.OpenReadStream(MaxFileSize), browserFile.Name, paths);
     }
 
-    private async Task<string> InternalUploadAsync(Stream file, string fileName, params string[] paths)
+    private static async Task<string> InternalUploadAsync(Stream file, string fileName, params string[] paths)
     {
         var filePath = GenerateFilePath(paths);
         Console.WriteLine(filePath);
@@ -35,8 +35,6 @@ public class UploadManagerService(IJSRuntime JSRuntime) : IUploadManagerService
 
         filePath = filePath.Replace("\\\\", "\\");
         filePath = filePath.Replace("\\", "/");
-
-        Console.WriteLine(filePath);
 
         return $"/{filePath}";
     }
