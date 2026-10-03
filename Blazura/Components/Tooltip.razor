@@ -1,19 +1,23 @@
-﻿<!-- Experimental -->
-
-<div class="Tooltip">
+﻿<div class="Tooltip">
     <div>@ChildContent</div>
     <div class="TooltipAnchor @(Anchor.ToString())">
         <div class="TooltipContainer">
             <Pad Spacing="Spacing.Sm">
-                <VStack Spacing="Spacing.Xxs">
-                    @if (Title is not null)
+                <VStack Spacing="Spacing.Sm">
+                    @if (ImageSrc is not null)
                     {
-                        <div class="TooltipTitle">@Title</div>
+                        <img src="@ImageSrc" class="TooltipImage" />
                     }
-                    @if (Description is not null)
-                    {
-                        <div class="TooltipDescription">@Description</div>
-                    }
+                    <VStack Spacing="Spacing.Xxs">
+                        @if (Title is not null)
+                        {
+                            <div class="TooltipTitle">@Title</div>
+                        }
+                        @if (Description is not null)
+                        {
+                            <div class="TooltipDescription">@Description</div>
+                        }
+                    </VStack>
                 </VStack>
             </Pad>
         </div>
@@ -24,6 +28,9 @@
     [Parameter]
     [EditorRequired]
     public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string? ImageSrc { get; set; }
 
     [Parameter]
     public string? Title { get; set; }

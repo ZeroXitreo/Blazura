@@ -67,6 +67,11 @@
                 background-image: radial-gradient(circle 100px at top left, rgba(30, 58, 138, 0.05), transparent), radial-gradient(circle 100px at bottom right, rgba(147, 51, 234, 0.05), transparent);
             }
 
+            .TooltipImage {
+                border-radius: .5rem;
+                display: block;
+            }
+
             .TooltipTitle {
                 font-weight: bold;
             }
