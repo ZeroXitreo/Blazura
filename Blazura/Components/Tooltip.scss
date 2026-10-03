@@ -3,15 +3,13 @@
 .Tooltip {
     position: relative;
 
-    .TooltipContainer {
+    .TooltipAnchor {
+        z-index: 10;
         pointer-events: none;
         position: absolute;
         max-width: 120rem;
         width: max-content;
         max-width: 17.25rem;
-        z-index: 1;
-        transition-property: opacity;
-        opacity: 0;
         $gap: .5rem;
 
         $overwrites: "", "Overwrite";
@@ -50,10 +48,10 @@
             }
         }
 
-        .TooltipContainerAnim {
-            transition-property: transform;
+        .TooltipContainer {
             transform: translateY(-$gap);
-            // Design
+            transition-property: opacity, transform;
+            opacity: 0;
             backdrop-filter: blur(1rem);
             border-radius: .5rem;
             box-shadow: $shadowExtra;
@@ -66,13 +64,7 @@
                 opacity: .75;
                 z-index: -1;
                 background-color: $colorBackground;
-            }
-
-            &:after {
-                content: "";
-                position: absolute;
-                @include mimicParentAndAetEdgeMarginForPosition;
-                /*background-image: radial-gradient(circle 100px at top left, rgba(30, 58, 138, 0.05), transparent), radial-gradient(circle 100px at bottom right, rgba(147, 51, 234, 0.05), transparent);*/
+                background-image: radial-gradient(circle 100px at top left, rgba(30, 58, 138, 0.05), transparent), radial-gradient(circle 100px at bottom right, rgba(147, 51, 234, 0.05), transparent);
             }
 
             .TooltipTitle {
@@ -88,10 +80,10 @@
 
     &:hover,
     &:focus-within {
-        .TooltipContainer {
-            opacity: 1;
+        .TooltipAnchor {
 
-            .TooltipContainerAnim {
+            .TooltipContainer {
+                opacity: 1;
                 transform: translateY(0);
             }
         }
