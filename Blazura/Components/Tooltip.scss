@@ -3,58 +3,77 @@
 .Tooltip {
     position: relative;
 
-    > .TooltipContainer {
+    .TooltipContainer {
         pointer-events: none;
         position: absolute;
         max-width: 120rem;
         width: max-content;
         max-width: 17.25rem;
-        filter: drop-shadow(0 0 2rem rgb(3 1 12 / .3));
         z-index: 1;
         transition-property: opacity;
         opacity: 0;
+        $gap: .5rem;
 
-        &.Bottom {
-            transform: translateX(-50%);
-            top: calc(100% + 1rem);
-            left: 50%;
-        }
+        $overwrites: "", "Overwrite";
 
-        &.Top {
-            transform: translateX(-50%);
-            bottom: calc(100% + 1rem);
-            left: 50%;
-
-            .TooltipContainerAnim {
-
-                &:before {
-                    content: "";
-                    pointer-events: none;
-                    position: absolute;
-                    top: 100%;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    border: .5rem solid transparent;
-                    border-top-color: var(--layer0);
-                }
+        @each $overwrite in $overwrites {
+            &.Bottom#{$overwrite} {
+                transform: translateX(-50%);
+                top: calc(100% + $gap);
+                left: 50%;
+                bottom: unset;
+                right: unset;
             }
-        }
 
-        &.Left {
-            transform: translateY(-50%);
-            top: 50%;
-            right: calc(100% + 1rem);
-        }
+            &.Top#{$overwrite} {
+                transform: translateX(-50%);
+                bottom: calc(100% + $gap);
+                left: 50%;
+                right: unset;
+                top: unset;
+            }
 
-        &.Right {
-            transform: translateY(-50%);
-            top: 50%;
-            left: calc(100% + 1rem);
+            &.Left#{$overwrite} {
+                transform: translateY(-50%);
+                top: 50%;
+                right: calc(100% + $gap);
+                left: unset;
+                bottom: unset;
+            }
+
+            &.Right#{$overwrite} {
+                transform: translateY(-50%);
+                top: 50%;
+                left: calc(100% + $gap);
+                bottom: unset;
+                right: unset;
+            }
         }
 
         .TooltipContainerAnim {
             transition-property: transform;
-            transform: translateY(-1rem);
+            transform: translateY(-$gap);
+            // Design
+            backdrop-filter: blur(1rem);
+            border-radius: .5rem;
+            box-shadow: $shadowExtra;
+
+            &:before {
+                content: "";
+                position: absolute;
+                pointer-events: none;
+                @include mimicParentAndAetEdgeMarginForPosition;
+                opacity: .75;
+                z-index: -1;
+                background-color: $colorBackground;
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                @include mimicParentAndAetEdgeMarginForPosition;
+                /*background-image: radial-gradient(circle 100px at top left, rgba(30, 58, 138, 0.05), transparent), radial-gradient(circle 100px at bottom right, rgba(147, 51, 234, 0.05), transparent);*/
+            }
 
             .TooltipTitle {
                 font-weight: bold;
@@ -69,7 +88,7 @@
 
     &:hover,
     &:focus-within {
-        > .TooltipContainer {
+        .TooltipContainer {
             opacity: 1;
 
             .TooltipContainerAnim {
