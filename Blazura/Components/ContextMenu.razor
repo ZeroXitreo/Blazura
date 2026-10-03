@@ -1,8 +1,11 @@
 ﻿@implements IDisposable
 
 @code {
-    [Parameter] public required RenderFragment ChildContent { get; set; }
-    [CascadingParameter] private ContextMenuManager? contextMenuManager { get; set; }
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+
+    [CascadingParameter]
+    private ContextMenuManager? contextMenuManager { get; set; }
 
     public void Open(MouseEventArgs e)
     {
